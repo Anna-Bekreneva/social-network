@@ -1,0 +1,7 @@
+.top-img {
+    object-fit: cover;
+    display: inline-block;
+    width: 100%;
+    height: 350px;
+    object-position: top center;
+}
