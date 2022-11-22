@@ -67,17 +67,17 @@ export const store: StoreType = {
 	}
 }
 
-type ActionsType = AddPostActionType | UpdatePostTextActionType
+export const addPostActionCreator = (text: string) => ({
+	type: 'ADD-POST',
+	postText: text
+} as const)
 
-type AddPostActionType = {
-	type: 'ADD-POST'
-	postText: string
-}
+export const updatePostTextActionCreator = (text: string) => ({
+	type: 'UPDATE-NEW-POST-TEXT',
+	newText: text
+} as const)
 
-type UpdatePostTextActionType = {
-	type: 'UPDATE-NEW-POST-TEXT'
-	newText: string
-}
+type ActionsType = ReturnType<typeof addPostActionCreator> | ReturnType<typeof updatePostTextActionCreator>
 
 type SidebarType = {}
 

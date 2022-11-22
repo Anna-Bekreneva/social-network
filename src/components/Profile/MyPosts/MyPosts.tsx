@@ -1,7 +1,7 @@
 import React from 'react';
 import './MyPosts.css';
 import Post from './Post/Post';
-import {StoreType} from '../../../redux/state';
+import {addPostActionCreator, StoreType, updatePostTextActionCreator} from '../../../redux/state';
 
 const MyPosts: React.FC<StoreType> = (props) => {
     const postsElements = props._state.profilePage.posts.map(post => {
@@ -17,14 +17,14 @@ const MyPosts: React.FC<StoreType> = (props) => {
     const addPostChange = () => {
         const text = newPostElement.current?.value
         if (text) {
-            props.dispatch({type: 'ADD-POST', postText: text})
+            props.dispatch(addPostActionCreator(text))
         }
     }
 
     const onPostChange = () => {
         const text = newPostElement.current?.value
         if (text) {
-            props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: text })
+            props.dispatch(updatePostTextActionCreator(text))
         }
     }
 
