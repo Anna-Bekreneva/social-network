@@ -6,9 +6,8 @@ export type StoreType = {
 	_state: StateType
 	_callSubscriber: () => void
 	getState: () => StateType
-	updateNewPostText: (newText: string) => void
-	addPost: (postText: string) => void
 	subscribe: (callback: () => void) => void
+	dispatch: (action: ActionsType) => void
 }
 
 export const store: StoreType = {
@@ -48,23 +47,36 @@ export const store: StoreType = {
 	getState() {
 		return this._state;
 	},
-	addPost(postText: string) {
-		const newPost= {
-			id: 5,
-			message: postText,
-			likesCount: 0
-		};
-		this._state.profilePage.posts.push(newPost)
-		this._state.profilePage.newPostText = ''
-		rerenderEntireTree()
-	},
-	updateNewPostText(newText: string){
-		this._state.profilePage.newPostText = newText
-		rerenderEntireTree()
-	},
 	subscribe(callback){
 		this._callSubscriber = callback
+	},
+	dispatch(action) {
+		if (action.type === 'ADD-POST') {
+			const newPost= {
+				id: 5,
+				message: action.postText,
+				likesCount: 0
+			};
+			this._state.profilePage.posts.push(newPost)
+			this._state.profilePage.newPostText = ''
+			rerenderEntireTree()
+		} else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+			this._state.profilePage.newPostText = action.newText
+			rerenderEntireTree()
+		}
 	}
+}
+
+type ActionsType = AddPostActionType | UpdatePostTextActionType
+
+type AddPostActionType = {
+	type: 'ADD-POST'
+	postText: string
+}
+
+type UpdatePostTextActionType = {
+	type: 'UPDATE-NEW-POST-TEXT'
+	newText: string
 }
 
 type SidebarType = {}

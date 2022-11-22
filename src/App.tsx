@@ -20,8 +20,7 @@ const App: React.FC<PropsType> = (props) => {
 				<Route path="/dialogs"
 					   render={() =>
 						   <Dialogs _state={props.store._state}
-									addPost={props.store.addPost}
-									updateNewPostText={props.store.updateNewPostText}
+									dispatch={props.store.dispatch.bind(props.store)}
 									_callSubscriber={props.store._callSubscriber}
 									getState={props.store.getState}
 									subscribe={props.store.subscribe}
@@ -30,8 +29,7 @@ const App: React.FC<PropsType> = (props) => {
 				<Route path="/profile"
 					   render={() =>
 						   <Profile _state={props.store._state}
-									addPost={props.store.addPost}
-									updateNewPostText={props.store.updateNewPostText}
+									dispatch={props.store.dispatch.bind(props.store)}
 									_callSubscriber={props.store._callSubscriber}
 									getState={props.store.getState}
 									subscribe={props.store.subscribe}

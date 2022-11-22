@@ -12,8 +12,7 @@ const Profile: React.FC<StoreType> = (props) => {
             <ProfileInfo></ProfileInfo>
             <MyPosts
                 _state={props._state}
-                addPost={props.addPost}
-                updateNewPostText={props.updateNewPostText}
+                dispatch={props.dispatch}
                 _callSubscriber={props._callSubscriber}
                 getState={props.getState}
                 subscribe={props.subscribe}

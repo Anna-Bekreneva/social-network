@@ -17,15 +17,14 @@ const MyPosts: React.FC<StoreType> = (props) => {
     const addPostChange = () => {
         const text = newPostElement.current?.value
         if (text) {
-            props.addPost(text)
+            props.dispatch({type: 'ADD-POST', postText: text})
         }
     }
 
     const onPostChange = () => {
         const text = newPostElement.current?.value
         if (text) {
-            console.log(text)
-            props.updateNewPostText(text)
+            props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: text })
         }
     }
 
