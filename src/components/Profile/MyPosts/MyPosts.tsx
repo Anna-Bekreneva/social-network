@@ -1,7 +1,8 @@
 import React from 'react';
 import './MyPosts.css';
 import Post from './Post/Post';
-import {addPostActionCreator, StoreType, updatePostTextActionCreator} from '../../../redux/state';
+import {StoreType} from '../../../redux/state';
+import {addPostActionCreator, updatePostTextActionCreator} from '../../../redux/profile-reducer';
 
 const MyPosts: React.FC<StoreType> = (props) => {
     const postsElements = props._state.profilePage.posts.map(post => {

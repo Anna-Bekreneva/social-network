@@ -1,13 +1,9 @@
 import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
 import {Message} from './Message/Message';
-import {
-	addPostActionCreator,
-	sendMessageActionCreator,
-	StoreType,
-	updateMessageBodyActionCreator
-} from '../../redux/state';
 import {DialogItem} from './DialogItem/DialogItem';
+import {StoreType} from '../../redux/state';
+import {sendMessageActionCreator, updateMessageBodyActionCreator} from '../../redux/dialogs-reducer';
 
 
 export const Dialogs: React.FC<StoreType> = (props) => {
