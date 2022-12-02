@@ -5,10 +5,11 @@ import Navigation from './components/Navigation/Navigation';
 import Profile from './components/Profile/Profile';
 import {Route} from 'react-router-dom';
 import {Dialogs} from './components/Dialogs/Dialogs';
-import {StoreType} from './redux/state';
+import {AppDispatch, AppStateType} from './redux/redux-store';
 
 type PropsType = {
-	store: StoreType
+	state: AppStateType
+	dispatch: AppDispatch
 }
 
 const App: React.FC<PropsType> = (props) => {
@@ -19,22 +20,10 @@ const App: React.FC<PropsType> = (props) => {
 			<main className="main">
 				<Route path="/dialogs"
 					   render={() =>
-						   <Dialogs _state={props.store._state}
-									dispatch={props.store.dispatch.bind(props.store)}
-									_callSubscriber={props.store._callSubscriber}
-									getState={props.store.getState}
-									subscribe={props.store.subscribe}
-						   />}
-				/>
+						   <Dialogs state={props.state.dialogs} dispatch={props.dispatch}/>}/>
 				<Route path="/profile"
 					   render={() =>
-						   <Profile _state={props.store._state}
-									dispatch={props.store.dispatch.bind(props.store)}
-									_callSubscriber={props.store._callSubscriber}
-									getState={props.store.getState}
-									subscribe={props.store.subscribe}
-						   />}
-				/>
+						   <Profile state={props.state.profile} dispatch={props.dispatch}/>}/>
 
 				{/*<Route path="/settings" component={Settings}/>*/}
 				{/*<Route path="/news" component={News}></Route>*/}

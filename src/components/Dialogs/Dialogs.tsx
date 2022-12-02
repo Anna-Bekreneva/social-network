@@ -1,15 +1,20 @@
 import React, {ChangeEvent} from 'react';
-import s from './Dialogs.module.css'
+import s from './Dialogs.module.css';
 import {Message} from './Message/Message';
 import {DialogItem} from './DialogItem/DialogItem';
-import {StoreType} from '../../redux/state';
 import {sendMessageActionCreator, updateMessageBodyActionCreator} from '../../redux/dialogs-reducer';
+import {AppDispatch} from '../../redux/redux-store';
+import {DialogPageType} from '../../redux/store';
 
+type DialogsType = {
+	dispatch: AppDispatch
+	state: DialogPageType
+}
 
-export const Dialogs: React.FC<StoreType> = (props) => {
-	const dialogElements = props._state.dialogsPage.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>);
-	const messagesElements = props._state.dialogsPage.messages.map( message => <Message message={message.message}></Message> )
-	const newMessageBody = props._state.dialogsPage.newMessageBody
+export const Dialogs: React.FC<DialogsType> = (props: DialogsType) => {
+	const dialogElements = props.state.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>);
+	const messagesElements = props.state.messages.map( message => <Message message={message.message}></Message> )
+	const newMessageBody = props.state.newMessageBody
 
 	const onSendMessageClick = () => {
 		props.dispatch(sendMessageActionCreator())
