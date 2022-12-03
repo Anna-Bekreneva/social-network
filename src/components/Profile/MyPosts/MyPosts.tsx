@@ -2,12 +2,13 @@ import React from 'react';
 import './MyPosts.css';
 import Post from './Post/Post';
 import {ProfilePageType} from '../../../redux/store';
-import {addPostActionCreator, updatePostTextActionCreator} from '../../../redux/profile-reducer';
 import {AppDispatch} from '../../../redux/redux-store';
 
 type MyPostsPropsType = {
 	dispatch: AppDispatch
 	state: ProfilePageType
+	updateNewPostText: (text: string) => void
+	addPost: (text: string) => void
 }
 
 const MyPosts: React.FC<MyPostsPropsType> = (props) => {
@@ -21,17 +22,17 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 
 	const newPostElement = React.createRef<HTMLTextAreaElement>();
 
-	const addPostChange = () => {
+	const onAddPost = () => {
 		const text = newPostElement.current?.value;
 		if (text) {
-			props.dispatch(addPostActionCreator(text));
+			props.addPost(text)
 		}
 	};
 
 	const onPostChange = () => {
 		const text = newPostElement.current?.value;
 		if (text) {
-			props.dispatch(updatePostTextActionCreator(text));
+			props.updateNewPostText(text)
 		}
 	};
 
@@ -41,7 +42,7 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
             <div>
                 <span>New post</span>
                 <textarea ref={newPostElement} value={props.state.newPostText} onChange={onPostChange}/>
-                <button onClick={addPostChange}>Add post</button>
+                <button onClick={onAddPost}>Add post</button>
             </div>
             <ul className="posts">
                 {postsElements}
