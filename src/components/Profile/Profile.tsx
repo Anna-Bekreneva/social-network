@@ -10,7 +10,6 @@ const Profile: React.FC<PropsType> = (props) => {
         <>
             <ProfileInfo></ProfileInfo>
             <MyPostsContainer
-                state={props.state}
                 dispatch={props.dispatch}
             />
         </>
