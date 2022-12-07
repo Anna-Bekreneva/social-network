@@ -9,9 +9,7 @@ const Profile: React.FC<PropsType> = (props) => {
     return (
         <>
             <ProfileInfo></ProfileInfo>
-            <MyPostsContainer
-                dispatch={props.dispatch}
-            />
+            <MyPostsContainer/>
         </>
     )
 }

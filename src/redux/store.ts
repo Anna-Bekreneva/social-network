@@ -3,7 +3,7 @@ import profileReducer, {addPostActionCreator, updatePostTextActionCreator} from 
 import dialogsReducer, {sendMessageActionCreator, updateMessageBodyActionCreator} from './dialogs-reducer';
 import sidebarReducer from './sidebar-reducer';
 
-export type StoreType = {
+type StoreType = {
 	_state: StateType
 	_callSubscriber: () => void
 	getState: () => StateType
@@ -11,7 +11,7 @@ export type StoreType = {
 	dispatch: (action: ActionsType) => void
 }
 
-export const store: StoreType = {
+const store: StoreType = {
 	_state: {
 		profilePage: {
 			posts: [
@@ -55,15 +55,15 @@ export const store: StoreType = {
 	}
 };
 
-export type ActionsType =
+type ActionsType =
 	ReturnType<typeof addPostActionCreator>
 	| ReturnType<typeof updatePostTextActionCreator>
 	| ReturnType<typeof updateMessageBodyActionCreator>
 	| ReturnType<typeof sendMessageActionCreator>
 
-export type SidebarType = {}
+type SidebarType = {}
 
-export type MessageType = {
+type MessageType = {
 	id: number
 	message: string
 }
@@ -73,24 +73,24 @@ type DialogType = {
 	name: string
 }
 
-export type PostType = {
+type PostType = {
 	id: number
 	message: string
 	likesCount: number
 }
 
-export type ProfilePageType = {
+type ProfilePageType = {
 	posts: Array<PostType>
 	newPostText: string
 }
 
-export type DialogPageType = {
+type DialogPageType = {
 	dialogs: Array<DialogType>
 	messages: Array<MessageType>
 	newMessageBody: string
 }
 
-export type StateType = {
+type StateType = {
 	profilePage: ProfilePageType
 	dialogsPage: DialogPageType
 	sidebar: SidebarType

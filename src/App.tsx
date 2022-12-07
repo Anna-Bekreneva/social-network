@@ -4,12 +4,11 @@ import Header from './components/Header/Header';
 import Navigation from './components/Navigation/Navigation';
 import Profile from './components/Profile/Profile';
 import {Route} from 'react-router-dom';
-import {AppDispatch, AppStateType} from './redux/redux-store';
-import {DialogsContainer} from './components/Dialogs/DialogsContainer';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
 
 export type PropsType = {
 	//state: AppStateType
-	dispatch: AppDispatch
+	//dispatch: AppDispatch
 }
 
 const App: React.FC<PropsType> = (props) => {
@@ -19,9 +18,10 @@ const App: React.FC<PropsType> = (props) => {
 			<Navigation/>
 			<main className="main">
 				<Route path="/dialogs"
-					   render={() => <DialogsContainer dispatch={props.dispatch}/>}/>
+					   render={() => <DialogsContainer/>}/>
+
 				<Route path="/profile"
-					   render={() => <Profile dispatch={props.dispatch}/>}/>
+					   render={() => <Profile/>}/>
 
 				{/*<Route path="/settings" component={Settings}/>*/}
 				{/*<Route path="/news" component={News}></Route>*/}
