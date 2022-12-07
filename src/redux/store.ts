@@ -1,4 +1,3 @@
-import {rerenderEntireTree} from '../index';
 import profileReducer, {addPostActionCreator, updatePostTextActionCreator} from './profile-reducer';
 import dialogsReducer, {sendMessageActionCreator, updateMessageBodyActionCreator} from './dialogs-reducer';
 import sidebarReducer from './sidebar-reducer';
@@ -51,7 +50,6 @@ const store: StoreType = {
 		this._state.profilePage = profileReducer(this._state.profilePage, action);
 		this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
 		this._state.sidebar = sidebarReducer(this._state.sidebar, action);
-		rerenderEntireTree();
 	}
 };
 
