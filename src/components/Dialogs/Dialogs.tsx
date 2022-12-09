@@ -9,7 +9,7 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 	const messagesElements = props.dialogsPage.messages.map(message => <Message message={message.message}></Message>);
 	const newMessageBody = props.dialogsPage.newMessageBody;
 
-	const onSendMessageClick = () => props. sendMessage();
+	const onSendMessageClick = () => props.sendMessage();
 
 	const onNewMessageChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		const text = event.currentTarget.value;

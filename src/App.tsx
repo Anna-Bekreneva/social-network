@@ -5,13 +5,10 @@ import Navigation from './components/Navigation/Navigation';
 import Profile from './components/Profile/Profile';
 import {Route} from 'react-router-dom';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
+import UsersContainer from './components/Users/UsersContainer';
 
-export type PropsType = {
-	//state: AppStateType
-	//dispatch: AppDispatch
-}
 
-const App: React.FC<PropsType> = (props) => {
+const App = () => {
 	return (
 		<div className="wrapper">
 			<Header/>
@@ -22,6 +19,9 @@ const App: React.FC<PropsType> = (props) => {
 
 				<Route path="/profile"
 					   render={() => <Profile/>}/>
+
+				<Route path="/users"
+					   render={() => <UsersContainer/>}/>
 
 				{/*<Route path="/settings" component={Settings}/>*/}
 				{/*<Route path="/news" component={News}></Route>*/}
