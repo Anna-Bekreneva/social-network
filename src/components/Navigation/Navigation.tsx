@@ -10,6 +10,9 @@ const Navigation = () => {
                     <NavLink className="navigation__link" to="/profile">Profile</NavLink>
                 </li>
                 <li className="navigation__item">
+                    <NavLink className="navigation__link" to="/users">Users</NavLink>
+                </li>
+                <li className="navigation__item">
                     <NavLink className="navigation__link" to="/dialogs">Message</NavLink>
                 </li>
                 <li className="navigation__item">

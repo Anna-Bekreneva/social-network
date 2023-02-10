@@ -4,3 +4,7 @@
     height: 100px;
     object-fit: cover;
 }
+
+.selectedPae {
+    font-weight: 800;
+}
