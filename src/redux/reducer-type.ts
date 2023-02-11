@@ -1,6 +1,13 @@
 import {addPostActionCreator, updatePostTextActionCreator} from './profile-reducer';
 import {sendMessageActionCreator, updateMessageBodyActionCreator} from './dialogs-reducer';
-import {followAC, setCurrentPageAC, setTotalUsersCountAC, setUsersAC, unfollowAC} from './users-reducer';
+import {
+	followAC,
+	setCurrentPageAC,
+	setTotalUsersCountAC,
+	setUsersAC,
+	toggleIsFetchingAC,
+	unfollowAC
+} from './users-reducer';
 
 export type ActionsType =
 	ReturnType<typeof addPostActionCreator>
@@ -12,6 +19,7 @@ export type ActionsType =
 	| ReturnType<typeof setUsersAC>
 	| ReturnType<typeof setCurrentPageAC>
 	| ReturnType<typeof setTotalUsersCountAC>
+	| ReturnType<typeof toggleIsFetchingAC>
 
 export type SidebarType = {}
 
