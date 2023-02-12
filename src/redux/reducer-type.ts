@@ -1,12 +1,12 @@
 import {addPostActionCreator, updatePostTextActionCreator} from './profile-reducer';
 import {sendMessageActionCreator, updateMessageBodyActionCreator} from './dialogs-reducer';
 import {
-	followAC,
-	setCurrentPageAC,
-	setTotalUsersCountAC,
-	setUsersAC,
-	toggleIsFetchingAC,
-	unfollowAC
+	follow,
+	setCurrentPage,
+	setTotalUsersCount,
+	setUsers,
+	toggleIsFetching,
+	unfollow
 } from './users-reducer';
 
 export type ActionsType =
@@ -14,12 +14,12 @@ export type ActionsType =
 	| ReturnType<typeof updatePostTextActionCreator>
 	| ReturnType<typeof updateMessageBodyActionCreator>
 	| ReturnType<typeof sendMessageActionCreator>
-	| ReturnType<typeof followAC>
-	| ReturnType<typeof unfollowAC>
-	| ReturnType<typeof setUsersAC>
-	| ReturnType<typeof setCurrentPageAC>
-	| ReturnType<typeof setTotalUsersCountAC>
-	| ReturnType<typeof toggleIsFetchingAC>
+	| ReturnType<typeof follow>
+	| ReturnType<typeof unfollow>
+	| ReturnType<typeof setUsers>
+	| ReturnType<typeof setCurrentPage>
+	| ReturnType<typeof setTotalUsersCount>
+	| ReturnType<typeof toggleIsFetching>
 
 export type SidebarType = {}
 
