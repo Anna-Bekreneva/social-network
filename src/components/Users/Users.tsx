@@ -32,6 +32,7 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 				})}
 			</ul>
 			{props.users.map(user => {
+				console.log(user.id)
 				return (
 					<div key={user.id}>
 						<div>

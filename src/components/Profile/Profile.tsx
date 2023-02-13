@@ -8,7 +8,7 @@ const Profile = (props: ProfileType) => {
 
     return (
         <>
-            <ProfileInfo photos={props.photos} contacts={props.contacts} fullName={props.fullName} lookingForAJob={props.lookingForAJob} lookingForAJobDescription={props.lookingForAJobDescription} userId={props.userId}/>
+            <ProfileInfo photos={props.photos} contacts={props.contacts} fullName={props.fullName} lookingForAJob={props.lookingForAJob} lookingForAJobDescription={props.lookingForAJobDescription} userId={props.userId} aboutMe={props.aboutMe}/>
             <MyPostsContainer/>
         </>
     )

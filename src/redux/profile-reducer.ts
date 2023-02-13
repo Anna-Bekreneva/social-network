@@ -24,6 +24,7 @@ export type ProfilePageType = {
 }
 
 export type ProfileType = {
+	aboutMe: string
 	userId: number
 	lookingForAJob: boolean
 	lookingForAJobDescription: string
@@ -41,6 +42,7 @@ const initialState: ProfilePageType = {
 	],
 	newPostText: '',
 	profile: {
+		aboutMe: '',
 		userId: 0,
 		lookingForAJobDescription: '',
 		fullName: '',
@@ -74,7 +76,7 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
 			return {...state, newPostText: action.newText};
 
 		case 'SET-USER-PROFILE':
-			return {...state, profile: action.profile}
+			return {...state, profile: {...action.profile}}
 		default:
 			return state;
 	}

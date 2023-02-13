@@ -13,7 +13,7 @@ export type UserType = {
 	id: number
 	name: string
 	status: string
-	uniqueUrlName: any
+	uniqueUrlName: string
 	photos: PhotosType
 }
 
