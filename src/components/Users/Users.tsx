@@ -1,14 +1,14 @@
 import React from 'react';
 import styles from './users.module.css';
 import userPhoto from '../../assets/img/user.png';
-import {UsersPageType, UserType} from '../../redux/users-reducer';
+import {UserType} from '../../redux/users-reducer';
+import {NavLink} from 'react-router-dom';
 
 type UsersPropsType = {
 	totalUsersCount: number
 	pageSize: number
 	currentPage: number
 	onPageChanged: (page: number) => void
-	// usersPage: UsersPageType
 	users: Array<UserType>
 	unfollow: (id: number) => void
 	follow: (id: number) => void
@@ -35,11 +35,13 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 				return (
 					<div key={user.id}>
 						<div>
-							<img className={styles.userPhoto} src={user.photos.small ? user.photos.small : userPhoto} alt="#"/>
-							{user.followed
-								? <button type={'button'} onClick={() => {props.unfollow(user.id);}}>Unfollow</button>
-								: <button type={'button'} onClick={() => {props.follow(user.id);}}>Follow</button>
-							}
+							<NavLink to={'/profile/' + user.id}>
+								<img className={styles.userPhoto} src={user.photos.small ? user.photos.small : userPhoto} alt="#"/>
+								{user.followed
+									? <button type={'button'} onClick={() => {props.unfollow(user.id);}}>Unfollow</button>
+									: <button type={'button'} onClick={() => {props.follow(user.id);}}>Follow</button>
+								}
+							</NavLink>
 						</div>
 						<div>
 							<div>

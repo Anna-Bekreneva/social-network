@@ -1,4 +1,4 @@
-import {addPostActionCreator, updatePostTextActionCreator} from './profile-reducer';
+import {addPostActionCreator, setUserProfile, updatePostTextActionCreator} from './profile-reducer';
 import {sendMessageActionCreator, updateMessageBodyActionCreator} from './dialogs-reducer';
 import {
 	follow,
@@ -9,17 +9,22 @@ import {
 	unfollow
 } from './users-reducer';
 
-export type ActionsType =
-	ReturnType<typeof addPostActionCreator>
-	| ReturnType<typeof updatePostTextActionCreator>
-	| ReturnType<typeof updateMessageBodyActionCreator>
-	| ReturnType<typeof sendMessageActionCreator>
+export type ActionsTypeUser =
 	| ReturnType<typeof follow>
 	| ReturnType<typeof unfollow>
 	| ReturnType<typeof setUsers>
 	| ReturnType<typeof setCurrentPage>
 	| ReturnType<typeof setTotalUsersCount>
 	| ReturnType<typeof toggleIsFetching>
+
+export type ActionsTypeProfile =
+	ReturnType<typeof setUserProfile>
+	| ReturnType<typeof addPostActionCreator>
+	| ReturnType<typeof updatePostTextActionCreator>
+
+export type ActionsTypeDialogs =
+	ReturnType<typeof updateMessageBodyActionCreator>
+	| ReturnType<typeof sendMessageActionCreator>
 
 export type SidebarType = {}
 
@@ -37,11 +42,6 @@ export type PostType = {
 	id: number
 	message: string
 	likesCount: number
-}
-
-export type ProfilePageType = {
-	posts: Array<PostType>
-	newPostText: string
 }
 
 export type DialogPageType = {

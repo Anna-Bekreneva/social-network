@@ -2,9 +2,8 @@ import React from 'react';
 import './MyPosts.css';
 import MyPosts from './MyPosts';
 import {connect} from 'react-redux';
-import {addPostActionCreator, updatePostTextActionCreator} from '../../../redux/profile-reducer';
+import {addPostActionCreator, ProfilePageType, updatePostTextActionCreator} from '../../../redux/profile-reducer';
 import {AppStateType} from '../../../redux/redux-store';
-import {ProfilePageType} from '../../../redux/reducer-type';
 import {Dispatch} from 'redux';
 
 type MapStatePropsType = {

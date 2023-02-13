@@ -4,6 +4,7 @@ import Post from './Post/Post';
 import {ProfilePropsType} from './MyPostsContainer';
 
 
+
 const MyPosts: React.FC<ProfilePropsType> = (props) => {
 	const postsElements = props.profilePage.posts.map(post => {
 		return (

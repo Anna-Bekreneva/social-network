@@ -1,4 +1,4 @@
-import {ActionsType} from './reducer-type';
+import {ActionsTypeUser} from './reducer-type';
 
 export type UsersPageType = {
 	users: Array<UserType>
@@ -30,7 +30,7 @@ const initialState: UsersPageType = {
 	isFetching: false
 };
 
-const usersReducer = (state: UsersPageType = initialState, action: ActionsType): UsersPageType => {
+const usersReducer = (state: UsersPageType = initialState, action: ActionsTypeUser): UsersPageType => {
 	switch (action.type) {
 		case 'FOLLOW':
 			return {...state, users: state.users.map(user => user.id === action.userId ? {...user, followed: true} : user) }
