@@ -8,6 +8,7 @@ import {
 	toggleIsFetching,
 	unfollow
 } from './users-reducer';
+import {seAuthUserDataAC} from './auth-reducer';
 
 export type ActionsTypeUser =
 	| ReturnType<typeof follow>
@@ -26,6 +27,9 @@ export type ActionsTypeDialogs =
 	ReturnType<typeof updateMessageBodyActionCreator>
 	| ReturnType<typeof sendMessageActionCreator>
 
+export type ActionsAuth =
+	| ReturnType<typeof seAuthUserDataAC>
+
 export type SidebarType = {}
 
 export type MessageType = {
@@ -42,6 +46,13 @@ export type PostType = {
 	id: number
 	message: string
 	likesCount: number
+}
+
+export type AuthType = {
+	userId: number
+	email: string
+	login: string
+	isAuth: boolean
 }
 
 export type DialogPageType = {

@@ -2,6 +2,9 @@
     grid-area: header;
     background-color: azure;
     padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .logo {
@@ -13,4 +16,8 @@
     max-width: 150px;
     width: 100%;
     height: 70px;
+}
+
+.header__login {
+    align-self: flex-start;
 }
