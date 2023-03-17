@@ -13,6 +13,8 @@ type UsersPropsType = {
 	users: Array<UserType>
 	unfollow: (id: number) => void
 	follow: (id: number) => void
+	followingInProgress: Array<number>
+	toggleIsFollowingProgress: (followingInProgress: boolean, id: number) => void
 }
 
 export const Users: React.FC<UsersPropsType> = (props) => {
@@ -41,7 +43,8 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 								<img className={styles.userPhoto} src={user.photos.small ? user.photos.small : userPhoto} alt="#"/>
 							</NavLink>
 							{user.followed
-								? <button type={'button'} onClick={() => {
+								? <button type={'button'} disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {
+									props.toggleIsFollowingProgress(true, user.id)
 									axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {
 										withCredentials: true,
 										headers: {
@@ -52,10 +55,13 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 										if (response.data.resultCode === 0) {
 											props.unfollow(user.id)
 										}
+
+										props.toggleIsFollowingProgress(false, user.id)
 									})
 								}}>Unfollow</button>
 
-								: <button type={'button'} onClick={() => {
+								: <button type={'button'} disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {
+									props.toggleIsFollowingProgress(true, user.id)
 									axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {}, {
 										withCredentials: true
 									})
@@ -63,6 +69,8 @@ export const Users: React.FC<UsersPropsType> = (props) => {
 										if (response.data.resultCode === 0) {
 											props.follow(user.id)
 										}
+
+										props.toggleIsFollowingProgress(false, user.id)
 									})
 								}}>Follow</button>
 							}
