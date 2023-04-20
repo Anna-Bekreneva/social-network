@@ -5,7 +5,8 @@ import {
 	setCurrentPage,
 	setTotalUsersCount,
 	setUsers,
-	toggleIsFetching, toggleIsFollowingProgress,
+	toggleIsFetching,
+	toggleIsFollowingProgress,
 	unfollowSuccess
 } from './users-reducer';
 import {seAuthUserDataAC} from './auth-reducer';

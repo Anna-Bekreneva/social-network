@@ -1,4 +1,6 @@
 import {ActionsTypeProfile, PostType} from './reducer-type';
+import {DispatchType} from './redux-store';
+import {usersAPI} from '../api';
 
 
 export type ContactsType = {
@@ -87,5 +89,11 @@ export const addPostActionCreator = (text: string) => ( {type: 'ADD-POST', postT
 export const updatePostTextActionCreator = (text: string) => ( {type: 'UPDATE-NEW-POST-TEXT', newText: text} as const);
 
 export const setUserProfile = (profile: ProfileType) => ( {type: 'SET-USER-PROFILE', profile} as const);
+
+export const getUserProfile = (userId: number) => (dispatch: DispatchType) => {
+	usersAPI.getProfile(userId).then(response => {
+		dispatch(setUserProfile(response.data))
+	})
+}
 
 export default profileReducer;
