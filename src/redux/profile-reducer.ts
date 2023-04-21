@@ -1,6 +1,7 @@
 import {ActionsTypeProfile, PostType} from './reducer-type';
-import {DispatchType} from './redux-store';
+import {AppStateType} from './redux-store';
 import {usersAPI} from '../api';
+import {ThunkAction} from 'redux-thunk';
 
 
 export type ContactsType = {
@@ -90,7 +91,9 @@ export const updatePostTextActionCreator = (text: string) => ( {type: 'UPDATE-NE
 
 export const setUserProfile = (profile: ProfileType) => ( {type: 'SET-USER-PROFILE', profile} as const);
 
-export const getUserProfile = (userId: number) => (dispatch: DispatchType) => {
+export type ThunkTypeProfile = ThunkAction<void, AppStateType, unknown, ActionsTypeProfile>
+
+export const getUserProfile = (userId: number):ThunkTypeProfile => (dispatch) => {
 	usersAPI.getProfile(userId).then(response => {
 		dispatch(setUserProfile(response.data))
 	})

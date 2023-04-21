@@ -11,7 +11,7 @@ type MapStatePropsType = {
 }
 
 type MapDispatchToPropsType = {
-    getAuthUserData: () => any
+    getAuthUserData: () => void
 }
 
 class HeaderContainer extends React.Component<HeaderPropsType> {

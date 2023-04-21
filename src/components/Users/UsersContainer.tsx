@@ -1,9 +1,12 @@
 import {connect} from 'react-redux';
-import {AppStateType, DispatchType} from '../../redux/redux-store';
+import {AppStateType} from '../../redux/redux-store';
 import {
 	followSuccess,
 	getUsers,
-	setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching,
+	setCurrentPage,
+	setTotalUsersCount,
+	setUsers,
+	toggleIsFetching,
 	toggleIsFollowingProgress,
 	unfollowSuccess,
 	UserType
@@ -30,7 +33,7 @@ type mapDispatchToPropsType = {
 	setTotalUsersCount: (usersCount: number) => void
 	toggleIsFetching: (isFetching: boolean) => void
 	toggleIsFollowingProgress: (isFollowing: boolean, id: number) => void
-	getUsers: (currentPage: number, pageSize: number) => any
+	getUsers: (currentPage: number, pageSize: number) => void
 }
 
 class UsersContainer extends React.Component<UsersPropsType> {
