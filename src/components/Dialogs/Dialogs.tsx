@@ -17,8 +17,6 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 		props.updateMessageBody(text);
 	};
 
-	if (!props.isAuth) return <Redirect to={"/login"}/>
-
 	return (
 		<div className={s.dialogs}>
 			<ul className={s.dialogs_items}>

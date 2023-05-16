@@ -14,6 +14,7 @@ import {
 import React from 'react';
 import {Users} from './Users';
 import {Preloader} from '../common/Preloader/Preloader';
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 export type MapStatePropsType = {
@@ -79,4 +80,6 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 export type UsersPropsType = MapStatePropsType & mapDispatchToPropsType
 
-export default connect(mapStateToProps, {follow: followSuccess, unfollow: unfollowSuccess, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching, toggleIsFollowingProgress, getUsers}) (UsersContainer);
+const withRedirect = withAuthRedirect(UsersContainer)
+
+export default connect(mapStateToProps, {follow: followSuccess, unfollow: unfollowSuccess, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching, toggleIsFollowingProgress, getUsers}) (withRedirect);
