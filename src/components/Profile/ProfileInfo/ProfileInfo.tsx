@@ -2,6 +2,7 @@ import React from 'react';
 import s from './ProfileInfo.module.css';
 import {Preloader} from '../../common/Preloader/Preloader';
 import {ProfileType} from '../../../redux/profile-reducer';
+import {ProfileStatus} from "../ProfileStatus";
 
 export const ProfileInfo = (props: ProfileType) => {
 	if (!props) {
@@ -13,6 +14,7 @@ export const ProfileInfo = (props: ProfileType) => {
             	<div className={s.description}>
 					<img src={props.photos.small} alt="Ava"/>
 					<p>{props.fullName}</p>
+					<ProfileStatus status={'test'}/>
             	</div>
         	</div>
 		)
