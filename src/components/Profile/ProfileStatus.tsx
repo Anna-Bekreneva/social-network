@@ -21,11 +21,21 @@ export class ProfileStatus extends React.Component<ProfileStatusPropsType>{
         this.setState({status: e.currentTarget.value})
     }
 
+    componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<{}>) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            })
+        }
+    }
+
     render() {
         return (
             <div>
-                {!this.state.editMode && <span onDoubleClick={this.activateEditMode.bind(this)}>{this.props.status || "----"}</span>}
-                {this.state.editMode && <input onChange={this.onStatusChange} type="text" value={this.props.status} onBlur={this.deactiveEditMode.bind(this)} autoFocus/>}
+                {!this.state.editMode
+                    && <span onDoubleClick={this.activateEditMode.bind(this)}>{this.props.status || "----"}</span>}
+                {this.state.editMode
+                    && <input onChange={this.onStatusChange} type="text" value={this.state.status} onBlur={this.deactiveEditMode.bind(this)} autoFocus/>}
             </div>
         )
     }
