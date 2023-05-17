@@ -1,6 +1,6 @@
 import {ActionsTypeProfile, PostType} from './reducer-type';
 import {AppStateType} from './redux-store';
-import {usersAPI} from '../api';
+import {profileAPI, usersAPI} from '../api';
 import {ThunkAction} from 'redux-thunk';
 
 
@@ -34,6 +34,7 @@ export type ProfileType = {
 	fullName: string
 	contacts: ContactsType
 	photos: PhotosType
+	status: string;
 }
 
 const initialState: ProfilePageType = {
@@ -64,6 +65,7 @@ const initialState: ProfilePageType = {
 			small: '',
 			large: ''
 		},
+		status: 'string',
 	},
 };
 
@@ -80,6 +82,8 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
 
 		case 'SET-USER-PROFILE':
 			return {...state, profile: {...action.profile}}
+		case 'SET-STATUS':
+			return {...state, profile: {...state.profile, status: action.status}}
 		default:
 			return state;
 	}
@@ -91,11 +95,27 @@ export const updatePostTextActionCreator = (text: string) => ( {type: 'UPDATE-NE
 
 export const setUserProfile = (profile: ProfileType) => ( {type: 'SET-USER-PROFILE', profile} as const);
 
+export const setStatusActionCreator = (status: string) => ( {type: 'SET-STATUS', status} as const);
+
 export type ThunkTypeProfile = ThunkAction<void, AppStateType, unknown, ActionsTypeProfile>
 
 export const getUserProfile = (userId: number):ThunkTypeProfile => (dispatch) => {
 	usersAPI.getProfile(userId).then(response => {
 		dispatch(setUserProfile(response.data))
+	})
+}
+
+export const getStatus = (userId: number):ThunkTypeProfile => (dispatch) => {
+	profileAPI.getStatus(userId).then(response => {
+		dispatch(setStatusActionCreator(response.data))
+	})
+}
+
+export const updateStatus = (status: string):ThunkTypeProfile => (dispatch) => {
+	profileAPI.updateStatus(status).then(response => {
+		if (response.data.resultCode === 0) {
+			dispatch(setStatusActionCreator(status))
+		}
 	})
 }
 
