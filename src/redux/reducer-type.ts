@@ -2,9 +2,8 @@ import {
 	addPostActionCreator,
 	setStatusActionCreator,
 	setUserProfile,
-	updatePostTextActionCreator
 } from './profile-reducer';
-import {sendMessageActionCreator, updateMessageBodyActionCreator} from './dialogs-reducer';
+import {sendMessageActionCreator} from './dialogs-reducer';
 import {
 	followSuccess,
 	setCurrentPage,
@@ -28,11 +27,9 @@ export type ActionsTypeUser =
 export type ActionsTypeProfile =
 	ReturnType<typeof setUserProfile>
 	| ReturnType<typeof addPostActionCreator>
-	| ReturnType<typeof updatePostTextActionCreator>
 	| ReturnType<typeof setStatusActionCreator>
 
 export type ActionsTypeDialogs =
-	ReturnType<typeof updateMessageBodyActionCreator>
 	| ReturnType<typeof sendMessageActionCreator>
 
 export type ActionsAuth =
@@ -66,5 +63,4 @@ export type AuthType = {
 export type DialogPageType = {
 	dialogs: Array<DialogType>
 	messages: Array<MessageType>
-	newMessageBody: string
 }

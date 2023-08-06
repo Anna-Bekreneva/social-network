@@ -22,7 +22,6 @@ export type PhotosType = {
 
 export type ProfilePageType = {
 	posts: Array<PostType>
-	newPostText: string
 	profile:  ProfileType
 }
 
@@ -44,7 +43,6 @@ const initialState: ProfilePageType = {
 		{id: 3, message: 'Blabla', likesCount: 11},
 		{id: 4, message: 'Dadada', likesCount: 11}
 	],
-	newPostText: '',
 	profile: {
 		aboutMe: '',
 		userId: 0,
@@ -73,12 +71,9 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
 	switch (action.type) {
 		case 'ADD-POST':
 			const newPost: PostType = {
-				id: 5, message: action.postText, likesCount: 0
+				id: 5, message: action.newPostText, likesCount: 0
 			};
-			return {...state, posts: [...state.posts, newPost], newPostText: ''};
-
-		case 'UPDATE-NEW-POST-TEXT':
-			return {...state, newPostText: action.newText};
+			return {...state, posts: [...state.posts, newPost]};
 
 		case 'SET-USER-PROFILE':
 			return {...state, profile: {...action.profile}}
@@ -89,9 +84,7 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
 	}
 };
 
-export const addPostActionCreator = (text: string) => ( {type: 'ADD-POST', postText: text} as const);
-
-export const updatePostTextActionCreator = (text: string) => ( {type: 'UPDATE-NEW-POST-TEXT', newText: text} as const);
+export const addPostActionCreator = (newPostText: string) => ( {type: 'ADD-POST', newPostText} as const);
 
 export const setUserProfile = (profile: ProfileType) => ( {type: 'SET-USER-PROFILE', profile} as const);
 
