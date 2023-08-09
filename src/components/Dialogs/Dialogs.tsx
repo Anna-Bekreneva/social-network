@@ -6,6 +6,7 @@ import {DialogsPropsType} from './DialogsContainer';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Textarea} from "../../components/common/FormsControls/FormsControls";
 import {maxLengthCreator, required} from "../../utils/validators/validators";
+import {Redirect} from "react-router-dom";
 
 const maxLength100 = maxLengthCreator(100)
 
@@ -17,7 +18,7 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 		props.sendMessage(values.newMessageBody)
 	};
 
-	// if (!props.isAuth) return <Redirect to={"/login"}/>
+	if (!props.isAuth) return <Redirect to={"/login"}/>
 
 	return (
 		<div className={s.dialogs}>

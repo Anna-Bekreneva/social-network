@@ -54,9 +54,9 @@ export type PostType = {
 }
 
 export type AuthType = {
-	userId: number
-	email: string
-	login: string
+	userId: number | null
+	email: string | null
+	login: string | null
 	isAuth: boolean
 }
 
