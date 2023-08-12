@@ -7,7 +7,7 @@ import {ProfilePagePropsType} from "./ProfileContainer";
 const Profile = (props: ProfilePagePropsType) => {
     return (
         <>
-            <ProfileInfo photos={props.photos} contacts={props.contacts} fullName={props.fullName} lookingForAJob={props.lookingForAJob} lookingForAJobDescription={props.lookingForAJobDescription} userId={props.userId} aboutMe={props.aboutMe} status={props.status} getStatus={props.getStatus} getUserProfile={props.getUserProfile} updateStatus={props.updateStatus}/>
+            <ProfileInfo photos={props.photos} contacts={props.contacts} fullName={props.fullName} lookingForAJob={props.lookingForAJob} lookingForAJobDescription={props.lookingForAJobDescription} userId={props.userId} aboutMe={props.aboutMe} status={props.status} getStatus={props.getStatus} getUserProfile={props.getUserProfile} updateStatus={props.updateStatus} isAuth={props.isAuth}/>
             <MyPostsContainer/>
         </>
     )

@@ -24,6 +24,7 @@ export type MapStatePropsType = {
     contacts: ContactsType
     photos: PhotosType
     status: string
+    isAuth: boolean
 }
 
 type mapDispatchToPropsType = {
@@ -39,14 +40,14 @@ class ProfileContainer extends React.Component<PropsType> {
     componentDidMount () {
         let userId = Number(this.props.match.params.userId)
         if (!userId) {
-            userId = 26977
+            userId = this.props.userId
         }
         this.props.getUserProfile(userId)
         this.props.getStatus(userId)
     }
 
     render() {
-        return <Profile userId={this.props.userId} photos={this.props.photos} contacts={this.props.contacts} fullName={this.props.fullName} lookingForAJob={this.props.lookingForAJob} lookingForAJobDescription={this.props.lookingForAJobDescription} aboutMe={this.props.aboutMe} status={this.props.status} getStatus={this.props.getStatus} getUserProfile={this.props.getUserProfile} updateStatus={this.props.updateStatus}/>
+        return <Profile userId={this.props.userId} photos={this.props.photos} contacts={this.props.contacts} fullName={this.props.fullName} lookingForAJob={this.props.lookingForAJob} lookingForAJobDescription={this.props.lookingForAJobDescription} aboutMe={this.props.aboutMe} status={this.props.status} getStatus={this.props.getStatus} getUserProfile={this.props.getUserProfile} updateStatus={this.props.updateStatus} isAuth={this.props.isAuth}/>
     }
 }
 
@@ -59,7 +60,8 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
         fullName: state.profile.profile.fullName,
         lookingForAJobDescription: state.profile.profile.lookingForAJobDescription,
         aboutMe: state.profile.profile.aboutMe,
-        status: state.profile.profile.status
+        status: state.profile.profile.status,
+        isAuth: state.auth.isAuth
     }
 }
 

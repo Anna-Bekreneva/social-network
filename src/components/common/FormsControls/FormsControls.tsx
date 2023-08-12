@@ -2,10 +2,6 @@ import styles from './FormControls.module.css'
 
 import { WrappedFieldProps } from 'redux-form';
 
-interface TextareaProps extends WrappedFieldProps {
-    children: any
-}
-
 type TextareaProps3 = WrappedFieldProps & {
     children: any
 }

@@ -2,6 +2,7 @@ import {ActionsAuth, AuthType} from './reducer-type';
 import {AppStateType} from './redux-store';
 import {authAPI} from '../api';
 import {ThunkAction} from 'redux-thunk';
+import {stopSubmit} from "redux-form";
 
 const initialState: AuthType = {
     userId: null,
@@ -36,11 +37,15 @@ export const getAuthUserData = (): ThunkTypeAuth => (dispatch) => {
         })
 }
 
-export const login = (email: string, password: string, rememberMe: boolean): ThunkTypeAuth => (dispatch) => {
+export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: any) => {
+
     return authAPI.login(email, password, rememberMe)
         .then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(getAuthUserData())
+            } else {
+                const message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
+                dispatch(stopSubmit("login", {email: message}))
             }
         })
 }
