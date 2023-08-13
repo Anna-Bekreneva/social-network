@@ -20,7 +20,7 @@ export const authReducer = (state: AuthType = initialState, action: ActionsAuth)
     }
 };
 
-export const seAuthUserDataAC = (userId: number | null, email: string | null, login: string | null, isAuth: boolean) => ({
+export const setAuthUserDataAC = (userId: number | null, email: string | null, login: string | null, isAuth: boolean) => ({
     type: 'SET_USER_DATA',
     payload: {userId, email, login, isAuth}
 } as const);
@@ -32,7 +32,7 @@ export const getAuthUserData = (): ThunkTypeAuth => (dispatch) => {
         .then(response => {
             if (response.data.resultCode === 0) {
                 let {userId, login, email} = response.data.data
-                dispatch(seAuthUserDataAC(userId, login, email, true))
+                dispatch(setAuthUserDataAC(userId, login, email, true))
             }
         })
 }
@@ -55,7 +55,7 @@ export const logout = (): ThunkTypeAuth => (dispatch) => {
         .then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(getAuthUserData())
-                dispatch(seAuthUserDataAC(null, null, null, false))
+                dispatch(setAuthUserDataAC(null, null, null, false))
             }
         })
 }

@@ -13,7 +13,8 @@ import {
 	toggleIsFollowingProgress,
 	unfollowSuccess
 } from './users-reducer';
-import {seAuthUserDataAC} from './auth-reducer';
+import {setAuthUserDataAC} from './auth-reducer';
+import {initializedSuccessAC} from "../redux/app-reducer";
 
 export type ActionsTypeUser =
 	| ReturnType<typeof followSuccess>
@@ -33,7 +34,10 @@ export type ActionsTypeDialogs =
 	| ReturnType<typeof sendMessageActionCreator>
 
 export type ActionsAuth =
-	| ReturnType<typeof seAuthUserDataAC>
+	| ReturnType<typeof setAuthUserDataAC>
+
+export type ActionsApp =
+	| ReturnType<typeof initializedSuccessAC>
 
 export type SidebarType = {}
 
@@ -58,6 +62,10 @@ export type AuthType = {
 	email: string | null
 	login: string | null
 	isAuth: boolean
+}
+
+export type AppType = {
+	initialized: boolean
 }
 
 export type DialogPageType = {
