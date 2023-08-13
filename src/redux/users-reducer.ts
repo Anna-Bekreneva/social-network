@@ -1,7 +1,6 @@
 import {ActionsTypeUser} from './reducer-type';
 import {usersAPI} from '../api';
 import {AppStateType} from './redux-store';
-import {Dispatch} from 'redux';
 import {ThunkAction} from 'redux-thunk';
 
 export type UsersPageType = {
@@ -74,10 +73,11 @@ export const toggleIsFollowingProgress = (isFollowing: boolean, userId: number) 
 
 export type ThunkTypeUsers = ThunkAction<void, AppStateType, unknown, ActionsTypeUser>
 
-export const getUsers = (currentPage: number, pageSize: number): ThunkTypeUsers => {
+export const requestUsers = (page: number, pageSize: number): ThunkTypeUsers => {
 	return (dispatch) => {
 		dispatch(toggleIsFetching(true));
-		usersAPI.getUsers(currentPage, pageSize).then(data => {
+		dispatch(setCurrentPage(page));
+		usersAPI.getUsers(page, pageSize).then(data => {
 			dispatch(toggleIsFetching(false));
 			dispatch(setUsers(data.items));
 			dispatch(setTotalUsersCount(data.totalCount));

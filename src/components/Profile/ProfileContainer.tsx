@@ -17,7 +17,7 @@ type PropsType = RouteComponentProps<PathParamsType> & ProfilePropsType
 
 export type MapStatePropsType = {
     aboutMe: string
-    userId: number
+    userId: number | null
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
@@ -38,15 +38,15 @@ export type ProfilePagePropsType = mapDispatchToPropsType & MapStatePropsType
 class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount () {
-        let userId = Number(this.props.match.params.userId)
+        let userId: number | null = Number(this.props.match.params.userId)
         if (!userId) {
             userId = this.props.userId
             if (!userId) {
                 this.props.history.push("/login")
             }
         }
-        this.props.getUserProfile(userId)
-        this.props.getStatus(userId)
+        userId && this.props.getUserProfile(userId)
+        userId && this.props.getStatus(userId)
     }
 
     render() {
@@ -56,7 +56,7 @@ class ProfileContainer extends React.Component<PropsType> {
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        userId: state.profile.profile.userId,
+        userId: state.auth.userId,
         photos: state.profile.profile.photos,
         lookingForAJob: state.profile.profile.lookingForAJob,
         contacts: state.profile.profile.contacts,
