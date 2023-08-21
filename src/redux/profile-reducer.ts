@@ -1,6 +1,6 @@
 import {ActionsTypeProfile, PostType} from './reducer-type';
 import {AppStateType} from './redux-store';
-import {profileAPI, usersAPI} from '../api';
+import {profileAPI, usersAPI} from 'api';
 import {ThunkAction} from 'redux-thunk';
 
 

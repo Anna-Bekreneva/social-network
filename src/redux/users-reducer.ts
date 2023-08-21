@@ -1,5 +1,5 @@
 import {ActionsTypeUser} from './reducer-type';
-import {usersAPI} from '../api';
+import {usersAPI} from 'api';
 import {AppStateType} from './redux-store';
 import {ThunkAction} from 'redux-thunk';
 

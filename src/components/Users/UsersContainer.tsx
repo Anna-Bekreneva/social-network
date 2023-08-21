@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {AppStateType} from '../../redux/redux-store';
+import {AppStateType} from 'redux/redux-store';
 import {
 	followSuccess, requestUsers,
 	setCurrentPage,
@@ -9,7 +9,7 @@ import {
 	toggleIsFollowingProgress,
 	unfollowSuccess,
 	UserType,
-} from '../../redux/users-reducer';
+} from 'redux/users-reducer';
 import React from 'react';
 import {Users} from './Users';
 import {Preloader} from '../common/Preloader/Preloader';
@@ -21,7 +21,7 @@ import {
 	getPageSize,
 	getTotalUsersCount,
 	getUsers
-} from '../../redux/users-selectors'
+} from 'redux/users-selectors'
 
 class UsersContainer extends React.Component<UsersPropsType> {
 
