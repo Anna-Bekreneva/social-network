@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {memo} from 'react';
 import './MyPosts.css';
 import Post from './Post/Post';
 import {ProfilePropsType} from './MyPostsContainer';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxLengthCreator, required} from "../../../utils/validators/validators";
-import {Textarea} from "../../../components/common/FormsControls/FormsControls";
+import {maxLengthCreator, required} from "utils/validators/validators";
+import {Textarea} from "components/common/FormsControls/FormsControls";
 
 type FormDataType = {
     newPostText: string
@@ -12,7 +12,7 @@ type FormDataType = {
 
 const maxLength10 = maxLengthCreator(10)
 
-const MyPosts: React.FC<ProfilePropsType> = (props) => {
+const MyPosts = memo((props: ProfilePropsType) => {
     const postsElements = props.profilePage.posts.map(post => {
         return (
             <li className="posts__item" key={post.id}>
@@ -37,7 +37,7 @@ const MyPosts: React.FC<ProfilePropsType> = (props) => {
             </ul>
         </div>
     );
-};
+});
 
 const AddNewPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (

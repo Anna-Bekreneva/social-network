@@ -14,7 +14,7 @@ import {
 	unfollowSuccess
 } from './users-reducer';
 import {setAuthUserDataAC} from './auth-reducer';
-import {initializedSuccessAC} from "../redux/app-reducer";
+import {initializedSuccessAC} from "redux/app-reducer";
 
 export type ActionsTypeUser =
 	| ReturnType<typeof followSuccess>

@@ -1,11 +1,11 @@
 import {Dialogs} from './Dialogs';
 import {connect} from 'react-redux';
-import {sendMessageActionCreator} from '../../redux/dialogs-reducer';
-import {AppStateType} from '../../redux/redux-store';
-import {DialogPageType} from '../../redux/reducer-type';
+import {sendMessageActionCreator} from 'redux/dialogs-reducer';
+import {AppStateType} from 'redux/redux-store';
+import {DialogPageType} from 'redux/reducer-type';
 import {compose, Dispatch} from 'redux';
 import React from "react";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {withAuthRedirect} from "hoc/withAuthRedirect";
 
 type MapStatePropsType = {
 	dialogsPage: DialogPageType
