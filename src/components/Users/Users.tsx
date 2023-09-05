@@ -16,18 +16,15 @@ type UsersPropsType = {
 }
 
 export const Users: React.FC<UsersPropsType> = (props) => {
-	const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
-	const pages = [];
-	for (let i = 1; i <= pagesCount; i++) {
-		pages.push(i);
-	}
 	return (
 		<div>
 			<Paginator
 				currentPage={props.currentPage}
 				onPageChanged={props.onPageChanged}
 				pageSize={props.pageSize}
-				totalUsersCount={props.totalUsersCount}></Paginator>
+				totalItemsCount={props.totalUsersCount}
+				portionSize={10}
+			></Paginator>
 
 			{props.users.map(user =>
 				<User user={user}
