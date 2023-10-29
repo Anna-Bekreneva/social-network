@@ -49,6 +49,9 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
         case 'profile/DELETE-POST': {
             return {...state, posts: state.posts.filter(post => post.id !== action.id)}
         }
+        case "profile/SAVE-PHOTO-SUCCESS":
+            return {...state, profile: { ...state.profile, photos: action.photos}}
+
         default:
             return state;
     }
@@ -61,6 +64,8 @@ export const setUserProfile = (profile: ProfileType) => ({type: 'profile/SET-USE
 export const setStatusActionCreator = (status: string) => ({type: 'profile/SET-STATUS', status} as const);
 
 export const deletePost = (id: number) => ({type: 'profile/DELETE-POST', id} as const);
+
+export const savePhotoSuccess = (photos:  { small: string, large: string },) => ({type: 'profile/SAVE-PHOTO-SUCCESS', photos} as const)
 
 export type ThunkTypeProfile = ThunkAction<void, AppStateType, unknown, ActionsTypeProfile>
 
@@ -79,6 +84,13 @@ export const updateStatus = (status: string): ThunkTypeProfile => async (dispatc
     const response = await profileAPI.updateStatus(status)
     if (response.data.resultCode === 0) {
         dispatch(setStatusActionCreator(status))
+    }
+}
+
+export const savePhoto = (file: string): ThunkTypeProfile => async (dispatch) => {
+    const response = await profileAPI.savePhoto(file)
+    if (response.data.resultCode === 0) {
+        dispatch(savePhotoSuccess(response.data.data.photos))
     }
 }
 
