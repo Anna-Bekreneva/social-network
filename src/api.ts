@@ -1,5 +1,4 @@
 import axios from 'axios';
-import profile from "./components/Profile/Profile";
 
 const instance = axios.create({
     withCredentials: true,
@@ -23,6 +22,9 @@ export const profileAPI = {
         const formData = new FormData();
         formData.append('image', file)
         return instance.put(`profile/photo`, formData, {headers: {'Content-Type': 'multipart/form-data'}})
+    },
+    saveProfile(profile: any) {
+        return instance.put(`profile`, profile)
     }
 }
 
@@ -54,10 +56,16 @@ export const authAPI = {
     me() {
         return instance.get(`auth/me`)
     },
-    login(email: string, password: string, rememberMe: boolean = false) {
-        return instance.post('auth/login', {email, password, rememberMe})
+    login(email: string, password: string, rememberMe: boolean = false, captcha: null | string) {
+        return instance.post('auth/login', {email, password, rememberMe, captcha})
     },
     logout() {
         return instance.delete('auth/login')
+    }
+}
+
+export const securityAPI = {
+    getCaptchaUrl() {
+        return instance.get(`security/get-captcha-url`)
     }
 }

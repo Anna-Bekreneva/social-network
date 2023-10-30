@@ -13,7 +13,7 @@ import {
 	toggleIsFollowingProgress,
 	unfollowSuccess
 } from './users-reducer';
-import {setAuthUserDataAC} from './auth-reducer';
+import {getCaptchaUrlSuccess, setAuthUserDataAC} from './auth-reducer';
 import {initializedSuccessAC} from "redux/app-reducer";
 
 export type ActionsTypeUser =
@@ -37,6 +37,7 @@ export type ActionsTypeDialogs =
 
 export type ActionsAuth =
 	| ReturnType<typeof setAuthUserDataAC>
+	| ReturnType<typeof getCaptchaUrlSuccess>
 
 export type ActionsApp =
 	| ReturnType<typeof initializedSuccessAC>
@@ -64,6 +65,7 @@ export type AuthType = {
 	email: string | null
 	login: string | null
 	isAuth: boolean
+	captchaUrl: null | string
 }
 
 export type AppType = {
