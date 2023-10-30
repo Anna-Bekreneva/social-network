@@ -2,6 +2,7 @@ import {ActionsTypeProfile, PostType} from './reducer-type';
 import {AppStateType} from './redux-store';
 import {profileAPI, usersAPI} from 'api';
 import {ThunkAction} from 'redux-thunk';
+import {stopSubmit} from "redux-form";
 
 const initialState: ProfilePageType = {
     posts: [
@@ -94,15 +95,19 @@ export const savePhoto = (file: string): ThunkTypeProfile => async (dispatch) =>
     }
 }
 
+export const saveProfile = (profile: ProfileType): ThunkTypeProfile => async (dispatch: any, getState) => {
+    const userId = getState().auth.userId
+    const response = await profileAPI.saveProfile(profile)
+    if (response.data.resultCode === 0 && userId) {
+        dispatch(getUserProfile(userId))
+    } else {
+        dispatch(stopSubmit('edit-profile', { _error: response.data.messages[0]}))
+        return Promise.reject(response.data.messages[0])
+    }
+}
+
 export type ContactsType = {
-    github: string
-    vk: string
-    facebook: string
-    instagram: string
-    twitter: string
-    website: string
-    youtube: string
-    mainLink: string
+    [key: string] : string
 }
 
 export type PhotosType = {

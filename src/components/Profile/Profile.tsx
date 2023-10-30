@@ -14,7 +14,7 @@ const Profile = (props: ProfilePagePropsType) => {
 
     return (
         <>
-            <ProfileInfo savePhoto={props.savePhoto} isOwner={props.isOwner} photos={props.photos} contacts={props.contacts} fullName={props.fullName} lookingForAJob={props.lookingForAJob} lookingForAJobDescription={props.lookingForAJobDescription} userId={props.userId} aboutMe={props.aboutMe} status={props.status} getStatus={props.getStatus} getUserProfile={props.getUserProfile} updateStatus={props.updateStatus} isAuth={props.isAuth}/>
+            <ProfileInfo saveProfile={props.saveProfile} savePhoto={props.savePhoto} isOwner={props.isOwner} photos={props.photos} contacts={props.contacts} fullName={props.fullName} lookingForAJob={props.lookingForAJob} lookingForAJobDescription={props.lookingForAJobDescription} userId={props.userId} aboutMe={props.aboutMe} status={props.status} getStatus={props.getStatus} getUserProfile={props.getUserProfile} updateStatus={props.updateStatus} isAuth={props.isAuth}/>
             {props.isOwner && <input onChange={onMainPhotoSelected} type={"file"}/> }
             <MyPostsContainer/>
         </>

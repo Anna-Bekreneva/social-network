@@ -28,7 +28,7 @@ export const Textarea = (props: TextareaProps3) => {
 }
 
 export const Input = (props: TextareaProps3) => {
-    const {input, meta, children, ...restProps} = props;
+    const {input, meta, ...restProps} = props;
     return (
         <FormControl {...props}>
             <input {...input} {...restProps}></input>
