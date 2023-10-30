@@ -38,7 +38,8 @@ const LoginReduxForm: any = reduxForm<FormDataType>({form: 'login'})(LoginForm)
 
 const Login = (props: LoginPropsType) => {
     const onSubmit = (formData: FormDataType) => {
-        console.log(formData)
+        console.log
+        (formData)
         props.login(formData.email, formData.password, formData.rememberMe, formData.captchaUrl)
     }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Navigation from './components/Navigation/Navigation';
-import {Route, withRouter} from 'react-router-dom';
+import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
@@ -16,8 +16,16 @@ const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileCo
 
 
 class App extends React.Component<AppPropsType> {
+	catchAllUnhandledErrors = (promiseRejectionEvent: any) => {
+		alert('Some error occurred')
+	}
 	componentDidMount () {
 		this.props.initializeApp()
+		window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors)
 	}
 
 	render() {
@@ -27,14 +35,18 @@ class App extends React.Component<AppPropsType> {
 				<HeaderContainer/>
 				<Navigation/>
 				<main className="main">
-					<Route path="/dialogs" render={withSuspense(DialogsContainer)}/>
-					<Route path="/profile/:userId?" render={withSuspense(ProfileContainer)}/>
-					<Route path="/users" render={() => <UsersContainer/>}/>
-					<Route path="/login" render={() => <Login/>}/>
+					<Switch>
+						<Route path="/" render={() => <Redirect to={'/profile'}/> } exact/>
+						<Route path="/dialogs" render={withSuspense(DialogsContainer)}/>
+						<Route path="/profile/:userId?" render={withSuspense(ProfileContainer)}/>
+						<Route path="/users" render={() => <UsersContainer/>}/>
+						<Route path="/login" render={() => <Login/>}/>
+						<Route path="*" render={() =>  <div> 404 NOT FOUND </div> }/>
 
-					{/*<Route path="/settings" component={Settings}/>*/}
-					{/*<Route path="/news" component={News}></Route>*/}
-					{/*<Route path="/music" component={Music}></Route>*/}
+						{/*<Route path="/settings" component={Settings}/>*/}
+						{/*<Route path="/news" component={News}></Route>*/}
+						{/*<Route path="/music" component={Music}></Route>*/}
+					</Switch>
 				</main>
 			</div>
 		);
