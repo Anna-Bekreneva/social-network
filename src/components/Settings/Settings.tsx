@@ -1,6 +1,7 @@
-import React from 'react';
+import React from 'react'
+
 import s from './Settings.module.css'
 
 export const Settings = () => {
-	return <>Settings</>
+  return <>Settings</>
 }

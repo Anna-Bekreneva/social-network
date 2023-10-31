@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 // import profileReducer, {addPostActionCreator, updatePostTextActionCreator} from './profile-reducer';
 // import dialogsReducer, {sendMessageActionCreator, updateMessageBodyActionCreator} from './dialogs-reducer';
 // import sidebarReducer from './sidebar-reducer';

@@ -38,8 +38,8 @@ a {
   margin: 0 auto;
   display: grid;
   grid-template-areas:
-          "header header header"
-          "navigation main main";
+    'header header header'
+    'navigation main main';
   grid-template-rows: 100px 1fr;
   grid-template-columns: 2fr 10fr;
 }
@@ -53,6 +53,3 @@ a {
 .page-title {
   margin-bottom: 30px;
 }
-
-
-
