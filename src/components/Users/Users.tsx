@@ -1,8 +1,7 @@
 import React from 'react'
 
-import { Paginator } from 'components/common/Paginator/Paginator'
-import { User } from 'components/Users/User'
-import { UserType } from 'store/users-reducer'
+import { Paginator, User } from 'components'
+import { UserType } from 'store'
 
 type UsersPropsType = {
   totalUsersCount: number

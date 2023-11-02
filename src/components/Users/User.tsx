@@ -1,11 +1,12 @@
 import React from 'react'
 
 import { NavLink } from 'react-router-dom'
-import { UserType } from 'store/users-reducer'
 
 import userPhoto from '../../assets/img/user.png'
 
 import styles from './users.module.css'
+
+import { UserType } from 'store'
 
 type UserPropsType = {
   user: UserType

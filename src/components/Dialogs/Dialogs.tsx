@@ -3,22 +3,19 @@ import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { Field, InjectedFormProps, reduxForm } from 'redux-form'
 
-import { Textarea } from '../../components/common/FormsControls/FormsControls'
-import { maxLengthCreator, required } from '../../utils/validators/validators'
-
-import { DialogItem } from './DialogItem/DialogItem'
 import s from './Dialogs.module.css'
-import { DialogsPropsType } from './DialogsContainer'
-import { Message } from './Message/Message'
+
+import { DialogItem, Textarea, DialogsPropsType, Message } from 'components'
+import { maxLengthCreator, required } from 'utils'
 
 const maxLength100 = maxLengthCreator(100)
 
 export const Dialogs: React.FC<DialogsPropsType> = props => {
   const dialogElements = props.dialogsPage.dialogs.map(dialog => (
-    <DialogItem name={dialog.name} id={dialog.id} />
+    <DialogItem key={dialog.id} name={dialog.name} id={dialog.id} />
   ))
   const messagesElements = props.dialogsPage.messages.map(message => (
-    <Message message={message.message}></Message>
+    <Message message={message.message} key={message.id}></Message>
   ))
 
   const addNewMessage = (values: FormDataType) => {

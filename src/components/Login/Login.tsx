@@ -3,13 +3,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
-import { login } from 'store/auth-reducer'
-import { AppStateType } from 'store/redux-store'
-import { required } from 'utils/validators/validators'
-
-import { Input } from '../common/FormsControls/FormsControls'
 
 import style from './../common/FormsControls/FormControls.module.css'
+
+import { Input } from 'components'
+import { AppStateType, login } from 'store'
+import { required } from 'utils'
 
 type FormDataType = {
   email: string
@@ -45,7 +44,7 @@ const LoginForm: React.FC<any> = ({ handleSubmit, error, captchaUrl }) => {
 
 const LoginReduxForm: any = reduxForm<FormDataType>({ form: 'login' })(LoginForm)
 
-const Login = (props: LoginPropsType) => {
+const LoginInner = (props: LoginPropsType) => {
   const onSubmit = (formData: FormDataType) => {
     console.log(formData)
     props.login(formData.email, formData.password, formData.rememberMe, formData.captchaUrl)
@@ -77,4 +76,4 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
   isAuth: state.auth.isAuth,
 })
 
-export default connect(mapStateToProps, { login })(Login)
+export const Login = connect(mapStateToProps, { login })(LoginInner)

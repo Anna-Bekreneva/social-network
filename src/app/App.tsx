@@ -1,20 +1,16 @@
 import React from 'react'
 
-import './App.css'
-import { Preloader } from 'components/common/Preloader/Preloader'
-import { withSuspense } from 'hoc/withSuspense'
 import { connect } from 'react-redux'
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
 import { compose } from 'redux'
-import { initializeApp } from 'store/app-reducer'
-import { AppStateType } from 'store/redux-store'
 
-import HeaderContainer from './components/Header/HeaderContainer'
-import Login from './components/Login/Login'
-import Navigation from './components/Navigation/Navigation'
-import UsersContainer from './components/Users/UsersContainer'
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
-const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
+import { Login, Navigation, HeaderContainer, Preloader, UsersContainer } from 'components'
+import { withSuspense } from 'hoc'
+import { initializeApp, AppStateType } from 'store'
+const DialogsContainer = React.lazy(() => import('../components/Dialogs/DialogsContainer'))
+const ProfileContainer = React.lazy(() => import('../components/Profile/ProfileContainer'))
+
+import './App.css'
 
 class App extends React.Component<AppPropsType> {
   catchAllUnhandledErrors = (promiseRejectionEvent: any) => {
@@ -44,10 +40,6 @@ class App extends React.Component<AppPropsType> {
             <Route path="/users" render={() => <UsersContainer />} />
             <Route path="/login" render={() => <Login />} />
             <Route path="*" render={() => <div> 404 NOT FOUND </div>} />
-
-            {/*<Route path="/settings" component={Settings}/>*/}
-            {/*<Route path="/news" component={News}></Route>*/}
-            {/*<Route path="/music" component={Music}></Route>*/}
           </Switch>
         </main>
       </div>

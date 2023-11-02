@@ -1,4 +1,4 @@
-import { ActionsTypeDialogs, DialogPageType, MessageType } from './reducer-type'
+import { ActionsTypeDialogs, DialogPageType, MessageType } from './reducerType'
 
 const initialState: DialogPageType = {
   dialogs: [
@@ -18,28 +18,19 @@ const initialState: DialogPageType = {
   ],
 }
 
-const dialogsReducer = (
+export const dialogsReducer = (
   state: DialogPageType = initialState,
   action: ActionsTypeDialogs
 ): DialogPageType => {
   switch (action.type) {
     case 'SEND-MESSAGE':
-      const body = action.newMessageBody
-      const newMessage: MessageType = {
-        id: 6,
-        message: body,
-      }
-
-      return { ...state, messages: [...state.messages, newMessage] }
+      return { ...state, messages: [...state.messages, { id: 6, message: action.newMessageBody }] }
     default:
       return state
   }
 }
 
-export const sendMessageActionCreator = (newMessageBody: string) =>
-  ({
-    type: 'SEND-MESSAGE',
-    newMessageBody,
-  }) as const
-
-export default dialogsReducer
+export const sendMessageActionCreator = (newMessageBody: string) => ({
+  type: 'SEND-MESSAGE' as const,
+  newMessageBody,
+})

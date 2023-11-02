@@ -1,9 +1,10 @@
-import { profileAPI, usersAPI } from 'api'
 import { stopSubmit } from 'redux-form'
 import { ThunkAction } from 'redux-thunk'
 
-import { ActionsTypeProfile, PostType } from './reducer-type'
-import { AppStateType } from './redux-store'
+import { ActionsTypeProfile, PostType } from './reducerType'
+import { AppStateType } from './store'
+
+import { profileAPI, usersAPI } from 'api'
 
 const initialState: ProfilePageType = {
   posts: [
@@ -42,13 +43,10 @@ const profileReducer = (
 ): ProfilePageType => {
   switch (action.type) {
     case 'profile/ADD-POST':
-      const newPost: PostType = {
-        id: 5,
-        message: action.newPostText,
-        likesCount: 0,
+      return {
+        ...state,
+        posts: [...state.posts, { id: 5, message: action.newPostText, likesCount: 0 }],
       }
-
-      return { ...state, posts: [...state.posts, newPost] }
 
     case 'profile/SET-USER-PROFILE':
       return { ...state, profile: { ...action.profile } }

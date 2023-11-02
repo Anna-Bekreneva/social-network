@@ -9,7 +9,7 @@ type HeaderPropsType = {
   logout: () => void
 }
 
-const Header: React.FC<HeaderPropsType> = props => {
+export const Header: React.FC<HeaderPropsType> = props => {
   return (
     <header className="header">
       <a className="logo" href="src/components/Header/Header#">
@@ -34,5 +34,3 @@ const Header: React.FC<HeaderPropsType> = props => {
     </header>
   )
 }
-
-export default Header

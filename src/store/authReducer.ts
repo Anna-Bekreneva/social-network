@@ -1,9 +1,10 @@
-import { authAPI, securityAPI } from 'api'
 import { stopSubmit } from 'redux-form'
 import { ThunkAction } from 'redux-thunk'
 
-import { ActionsAuth, AuthType } from './reducer-type'
-import { AppStateType } from './redux-store'
+import { ActionsAuth, AuthType } from './reducerType'
+import { AppStateType } from './store'
+
+import { authAPI, securityAPI } from 'api'
 
 const initialState: AuthType = {
   userId: null,
@@ -41,7 +42,7 @@ export const getCaptchaUrlSuccess = (captchaUrl: string) =>
     payload: { captchaUrl },
   }) as const
 
-export type ThunkTypeAuth = ThunkAction<void, AppStateType, unknown, ActionsAuth>
+type ThunkTypeAuth = ThunkAction<void, AppStateType, unknown, ActionsAuth>
 
 export const getAuthUserData = (): ThunkTypeAuth => async dispatch => {
   const response = await authAPI.me()

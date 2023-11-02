@@ -1,7 +1,7 @@
 import React from 'react'
 import './Post.css'
 
-const Post = (props: any) => {
+export const Post = (props: any) => {
   return (
     <article className="post">
       <img
@@ -21,5 +21,3 @@ const Post = (props: any) => {
     </article>
   )
 }
-
-export default Post

@@ -1,14 +1,12 @@
-import { initializedSuccessAC } from 'store/app-reducer'
-
-import { getCaptchaUrlSuccess, setAuthUserDataAC } from './auth-reducer'
-import { sendMessageActionCreator } from './dialogs-reducer'
+import { getCaptchaUrlSuccess, setAuthUserDataAC } from './authReducer'
+import { sendMessageActionCreator } from './dialogsReducer'
 import {
   addPostActionCreator,
   deletePost,
   savePhotoSuccess,
   setStatusActionCreator,
   setUserProfile,
-} from './profile-reducer'
+} from './profileReducer'
 import {
   followSuccess,
   setCurrentPage,
@@ -17,7 +15,9 @@ import {
   toggleIsFetching,
   toggleIsFollowingProgress,
   unfollowSuccess,
-} from './users-reducer'
+} from './usersReducer'
+
+import { initializedSuccessAC } from 'store'
 
 export type ActionsTypeUser =
   | ReturnType<typeof followSuccess>

@@ -1,9 +1,10 @@
 import React from 'react'
 
-import './Profile.css'
 import { connect } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { compose } from 'redux'
+
+import { Profile } from 'components'
 import {
   ContactsType,
   getStatus,
@@ -12,12 +13,10 @@ import {
   savePhoto,
   saveProfile,
   updateStatus,
-} from 'store/profile-reducer'
-import { AppStateType } from 'store/redux-store'
+  AppStateType,
+} from 'store'
 
-import Profile from './Profile'
-
-export type ProfilePropsType = MapStatePropsType & mapDispatchToPropsType
+type ProfilePropsType = MapStatePropsType & mapDispatchToPropsType
 
 type PathParamsType = {
   userId: string
@@ -53,7 +52,7 @@ export type ProfilePagePropsType = mapDispatchToPropsType &
     isOwner: boolean
   }
 
-class ProfileContainer extends React.Component<PropsType> {
+class ProfileInner extends React.Component<PropsType> {
   refreshProfile() {
     let userId: number | null = Number(this.props.match.params.userId)
 
@@ -122,4 +121,4 @@ export default compose<React.ComponentType>(
     saveProfile,
   }),
   withRouter
-)(ProfileContainer)
+)(ProfileInner)

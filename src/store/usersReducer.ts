@@ -1,9 +1,10 @@
-import { usersAPI } from 'api'
 import { ThunkAction } from 'redux-thunk'
-import { updateObjectInArray } from 'utils/object-helpers'
 
-import { ActionsTypeUser } from './reducer-type'
-import { AppStateType } from './redux-store'
+import { ActionsTypeUser } from './reducerType'
+import { AppStateType } from './store'
+
+import { usersAPI } from 'api'
+import { updateObjectInArray } from 'utils'
 
 export type UsersPageType = {
   users: Array<UserType>
@@ -37,7 +38,7 @@ const initialState: UsersPageType = {
   followingInProgress: [],
 }
 
-const usersReducer = (
+const usersEducer = (
   state: UsersPageType = initialState,
   action: ActionsTypeUser
 ): UsersPageType => {
@@ -146,4 +147,4 @@ export const unfollow = (userId: number): ThunkTypeUsers => {
   }
 }
 
-export default usersReducer
+export default usersEducer

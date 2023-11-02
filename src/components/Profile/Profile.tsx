@@ -1,9 +1,7 @@
 import React, { ChangeEvent } from 'react'
 
 import './Profile.css'
-import MyPostsContainer from './MyPosts/MyPostsContainer'
-import { ProfilePagePropsType } from './ProfileContainer'
-import { ProfileInfo } from './ProfileInfo/ProfileInfo'
+import { ProfilePagePropsType, MyPostsContainer, ProfileInfo } from 'components'
 
 export const Profile = (props: ProfilePagePropsType) => {
   const onMainPhotoSelected = (event: ChangeEvent<HTMLInputElement>) => {

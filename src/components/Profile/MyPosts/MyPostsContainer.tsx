@@ -1,12 +1,9 @@
-import React from 'react'
-
-import './MyPosts.css'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
-import { addPostActionCreator, ProfilePageType } from 'store/profile-reducer'
-import { AppStateType } from 'store/redux-store'
 
-import MyPosts from './MyPosts'
+import { MyPosts } from './MyPosts'
+
+import { addPostActionCreator, ProfilePageType, AppStateType } from 'store'
 
 type MapStatePropsType = {
   profilePage: ProfilePageType
@@ -28,6 +25,4 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
   }
 }
 
-const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
-
-export default MyPostsContainer
+export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)

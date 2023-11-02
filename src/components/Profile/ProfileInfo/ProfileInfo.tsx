@@ -1,13 +1,17 @@
 import React, { FC, useState } from 'react'
 
-import { ProfileStatusWithHooks } from 'components/Profile/ProfileStatusWithHooks'
-
 import userPhoto from '../../../assets/img/user.png'
-import { Preloader } from '../../common/Preloader/Preloader'
-import { ProfilePagePropsType, ProfileType } from '../ProfileContainer'
 
-import ProfileDataForm, { ProfileFormDataType } from './ProfileDataForm'
 import s from './ProfileInfo.module.css'
+
+import {
+  ProfileDataForm,
+  ProfileFormDataType,
+  Preloader,
+  ProfilePagePropsType,
+  ProfileType,
+  ProfileStatusWithHooks,
+} from 'components'
 
 export const ProfileInfo = (props: ProfilePagePropsType) => {
   const [editMode, setEditMode] = useState(false)
@@ -93,8 +97,7 @@ type ContactProps = {
 export const Contact: FC<ContactProps> = props => {
   return (
     <div>
-      {' '}
-      {props.contactTitle}: {props.contactValue}{' '}
+      {props.contactTitle}: {props.contactValue}
     </div>
   )
 }

@@ -2,8 +2,8 @@ import React from 'react'
 
 import { Field, InjectedFormProps, reduxForm } from 'redux-form'
 
-import style from '../../common/FormsControls/FormControls.module.css'
-import { Input, Textarea } from '../../common/FormsControls/FormsControls'
+import { Input, Textarea } from 'components'
+import style from 'components/common/FormsControls/FormControls.module.css'
 
 export type ProfileFormDataType = {
   fullName: string
@@ -12,7 +12,7 @@ export type ProfileFormDataType = {
   aboutMe: string
 }
 
-const ProfileDataForm = (props: InjectedFormProps<ProfileFormDataType>) => {
+const ProfileDataFormInner = (props: InjectedFormProps<ProfileFormDataType>) => {
   return (
     <form action={'#'} onSubmit={props.handleSubmit}>
       <button type={'submit'}>save</button>
@@ -48,8 +48,6 @@ const ProfileDataForm = (props: InjectedFormProps<ProfileFormDataType>) => {
   )
 }
 
-const ProfileDataFormReduxForm = reduxForm<ProfileFormDataType>({
+export const ProfileDataForm = reduxForm<ProfileFormDataType>({
   form: 'edit-profile',
-})(ProfileDataForm)
-
-export default ProfileDataFormReduxForm
+})(ProfileDataFormInner)

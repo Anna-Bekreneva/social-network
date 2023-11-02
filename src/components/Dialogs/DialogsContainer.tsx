@@ -1,13 +1,14 @@
 import React from 'react'
 
-import { withAuthRedirect } from 'hoc/withAuthRedirect'
 import { connect } from 'react-redux'
 import { compose, Dispatch } from 'redux'
-import { sendMessageActionCreator } from 'store/dialogs-reducer'
-import { DialogPageType } from 'store/reducer-type'
-import { AppStateType } from 'store/redux-store'
+
+import { sendMessageActionCreator } from '../../store/dialogsReducer'
 
 import { Dialogs } from './Dialogs'
+
+import { withAuthRedirect } from 'hoc'
+import { DialogPageType, AppStateType } from 'store'
 
 type MapStatePropsType = {
   dialogsPage: DialogPageType

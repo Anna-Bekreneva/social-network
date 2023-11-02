@@ -1,6 +1,6 @@
 import React, { ComponentType } from 'react'
 
-import { Preloader } from 'components/common/Preloader/Preloader'
+import { Preloader } from 'components'
 
 export function withSuspense<T>(Component: ComponentType<T>) {
   return (props: any) => {
