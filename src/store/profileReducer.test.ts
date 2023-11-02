@@ -1,8 +1,4 @@
-import profileReducer, {
-  addPostActionCreator,
-  deletePost,
-  ProfilePageType,
-} from 'store/profileReducer'
+import { addPostActionCreator, deletePost, ProfilePageType, profile } from 'store'
 
 const initialState: ProfilePageType = {
   posts: [
@@ -34,35 +30,35 @@ const initialState: ProfilePageType = {
     status: 'string',
   },
 }
-//
-// test('new post should be added', () => {
-//   let action = addPostActionCreator('test')
-//
-//   let newState = profileReducer(initialState, action)
-//
-//   expect(newState.posts.length).toBe(5)
-// })
-//
-// test('message of new post should be correct', () => {
-//   let action = addPostActionCreator('test')
-//
-//   let newState = profileReducer(initialState, action)
-//
-//   expect(newState.posts[4].message).toBe('test')
-// })
-//
-// test('after deleting length of messages should be decrement', () => {
-//   let action = deletePost(1)
-//
-//   let newState = profileReducer(initialState, action)
-//
-//   expect(newState.posts.length).toBe(3)
-// })
-//
-// test("after deleting length shouldn't be decrement if id is incorrect", () => {
-//   let action = deletePost(1000)
-//
-//   let newState = profileReducer(initialState, action)
-//
-//   expect(newState.posts.length).toBe(4)
-// })
+
+test('new post should be added', () => {
+  let action = addPostActionCreator('test')
+
+  let newState = profile(initialState, action)
+
+  expect(newState.posts.length).toBe(5)
+})
+
+test('message of new post should be correct', () => {
+  let action = addPostActionCreator('test')
+
+  let newState = profile(initialState, action)
+
+  expect(newState.posts[4].message).toBe('test')
+})
+
+test('after deleting length of messages should be decrement', () => {
+  let action = deletePost(1)
+
+  let newState = profile(initialState, action)
+
+  expect(newState.posts.length).toBe(3)
+})
+
+test("after deleting length shouldn't be decrement if id is incorrect", () => {
+  let action = deletePost(1000)
+
+  let newState = profile(initialState, action)
+
+  expect(newState.posts.length).toBe(4)
+})

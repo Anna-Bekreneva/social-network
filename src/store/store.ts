@@ -1,25 +1,19 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
-import { reducer as formReducer } from 'redux-form'
+import { reducer as form } from 'redux-form'
 import thunk from 'redux-thunk'
 
-import { dialogsReducer } from './dialogsReducer'
-import profileReducer from './profileReducer'
-import { sidebarReducer } from './sidebarReducer'
-import UsersReducer from './usersReducer'
+import { dialogs } from './dialogsReducer'
+import { users } from './usersReducer'
 
-import { authReducer } from './'
+import { profile, app, auth } from './'
 
-import { appReducer } from 'store'
-
-// work on the names
 const rootReducer = combineReducers({
-  profile: profileReducer,
-  dialogs: dialogsReducer,
-  sidebar: sidebarReducer,
-  users: UsersReducer,
-  auth: authReducer,
-  form: formReducer,
-  app: appReducer,
+  profile,
+  dialogs,
+  users,
+  auth,
+  form,
+  app,
 })
 
 const composeEnhancers =

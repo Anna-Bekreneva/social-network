@@ -14,7 +14,7 @@ const initialState: AuthType = {
   captchaUrl: null,
 }
 
-export const authReducer = (state: AuthType = initialState, action: ActionsAuth): AuthType => {
+export const auth = (state: AuthType = initialState, action: ActionsAuth): AuthType => {
   switch (action.type) {
     case 'auth/SET_USER_DATA':
       return { ...state, ...action.payload, isAuth: true }

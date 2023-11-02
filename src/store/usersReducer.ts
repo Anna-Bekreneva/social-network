@@ -38,7 +38,7 @@ const initialState: UsersPageType = {
   followingInProgress: [],
 }
 
-const usersEducer = (
+export const users = (
   state: UsersPageType = initialState,
   action: ActionsTypeUser
 ): UsersPageType => {
@@ -146,5 +146,3 @@ export const unfollow = (userId: number): ThunkTypeUsers => {
     followUnfollowFlow(dispatch, userId, apiMethod, actionCreator)
   }
 }
-
-export default usersEducer

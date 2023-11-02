@@ -1,4 +1,4 @@
-import { ActionsTypeDialogs, DialogPageType, MessageType } from './reducerType'
+import { ActionsTypeDialogs, DialogPageType } from './'
 
 const initialState: DialogPageType = {
   dialogs: [
@@ -18,7 +18,7 @@ const initialState: DialogPageType = {
   ],
 }
 
-export const dialogsReducer = (
+export const dialogs = (
   state: DialogPageType = initialState,
   action: ActionsTypeDialogs
 ): DialogPageType => {

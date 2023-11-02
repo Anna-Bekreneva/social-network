@@ -37,7 +37,7 @@ const initialState: ProfilePageType = {
   },
 }
 
-const profileReducer = (
+export const profile = (
   state: ProfilePageType = initialState,
   action: ActionsTypeProfile
 ): ProfilePageType => {
@@ -157,5 +157,3 @@ export type ProfileType = {
   photos: PhotosType
   status: string
 }
-
-export default profileReducer
