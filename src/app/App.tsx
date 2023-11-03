@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { createRef } from 'react'
 
 import { connect } from 'react-redux'
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
 import { compose } from 'redux'
 
-import { Login, Navigation, HeaderContainer, Preloader, UsersContainer } from 'components'
-import { withSuspense } from 'hoc'
+import { Login, Navigation, HeaderContainer, Preloader } from 'components'
+import { WithSuspense } from 'hoc'
 import { initializeApp, AppStateType } from 'store'
 const DialogsContainer = React.lazy(() => import('../components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('../components/Profile/ProfileContainer'))
+const UsersContainer = React.lazy(() => import('../components/Users/UsersContainer'))
 
 import './App.css'
 
@@ -26,6 +27,8 @@ class App extends React.Component<AppPropsType> {
   }
 
   render() {
+    const ref = createRef<HTMLDivElement>()
+
     if (!this.props.initialized) return <Preloader />
 
     return (
@@ -35,9 +38,12 @@ class App extends React.Component<AppPropsType> {
         <main className="main">
           <Switch>
             <Route path="/" render={() => <Redirect to={'/profile'} />} exact />
-            <Route path="/dialogs" render={withSuspense(DialogsContainer)} />
-            <Route path="/profile/:userId?" render={withSuspense(ProfileContainer)} />
-            <Route path="/users" render={() => <UsersContainer />} />
+            <Route path="/dialogs" render={WithSuspense(DialogsContainer)} />
+            <Route
+              path="/profile/:userId?"
+              render={() => <ProfileContainerWithSuspense ref={ref} />}
+            />
+            <Route path="/users" render={WithSuspense(UsersContainer)} />
             <Route path="/login" render={() => <Login />} />
             <Route path="*" render={() => <div> 404 NOT FOUND </div>} />
           </Switch>
@@ -46,7 +52,7 @@ class App extends React.Component<AppPropsType> {
     )
   }
 }
-
+const ProfileContainerWithSuspense = WithSuspense(ProfileContainer)
 const mapStateToProps = (state: AppStateType) => ({
   initialized: state.app.initialized,
 })

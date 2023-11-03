@@ -25,7 +25,7 @@ import {
   AppStateType,
 } from 'store'
 
-class UsersContainerInner extends React.Component<UsersPropsType> {
+class UsersContainer extends React.Component<UsersPropsType> {
   componentDidMount() {
     const { page, pageSize } = this.props
 
@@ -91,7 +91,7 @@ type mapDispatchToPropsType = {
 
 export type UsersPropsType = MapStatePropsType & mapDispatchToPropsType
 
-export const UsersContainer = compose<React.ComponentType>(
+export default compose<React.ComponentType>(
   connect(mapStateToProps, {
     follow: followSuccess,
     unfollow: unfollowSuccess,
@@ -102,4 +102,4 @@ export const UsersContainer = compose<React.ComponentType>(
     toggleIsFollowingProgress,
     requestUsers,
   })
-)(UsersContainerInner)
+)(UsersContainer)

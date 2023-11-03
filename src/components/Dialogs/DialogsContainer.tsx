@@ -3,12 +3,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { compose, Dispatch } from 'redux'
 
-import { sendMessageActionCreator } from '../../store/dialogsReducer'
-
 import { Dialogs } from './Dialogs'
 
 import { withAuthRedirect } from 'hoc'
-import { DialogPageType, AppStateType } from 'store'
+import { sendMessageActionCreator, DialogPageType, AppStateType } from 'store'
 
 type MapStatePropsType = {
   dialogsPage: DialogPageType
