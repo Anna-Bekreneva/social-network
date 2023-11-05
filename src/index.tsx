@@ -16,7 +16,9 @@ ReactDOM.render(
       <ConfigProvider
         theme={{
           token: {
-            colorPrimary: "#ffa216",
+            colorPrimary: "#f46119",
+              fontSize: 16,
+              // fontFamily: 'Inter'
           },
         }}>
         <App />

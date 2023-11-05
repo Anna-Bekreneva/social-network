@@ -2,39 +2,43 @@ import React, { FC } from "react";
 
 import { NavLink } from "react-router-dom";
 import { NavigationPropsType } from "./";
-import { Button, Menu, Flex, Avatar } from "antd";
+import { Button, Menu, Flex, Avatar, Typography } from "antd";
 import MenuItem from "antd/lib/menu/MenuItem";
-import { LogoutOutlined } from "@ant-design/icons";
+import {LogoutOutlined, MessageOutlined, UsergroupAddOutlined} from "@ant-design/icons";
+import s from './Navigation.module.scss'
 
-export const Navigation: FC<NavigationPropsType> = ({ login, ava, logout }) => {
+export const Navigation: FC<NavigationPropsType> = ({ name, ava, logout }) => {
+  const iconColor = {color: "#F46119"}
   return (
-    <nav className="navigation">
-      <Menu className="navigation__items">
-        {login && (
-          <MenuItem key={"1"}>
-            <NavLink className="navigation__link" to="/profile">
+    <nav>
+      <Menu className={s.menu}>
+        {name && (
+          <MenuItem key={name}>
+            <NavLink to="/profile">
               <Flex gap={"small"} align={"center"}>
                 <Avatar src={ava} alt={"avatar"} />
-                <span> {login} </span>
+                <Typography.Text > {name} </Typography.Text>
               </Flex>
             </NavLink>
           </MenuItem>
         )}
-        <MenuItem key={"2"}>
-          <NavLink className="navigation__link" to="/users">
-            Users
+        <MenuItem key={"Users"}>
+          <NavLink to="/users">
+            <UsergroupAddOutlined style={iconColor} rev/>
+            <Typography.Text>Users</Typography.Text>
           </NavLink>
         </MenuItem>
-        <MenuItem key={"3"}>
-          <NavLink className="navigation__link" to="/dialogs">
-            Message
+        <MenuItem key={"Message"}>
+          <NavLink to="/dialogs">
+            <MessageOutlined style={iconColor} rev/>
+            <Typography.Text>Message</Typography.Text>
           </NavLink>
         </MenuItem>
       </Menu>
-      {!!login && (
-        <Button type="primary" onClick={logout}>
-          <LogoutOutlined rev />
-          Log out
+      {!!name && (
+        <Button className={s.logout} type="link" onClick={logout}>
+          <LogoutOutlined className={s.logoutContent} rev />
+          <Typography.Text rootClassName={s.logoutContent}> Log out</Typography.Text>
         </Button>
       )}
     </nav>
