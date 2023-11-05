@@ -1,1 +1,1 @@
-export * from './DialogItem'
+export * from "./DialogItem";

@@ -1,2 +1,2 @@
-export * from './withAuthRedirect'
-export * from './withSuspense'
+export * from "./withAuthRedirect";
+export * from "./withSuspense";

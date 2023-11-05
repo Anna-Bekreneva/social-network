@@ -1,8 +1,8 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState } from "react";
 
-import userPhoto from '../../../assets/img/user.png'
+import userPhoto from "../../../assets/img/user.png";
 
-import s from './ProfileInfo.module.css'
+import s from "./ProfileInfo.module.css";
 
 import {
   ProfileDataForm,
@@ -11,19 +11,19 @@ import {
   ProfilePagePropsType,
   ProfileType,
   ProfileStatusWithHooks,
-} from 'components'
+} from "components";
 
 export const ProfileInfo = (props: ProfilePagePropsType) => {
-  const [editMode, setEditMode] = useState(false)
+  const [editMode, setEditMode] = useState(false);
 
   if (!props) {
-    return <Preloader></Preloader>
+    return <Preloader></Preloader>;
   } else {
     const onSubmit = (formData: ProfileFormDataType) => {
       props.saveProfile(formData).then(() => {
-        setEditMode(false)
-      })
-    }
+        setEditMode(false);
+      });
+    };
 
     return (
       <div>
@@ -43,7 +43,7 @@ export const ProfileInfo = (props: ProfilePagePropsType) => {
           ) : (
             <ProfileData
               goToEditMode={() => {
-                setEditMode(true)
+                setEditMode(true);
               }}
               isOwner={props.isOwner}
               aboutMe={props.aboutMe}
@@ -56,16 +56,16 @@ export const ProfileInfo = (props: ProfilePagePropsType) => {
           <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus} />
         </div>
       </div>
-    )
+    );
   }
-}
+};
 
 type ProfileDataProps = ProfileType & {
-  isOwner: boolean
-  goToEditMode: () => void
-}
+  isOwner: boolean;
+  goToEditMode: () => void;
+};
 
-const ProfileData: FC<ProfileDataProps> = props => {
+const ProfileData: FC<ProfileDataProps> = (props) => {
   return (
     <>
       {props.isOwner && <button onClick={props.goToEditMode}>edit</button>}
@@ -73,31 +73,31 @@ const ProfileData: FC<ProfileDataProps> = props => {
       <div>
         <p>Full name: {props.fullName}</p>
 
-        <p>Looking for a job: {props.lookingForAJob ? 'yes' : 'no'}</p>
+        <p>Looking for a job: {props.lookingForAJob ? "yes" : "no"}</p>
 
         {props.lookingForAJob && <p>My professional skills: {props.lookingForAJobDescription}</p>}
 
         <p>About me: {props.aboutMe}</p>
 
         <div>
-          Contacts:{' '}
-          {Object.keys(props.contacts).map(key => (
+          Contacts:{" "}
+          {Object.keys(props.contacts).map((key) => (
             <Contact key={key} contactTitle={key} contactValue={props.contacts[key]} />
           ))}
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 type ContactProps = {
-  contactTitle: string
-  contactValue: string
-}
-export const Contact: FC<ContactProps> = props => {
+  contactTitle: string;
+  contactValue: string;
+};
+export const Contact: FC<ContactProps> = (props) => {
   return (
     <div>
       {props.contactTitle}: {props.contactValue}
     </div>
-  )
-}
+  );
+};

@@ -35,8 +35,8 @@ a {
 .wrapper {
   display: grid;
   grid-template-areas:
-    'header header header'
-    'navigation main main';
+    "header header header"
+    "navigation main main";
   grid-template-columns: 2fr 10fr;
   grid-template-rows: 100px 1fr;
 

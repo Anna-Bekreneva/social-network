@@ -1,14 +1,14 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent } from "react";
 
-import './Profile.css'
-import { ProfilePagePropsType, MyPostsContainer, ProfileInfo } from 'components'
+import "./Profile.css";
+import { ProfilePagePropsType, MyPostsContainer, ProfileInfo } from "components";
 
 export const Profile = (props: ProfilePagePropsType) => {
   const onMainPhotoSelected = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files?.length) {
-      props.savePhoto(event.target.files[0])
+      props.savePhoto(event.target.files[0]);
     }
-  }
+  };
 
   return (
     <>
@@ -29,8 +29,8 @@ export const Profile = (props: ProfilePagePropsType) => {
         updateStatus={props.updateStatus}
         isAuth={props.isAuth}
       />
-      {props.isOwner && <input onChange={onMainPhotoSelected} type={'file'} />}
+      {props.isOwner && <input onChange={onMainPhotoSelected} type={"file"} />}
       <MyPostsContainer />
     </>
-  )
-}
+  );
+};

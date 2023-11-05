@@ -1,31 +1,31 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent } from "react";
 
 type ProfileStatusPropsType = {
-  status: string
-  updateStatus: (status: string) => void
-}
+  status: string;
+  updateStatus: (status: string) => void;
+};
 
 export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
   state = {
     editMode: false,
     status: this.props.status,
-  }
+  };
   activateEditMode() {
-    this.setState({ editMode: true })
+    this.setState({ editMode: true });
   }
   deactiveEditMode() {
-    this.setState({ editMode: false })
-    this.props.updateStatus(this.state.status)
+    this.setState({ editMode: false });
+    this.props.updateStatus(this.state.status);
   }
   onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ status: e.currentTarget.value })
-  }
+    this.setState({ status: e.currentTarget.value });
+  };
 
   componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<{}>) {
     if (prevProps.status !== this.props.status) {
       this.setState({
         status: this.props.status,
-      })
+      });
     }
   }
 
@@ -33,9 +33,7 @@ export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
     return (
       <div>
         {!this.state.editMode && (
-          <span onDoubleClick={this.activateEditMode.bind(this)}>
-            {this.props.status || '----'}
-          </span>
+          <span onDoubleClick={this.activateEditMode.bind(this)}>{this.props.status || "----"}</span>
         )}
         {this.state.editMode && (
           <input
@@ -47,6 +45,6 @@ export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
           />
         )}
       </div>
-    )
+    );
   }
 }

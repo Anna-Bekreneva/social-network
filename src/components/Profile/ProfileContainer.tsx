@@ -1,10 +1,10 @@
-import React from 'react'
+import React from "react";
 
-import { connect } from 'react-redux'
-import { RouteComponentProps, withRouter } from 'react-router-dom'
-import { compose } from 'redux'
+import { connect } from "react-redux";
+import { RouteComponentProps, withRouter } from "react-router-dom";
+import { compose } from "redux";
 
-import { Profile } from 'components'
+import { Profile } from "components";
 import {
   ContactsType,
   getStatus,
@@ -14,64 +14,64 @@ import {
   saveProfile,
   updateStatus,
   AppStateType,
-} from 'store'
+} from "store";
 
-type ProfilePropsType = MapStatePropsType & mapDispatchToPropsType
+type ProfilePropsType = MapStatePropsType & mapDispatchToPropsType;
 
 type PathParamsType = {
-  userId: string
-}
+  userId: string;
+};
 
-type PropsType = RouteComponentProps<PathParamsType> & ProfilePropsType
+type PropsType = RouteComponentProps<PathParamsType> & ProfilePropsType;
 
 export type MapStatePropsType = ProfileType & {
-  userId: number | null
-  photos: PhotosType
-  status: string
-  isAuth: boolean
-}
+  userId: number | null;
+  photos: PhotosType;
+  status: string;
+  isAuth: boolean;
+};
 
 export type ProfileType = {
-  aboutMe: string
-  lookingForAJob: boolean
-  lookingForAJobDescription: string
-  fullName: string
-  contacts: ContactsType
-}
+  aboutMe: string;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+  fullName: string;
+  contacts: ContactsType;
+};
 
 type mapDispatchToPropsType = {
-  getUserProfile: (userId: number) => void
-  getStatus: (userId: number) => void
-  updateStatus: (status: string) => void
-  savePhoto: (file: File) => void
-  saveProfile: (profile: any) => any
-}
+  getUserProfile: (userId: number) => void;
+  getStatus: (userId: number) => void;
+  updateStatus: (status: string) => void;
+  savePhoto: (file: File) => void;
+  saveProfile: (profile: any) => any;
+};
 
 export type ProfilePagePropsType = mapDispatchToPropsType &
   MapStatePropsType & {
-    isOwner: boolean
-  }
+    isOwner: boolean;
+  };
 
 class ProfileInner extends React.Component<PropsType> {
   refreshProfile() {
-    let userId: number | null = Number(this.props.match.params.userId)
+    let userId: number | null = Number(this.props.match.params.userId);
 
     if (!userId) {
-      userId = this.props.userId
+      userId = this.props.userId;
       if (!userId) {
-        this.props.history.push('/login')
+        this.props.history.push("/login");
       }
     }
-    userId && this.props.getUserProfile(userId)
-    userId && this.props.getStatus(userId)
+    userId && this.props.getUserProfile(userId);
+    userId && this.props.getStatus(userId);
   }
   componentDidMount() {
-    this.refreshProfile()
+    this.refreshProfile();
   }
 
   componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>) {
     if (this.props.match.params.userId !== this.props.match.params.userId) {
-      this.refreshProfile()
+      this.refreshProfile();
     }
   }
 
@@ -94,7 +94,7 @@ class ProfileInner extends React.Component<PropsType> {
         updateStatus={this.props.updateStatus}
         isAuth={this.props.isAuth}
       />
-    )
+    );
   }
 }
 
@@ -109,8 +109,8 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     aboutMe: state.profile.profile.aboutMe,
     status: state.profile.profile.status,
     isAuth: state.auth.isAuth,
-  }
-}
+  };
+};
 
 export default compose<React.ComponentType>(
   connect(mapStateToProps, {
@@ -120,5 +120,5 @@ export default compose<React.ComponentType>(
     savePhoto,
     saveProfile,
   }),
-  withRouter
-)(ProfileInner)
+  withRouter,
+)(ProfileInner);

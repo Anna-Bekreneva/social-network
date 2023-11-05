@@ -1,15 +1,15 @@
-import React from 'react'
+import React from "react";
 
-import './Header.css'
-import { NavLink } from 'react-router-dom'
+import "./Header.css";
+import { NavLink } from "react-router-dom";
 
 type HeaderPropsType = {
-  login: string | null
-  isAuth: boolean
-  logout: () => void
-}
+  login: string | null;
+  isAuth: boolean;
+  logout: () => void;
+};
 
-export const Header: React.FC<HeaderPropsType> = props => {
+export const Header: React.FC<HeaderPropsType> = (props) => {
   return (
     <header className="header">
       <a className="logo" href="src/components/Header/Header#">
@@ -22,15 +22,15 @@ export const Header: React.FC<HeaderPropsType> = props => {
         />
       </a>
 
-      <div className={'header__login'}>
+      <div className={"header__login"}>
         {props.isAuth ? (
           <div>
-            {props.login} - <button onClick={props.logout}>Log out</button>{' '}
+            {props.login} - <button onClick={props.logout}>Log out</button>{" "}
           </div>
         ) : (
-          <NavLink to={'/login'}>Login</NavLink>
+          <NavLink to={"/login"}>Login</NavLink>
         )}
       </div>
     </header>
-  )
-}
+  );
+};

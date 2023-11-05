@@ -4,11 +4,12 @@
   "private": true,
   "homepage": "",
   "dependencies": {
+    "@ant-design/cssinjs": "^1.17.2",
+    "@ant-design/icons": "^5.2.6",
     "@testing-library/jest-dom": "5.14.1",
     "@testing-library/react": "12.0.0",
     "@testing-library/user-event": "13.2.1",
-    "@types/jest": "^29.5.7",
-    "antd": "4.18.7",
+    "antd": "5.11.0",
     "axios": "0.26.0",
     "classnames": "2.3.1",
     "formik": "2.2.9",
@@ -34,9 +35,13 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "lint": "eslint --fix src/**/*.{tsx,ts,jsx,js} --no-error-on-unmatched-pattern && stylelint --fix src/{,*/}*.{scss,css} --allow-empty-input",
-    "format": "prettier --write src"
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
@@ -51,8 +56,7 @@
     ]
   },
   "devDependencies": {
-    "@it-incubator/prettier-config": "^0.1.2",
-    "@it-incubator/stylelint-config": "^0.1.5",
+    "@types/node": "16.7.13",
     "@types/react": "17.0.20",
     "@types/react-dom": "17.0.9",
     "@types/react-redux": "7.1.22",
@@ -60,15 +64,6 @@
     "@types/react-test-renderer": "17.0.1",
     "@types/redux-form": "8.3.3",
     "@types/uuid": "8.3.4",
-    "@typescript-eslint/eslint-plugin": "^6.9.1",
-    "@typescript-eslint/parser": "^6.9.1",
-    "eslint": "^8.52.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.1",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.4",
-    "eslint-plugin-storybook": "^0.6.15",
-    "prettier": "^3.0.3",
-    "stylelint": "^15.11.0"
+    "prettier": "3.0.3"
   }
 }

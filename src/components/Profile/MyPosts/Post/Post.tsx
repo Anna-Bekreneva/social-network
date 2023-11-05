@@ -1,5 +1,5 @@
-import React from 'react'
-import './Post.css'
+import React from "react";
+import "./Post.css";
 
 export const Post = (props: any) => {
   return (
@@ -19,5 +19,5 @@ export const Post = (props: any) => {
         like
       </button>
     </article>
-  )
-}
+  );
+};

@@ -1,3 +1,3 @@
-export { Post } from './Post'
+export { Post } from "./Post";
 // export * from './MyPosts'
-export * from './MyPostsContainer'
+export * from "./MyPostsContainer";

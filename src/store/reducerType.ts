@@ -1,12 +1,12 @@
-import { getCaptchaUrlSuccess, setAuthUserDataAC } from './authReducer'
-import { sendMessageActionCreator } from './dialogsReducer'
+import { getCaptchaUrlSuccess, setAuthUserDataAC } from "./authReducer";
+import { sendMessageActionCreator } from "./dialogsReducer";
 import {
   addPostActionCreator,
   deletePost,
   savePhotoSuccess,
   setStatusActionCreator,
   setUserProfile,
-} from './profileReducer'
+} from "./profileReducer";
 import {
   followSuccess,
   setCurrentPage,
@@ -15,9 +15,9 @@ import {
   toggleIsFetching,
   toggleIsFollowingProgress,
   unfollowSuccess,
-} from './usersReducer'
+} from "./usersReducer";
 
-import { initializedSuccessAC } from 'store'
+import { initializedSuccessAC } from "store";
 
 export type ActionsTypeUser =
   | ReturnType<typeof followSuccess>
@@ -26,54 +26,52 @@ export type ActionsTypeUser =
   | ReturnType<typeof setCurrentPage>
   | ReturnType<typeof setTotalUsersCount>
   | ReturnType<typeof toggleIsFetching>
-  | ReturnType<typeof toggleIsFollowingProgress>
+  | ReturnType<typeof toggleIsFollowingProgress>;
 
 export type ActionsTypeProfile =
   | ReturnType<typeof setUserProfile>
   | ReturnType<typeof addPostActionCreator>
   | ReturnType<typeof setStatusActionCreator>
   | ReturnType<typeof deletePost>
-  | ReturnType<typeof savePhotoSuccess>
+  | ReturnType<typeof savePhotoSuccess>;
 
-export type ActionsTypeDialogs = ReturnType<typeof sendMessageActionCreator>
+export type ActionsTypeDialogs = ReturnType<typeof sendMessageActionCreator>;
 
-export type ActionsAuth =
-  | ReturnType<typeof setAuthUserDataAC>
-  | ReturnType<typeof getCaptchaUrlSuccess>
+export type ActionsAuth = ReturnType<typeof setAuthUserDataAC> | ReturnType<typeof getCaptchaUrlSuccess>;
 
-export type ActionsApp = ReturnType<typeof initializedSuccessAC>
+export type ActionsApp = ReturnType<typeof initializedSuccessAC>;
 
-export type SidebarType = {}
+export type SidebarType = {};
 
 export type MessageType = {
-  id: number
-  message: string
-}
+  id: number;
+  message: string;
+};
 
 type DialogType = {
-  id: number
-  name: string
-}
+  id: number;
+  name: string;
+};
 
 export type PostType = {
-  id: number
-  message: string
-  likesCount: number
-}
+  id: number;
+  message: string;
+  likesCount: number;
+};
 
 export type AuthType = {
-  userId: number | null
-  email: string | null
-  login: string | null
-  isAuth: boolean
-  captchaUrl: null | string
-}
+  userId: number | null;
+  email: string | null;
+  login: string | null;
+  isAuth: boolean;
+  captchaUrl: null | string;
+};
 
 export type AppType = {
-  initialized: boolean
-}
+  initialized: boolean;
+};
 
 export type DialogPageType = {
-  dialogs: Array<DialogType>
-  messages: Array<MessageType>
-}
+  dialogs: Array<DialogType>;
+  messages: Array<MessageType>;
+};

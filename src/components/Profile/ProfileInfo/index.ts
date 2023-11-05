@@ -1,2 +1,2 @@
-export * from './ProfileInfo'
-export * from './ProfileDataForm'
+export * from "./ProfileInfo";
+export * from "./ProfileDataForm";

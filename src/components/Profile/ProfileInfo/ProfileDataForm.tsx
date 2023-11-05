@@ -1,41 +1,30 @@
-import React from 'react'
+import React from "react";
 
-import { Field, InjectedFormProps, reduxForm } from 'redux-form'
+import { Field, InjectedFormProps, reduxForm } from "redux-form";
 
-import { Input, Textarea } from 'components'
-import style from 'components/common/FormsControls/FormControls.module.css'
+import { Input, Textarea } from "components";
+import style from "components/common/FormsControls/FormControls.module.css";
 
 export type ProfileFormDataType = {
-  fullName: string
-  lookingForAJob: boolean
-  lookingForAJobDescription: string
-  aboutMe: string
-}
+  fullName: string;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+  aboutMe: string;
+};
 
 const ProfileDataFormInner = (props: InjectedFormProps<ProfileFormDataType>) => {
   return (
-    <form action={'#'} onSubmit={props.handleSubmit}>
-      <button type={'submit'}>save</button>
+    <form action={"#"} onSubmit={props.handleSubmit}>
+      <button type={"submit"}>save</button>
       {props.error && <span className={style.formSummaryError}>{props.error}</span>}
       <div>
-        <p>
-          Full name:{' '}
-          {<Field component={Input} placeholder="Full name" name="fullName" type="text" />}
-        </p>
+        <p>Full name: {<Field component={Input} placeholder="Full name" name="fullName" type="text" />}</p>
+
+        <p>Looking for a job: {<Field component={Input} name="lookingForAJob" type="checkbox" />}</p>
 
         <p>
-          Looking for a job: {<Field component={Input} name="lookingForAJob" type="checkbox" />}
-        </p>
-
-        <p>
-          My professional skills:{' '}
-          {
-            <Field
-              component={Textarea}
-              placeholder="My professional skills"
-              name="lookingForAJobDescription"
-            />
-          }
+          My professional skills:{" "}
+          {<Field component={Textarea} placeholder="My professional skills" name="lookingForAJobDescription" />}
         </p>
 
         <p>About me: {<Field component={Textarea} placeholder="About me" name="aboutMe" />}</p>
@@ -45,9 +34,9 @@ const ProfileDataFormInner = (props: InjectedFormProps<ProfileFormDataType>) => 
         {/*</div>*/}
       </div>
     </form>
-  )
-}
+  );
+};
 
 export const ProfileDataForm = reduxForm<ProfileFormDataType>({
-  form: 'edit-profile',
-})(ProfileDataFormInner)
+  form: "edit-profile",
+})(ProfileDataFormInner);
