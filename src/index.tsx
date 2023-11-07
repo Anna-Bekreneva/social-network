@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./index.css";
+import "./styles/index.scss";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
@@ -17,8 +17,8 @@ ReactDOM.render(
         theme={{
           token: {
             colorPrimary: "#f46119",
-              fontSize: 16,
-              // fontFamily: 'Inter'
+            fontSize: 16,
+            // fontFamily: 'Inter'
           },
         }}>
         <App />
