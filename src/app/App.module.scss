@@ -3,8 +3,8 @@ html {
 }
 
 *,
-*::before,
-*::active {
+*:before,
+*:active {
   box-sizing: inherit;
 }
 
@@ -53,4 +53,8 @@ a {
 
 .page-title {
   margin-bottom: 30px;
+}
+
+.navigation {
+  width: 15%;
 }

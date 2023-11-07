@@ -15,21 +15,12 @@ type UserPropsType = {
   followingInProgress: Array<number>;
 };
 
-export const User: React.FC<UserPropsType> = ({
-  user,
-  unfollow,
-  follow,
-  followingInProgress,
-}) => {
+export const User: React.FC<UserPropsType> = ({ user, unfollow, follow, followingInProgress }) => {
   return (
     <div>
       <div>
         <NavLink to={"/profile/" + user.id}>
-          <img
-            className={styles.userPhoto}
-            src={user.photos.small ? user.photos.small : userPhoto}
-            alt="#"
-          />
+          <img className={styles.userPhoto} src={user.photos.small ? user.photos.small : userPhoto} alt="#" />
         </NavLink>
         {user.followed ? (
           <button
@@ -37,8 +28,7 @@ export const User: React.FC<UserPropsType> = ({
             onClick={() => {
               unfollow(user.id);
             }}
-            type={"button"}
-          >
+            type={"button"}>
             Unfollow
           </button>
         ) : (
@@ -47,8 +37,7 @@ export const User: React.FC<UserPropsType> = ({
             onClick={() => {
               follow(user.id);
             }}
-            type={"button"}
-          >
+            type={"button"}>
             Follow
           </button>
         )}

@@ -7,8 +7,8 @@ import { compose } from "redux";
 import { Login, Preloader } from "components";
 import { WithSuspense } from "hoc";
 import { AppStateType, initializeApp } from "store";
-
-import "./App.css";
+import { Flex } from "antd";
+import s from "./App.module.scss";
 import { NavigationContainer } from "../components/Navigation";
 
 const DialogsContainer = React.lazy(() => import("../components/Dialogs/DialogsContainer"));
@@ -33,9 +33,9 @@ class App extends React.Component<AppPropsType> {
     if (!this.props.initialized) return <Preloader />;
 
     return (
-      <div className="wrapper">
-        <NavigationContainer />
-        <main className="main">
+      <Flex gap={"middle"} align="start">
+        <NavigationContainer className={s.navigation} />
+        <main>
           <Switch>
             <Route path="/" render={() => <Redirect to={"/profile"} />} exact />
             <Route path="/dialogs" render={WithSuspense(DialogsContainer)} />
@@ -45,10 +45,11 @@ class App extends React.Component<AppPropsType> {
             <Route path="*" render={() => <div> 404 NOT FOUND </div>} />
           </Switch>
         </main>
-      </div>
+      </Flex>
     );
   }
 }
+
 const mapStateToProps = (state: AppStateType) => ({
   initialized: state.app.initialized,
 });

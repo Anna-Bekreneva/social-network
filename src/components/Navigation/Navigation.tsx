@@ -1,36 +1,39 @@
 import React, { FC } from "react";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { NavigationPropsType } from "./";
-import { Button, Menu, Flex, Avatar, Typography } from "antd";
+import { Avatar, Button, Flex, Menu, Typography } from "antd";
 import MenuItem from "antd/lib/menu/MenuItem";
-import {LogoutOutlined, MessageOutlined, UsergroupAddOutlined} from "@ant-design/icons";
-import s from './Navigation.module.scss'
+import { LogoutOutlined, MessageOutlined, UsergroupAddOutlined } from "@ant-design/icons";
+import s from "./Navigation.module.scss";
+import classNames from "classnames";
 
-export const Navigation: FC<NavigationPropsType> = ({ name, ava, logout }) => {
-  const iconColor = {color: "#F46119"}
+export const Navigation: FC<NavigationPropsType> = ({ name, ava, logout, ...props }) => {
+  const iconColor = { color: "#F46119" };
+  const { pathname } = useLocation();
+
   return (
-    <nav>
-      <Menu className={s.menu}>
+    <nav {...props}>
+      <Menu className={s.menu} triggerSubMenuAction={"click"}>
         {name && (
-          <MenuItem key={name}>
+          <MenuItem className={classNames(s.item, { [s.active]: pathname === "/profile" })} key={"/profile"}>
             <NavLink to="/profile">
               <Flex gap={"small"} align={"center"}>
                 <Avatar src={ava} alt={"avatar"} />
-                <Typography.Text > {name} </Typography.Text>
+                <Typography.Text> {name} </Typography.Text>
               </Flex>
             </NavLink>
           </MenuItem>
         )}
-        <MenuItem key={"Users"}>
+        <MenuItem className={classNames(s.item, { [s.active]: pathname === "/users" })} key={"/users"}>
           <NavLink to="/users">
-            <UsergroupAddOutlined style={iconColor} rev/>
+            <UsergroupAddOutlined style={iconColor} rev />
             <Typography.Text>Users</Typography.Text>
           </NavLink>
         </MenuItem>
-        <MenuItem key={"Message"}>
+        <MenuItem className={classNames(s.item, { [s.active]: pathname === "/dialogs" })} key={"/dialogs"}>
           <NavLink to="/dialogs">
-            <MessageOutlined style={iconColor} rev/>
+            <MessageOutlined style={iconColor} rev />
             <Typography.Text>Message</Typography.Text>
           </NavLink>
         </MenuItem>
