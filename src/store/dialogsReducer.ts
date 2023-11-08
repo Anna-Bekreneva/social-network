@@ -1,4 +1,4 @@
-import { ActionsTypeDialogs, DialogPageType } from "./";
+import { DialogPageType } from "./";
 
 const initialState: DialogPageType = {
   dialogs: [
@@ -26,6 +26,8 @@ export const dialogs = (state: DialogPageType = initialState, action: ActionsTyp
       return state;
   }
 };
+
+type ActionsTypeDialogs = ReturnType<typeof sendMessageActionCreator>;
 
 export const sendMessageActionCreator = (newMessageBody: string) => ({
   type: "SEND-MESSAGE" as const,
