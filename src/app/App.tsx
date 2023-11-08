@@ -15,7 +15,7 @@ const DialogsContainer = React.lazy(() => import("../components/Dialogs/DialogsC
 const ProfileContainer = React.lazy(() => import("../components/Profile/ProfileContainer"));
 const UsersContainer = React.lazy(() => import("../components/Users/UsersContainer"));
 
-class App extends React.Component<AppPropsType> {
+class App extends React.Component<AppProps> {
   catchAllUnhandledErrors = (promiseRejectionEvent: any) => {
     alert("Some error occurred");
   };
@@ -31,11 +31,10 @@ class App extends React.Component<AppPropsType> {
 
   render() {
     if (!this.props.initialized) return <Preloader />;
-
     return (
-      <Flex gap={"middle"} align="start">
+      <Flex className={s.container} gap={"middle"} align="start">
         <NavigationContainer className={s.navigation} />
-        <main>
+        <main className={s.main}>
           <Switch>
             <Route path="/" render={() => <Redirect to={"/profile"} />} exact />
             <Route path="/dialogs" render={WithSuspense(DialogsContainer)} />
@@ -58,10 +57,10 @@ type mapStateToPropsType = {
   initialized: boolean;
 };
 
-type mapStateToDispatchType = {
+type mapDispatchToPropsType = {
   initializeApp: () => void;
 };
 
-type AppPropsType = mapStateToPropsType & mapStateToDispatchType;
+type AppProps = mapStateToPropsType & mapDispatchToPropsType;
 
 export default compose<React.ComponentType>(withRouter, connect(mapStateToProps, { initializeApp }))(App);
