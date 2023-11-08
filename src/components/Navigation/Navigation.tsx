@@ -11,7 +11,6 @@ import classNames from "classnames";
 export const Navigation: FC<NavigationPropsType> = ({ name, ava, logout, ...props }) => {
   const iconColor = { color: "#F46119" };
   const { pathname } = useLocation();
-
   return (
     <nav {...props}>
       <Menu className={s.menu} triggerSubMenuAction={"click"}>

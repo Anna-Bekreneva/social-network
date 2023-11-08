@@ -1,14 +1,13 @@
 .menu {
   margin-bottom: 12px;
   border: none !important;
-  padding-top: 16px;
 }
 
 .logout {
   &:hover,
   .active {
     .logoutContent {
-      color: var(--colorPrimary) !important;
+      color: var(--color-primary) !important;
     }
   }
 
@@ -28,7 +27,7 @@
 }
 
 .item {
-  border-radius: 0 !important;
+  border-radius: 0 8px 8px 0 !important;
   margin-left: 0 !important;
   position: relative;
 
@@ -43,7 +42,7 @@
     width: 5px;
     height: 100%;
     border-radius: 0 5px 5px 0;
-    background-color: var(--colorPrimary);
+    background-color: var(--color-primary);
     content: "";
     opacity: 0;
     transition: opacity 0.3s;
@@ -54,7 +53,7 @@
   background-color: rgba(244, 97, 25, 0.05) !important;
 
   span {
-    color: var(--colorPrimary);
+    color: var(--color-primary);
   }
 
   &::before {
