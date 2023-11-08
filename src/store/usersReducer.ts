@@ -1,6 +1,5 @@
 import { ThunkAction } from "redux-thunk";
 
-import { ActionsTypeUser } from "./reducerType";
 import { AppStateType } from "./store";
 
 import { usersAPI } from "api";
@@ -74,6 +73,15 @@ export const users = (state: UsersPageType = initialState, action: ActionsTypeUs
       return state;
   }
 };
+
+type ActionsTypeUser =
+  | ReturnType<typeof followSuccess>
+  | ReturnType<typeof unfollowSuccess>
+  | ReturnType<typeof setUsers>
+  | ReturnType<typeof setCurrentPage>
+  | ReturnType<typeof setTotalUsersCount>
+  | ReturnType<typeof toggleIsFetching>
+  | ReturnType<typeof toggleIsFollowingProgress>;
 
 export const followSuccess = (userId: number) => ({ type: "users/FOLLOW", userId }) as const;
 

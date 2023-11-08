@@ -1,7 +1,7 @@
 import { stopSubmit } from "redux-form";
 import { ThunkAction } from "redux-thunk";
 
-import { ActionsTypeProfile, PostType } from "./reducerType";
+import { PostType } from "./reducerType";
 import { AppStateType } from "./store";
 
 import { profileAPI, usersAPI } from "api";
@@ -62,6 +62,13 @@ export const profile = (state: ProfilePageType = initialState, action: ActionsTy
       return state;
   }
 };
+
+type ActionsTypeProfile =
+  | ReturnType<typeof setUserProfile>
+  | ReturnType<typeof addPostActionCreator>
+  | ReturnType<typeof setStatusActionCreator>
+  | ReturnType<typeof deletePost>
+  | ReturnType<typeof savePhotoSuccess>;
 
 export const addPostActionCreator = (newPostText: string) => ({ type: "profile/ADD-POST", newPostText }) as const;
 

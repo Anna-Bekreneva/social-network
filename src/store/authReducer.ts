@@ -1,7 +1,7 @@
 import { stopSubmit } from "redux-form";
 import { ThunkAction } from "redux-thunk";
 
-import { ActionsAuth, AuthType } from "./reducerType";
+import { AuthType } from "./reducerType";
 import { AppStateType } from "./store";
 
 import { authAPI, securityAPI } from "api";
@@ -24,6 +24,8 @@ export const auth = (state: AuthType = initialState, action: ActionsAuth): AuthT
       return state;
   }
 };
+
+type ActionsAuth = ReturnType<typeof setAuthUserDataAC> | ReturnType<typeof getCaptchaUrlSuccess>;
 
 export const setAuthUserDataAC = (userId: number | null, email: string | null, login: string | null, isAuth: boolean) =>
   ({
