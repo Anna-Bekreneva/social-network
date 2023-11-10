@@ -1,25 +1,25 @@
 import { stopSubmit } from "redux-form";
 import { ThunkAction } from "redux-thunk";
 
-import { AuthType } from "./reducerType";
 import { AppStateType } from "./store";
 
 import { authAPI, securityAPI } from "api";
 
-const initialState: AuthType = {
-  userId: null,
-  email: null,
-  login: null,
+const initialState = {
+  userId: null as number | null,
+  email: null as string | null,
+  login: null as string | null,
   isAuth: false,
-  captchaUrl: null,
+  captchaUrl: null as string | null,
 };
 
-export const auth = (state: AuthType = initialState, action: ActionsAuth): AuthType => {
+export type InitialStateType = typeof initialState;
+
+export const auth = (state = initialState, action: ActionsAuth): InitialStateType => {
   switch (action.type) {
-    case "auth/SET_USER_DATA":
-      return { ...state, ...action.payload, isAuth: true };
-    case "auth/GET_CAPTCHA_URL_SUCCESS":
-      return { ...state, captchaUrl: action.payload.captchaUrl };
+    case "auth/SET-USER-DATA":
+    case "auth/GET-CAPTCHA-URL-SUCCESS":
+      return { ...state, ...action.payload };
     default:
       return state;
   }
@@ -29,13 +29,13 @@ type ActionsAuth = ReturnType<typeof setAuthUserDataAC> | ReturnType<typeof getC
 
 export const setAuthUserDataAC = (userId: number | null, email: string | null, login: string | null, isAuth: boolean) =>
   ({
-    type: "auth/SET_USER_DATA",
+    type: "auth/SET-USER-DATA",
     payload: { userId, email, login, isAuth },
   }) as const;
 
 export const getCaptchaUrlSuccess = (captchaUrl: string) =>
   ({
-    type: "auth/GET_CAPTCHA_URL_SUCCESS",
+    type: "auth/GET-CAPTCHA-URL-SUCCESS",
     payload: { captchaUrl },
   }) as const;
 
@@ -64,7 +64,7 @@ export const login =
       }
       const message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
 
-      dispatch(stopSubmit("login", { email: message }));
+      dispatch(stopSubmit("login", { _error: message }));
     }
   };
 

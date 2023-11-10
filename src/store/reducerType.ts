@@ -14,14 +14,6 @@ export type PostType = {
   likesCount: number;
 };
 
-export type AuthType = {
-  userId: number | null;
-  email: string | null;
-  login: string | null;
-  isAuth: boolean;
-  captchaUrl: null | string;
-};
-
 export type DialogPageType = {
   dialogs: Array<DialogType>;
   messages: Array<MessageType>;

@@ -1,7 +1,7 @@
-import React from "react";
+import React, { HTMLInputTypeAttribute, InputHTMLAttributes } from "react";
 
 import { Field, WrappedFieldMetaProps, WrappedFieldProps } from "redux-form";
-
+import { Form, Input as InputAntd } from "antd";
 import styles from "./FormControls.module.css";
 import { FieldValidatorType } from "../../../utils";
 
@@ -30,11 +30,12 @@ export const Textarea: React.FC<WrappedFieldProps> = (props) => {
 };
 
 export const Input: React.FC<WrappedFieldProps> = (props) => {
-  const { input, meta, ...restProps } = props;
-
+  const { input, meta, children } = props;
+  console.log(children);
+  console.log(props);
   return (
     <FormControl {...props}>
-      <input {...input} {...restProps}></input>
+      <InputAntd {...input} {...props}></InputAntd>
     </FormControl>
   );
 };
@@ -43,13 +44,19 @@ export function createField<FormKeysType extends string>(
   name: FormKeysType,
   validators: Array<FieldValidatorType>,
   component: React.FC<WrappedFieldProps>,
-  props = {},
+  label: string | undefined,
+  props: {
+    type: HTMLInputTypeAttribute | undefined;
+    style?: object;
+    [key: string]: unknown;
+  },
   text = "",
 ) {
+  const { style } = props;
   return (
-    <div>
+    <Form.Item<FormKeysType> label={label} style={style}>
       <Field placeholder={placeholder} name={name} validate={validators} component={component} {...props} />
       {text}
-    </div>
+    </Form.Item>
   );
 }
