@@ -3,7 +3,7 @@ import React from "react";
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
 
 import { Input, Textarea } from "components";
-import style from "components/common/FormsControls/FormControls.module.css";
+import style from "components/common/FormsControls/FormControls.module.scss";
 
 export type ProfileFormDataType = {
   fullName: string;

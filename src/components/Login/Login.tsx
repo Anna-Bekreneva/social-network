@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { InjectedFormProps, reduxForm } from "redux-form";
 
-import style from "./../common/FormsControls/FormControls.module.css";
 import s from "./Login.module.scss";
 import { Card, createField, Input } from "components";
 import { AppStateType, login } from "store";
@@ -25,23 +24,23 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, PropsType> & PropsType
     login(formData.email, formData.password, formData.rememberMe, formData.captcha);
   };
   return (
-    <Form action="#" onFinish={handleSubmit(onSubmit)}>
-      {createField<ValuesTypeKeys>("Email", "email", [required], Input, "Email", {
-        type: "email",
-        style: { flexDirection: "column" },
-      })}
-      {createField<ValuesTypeKeys>("Password", "password", [required], Input, "Password", {
+    <Form action="#" onFinish={handleSubmit(onSubmit)} layout={"vertical"}>
+      {createField<ValuesTypeKeys>("email", "email", [required], Input, { type: "email", label: "Enter email" })}
+      {createField<ValuesTypeKeys>("password", "password", [required], Input, {
         type: "password",
-        style: { flexDirection: "column" },
+        label: "Enter password",
       })}
-      {createField<ValuesTypeKeys>(undefined, "rememberMe", [], Input, "Remember me", {
+      {createField<ValuesTypeKeys>(undefined, "rememberMe", [], Input, {
         type: "checkbox",
       })}
       {captchaUrl && <img src={captchaUrl} alt="captcha" />}
-      {captchaUrl &&
-        createField<ValuesTypeKeys>("Symbols from image", "captcha", [required], Input, undefined, { type: "text" })}
+      {captchaUrl && createField<ValuesTypeKeys>("symbols from image", "captcha", [required], Input, { type: "text" })}
 
-      {error && <span className={style.formSummaryError}>{error}</span>}
+      {error && (
+        <Typography.Text type={"danger"} className={s.error}>
+          {error}
+        </Typography.Text>
+      )}
       <Button type="primary" htmlType="submit">
         Login
       </Button>
@@ -52,8 +51,6 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, PropsType> & PropsType
 const LoginReduxForm = reduxForm<FormDataType, PropsType>({ form: "login" })(LoginForm);
 
 const LoginInner = (props: LoginPropsType) => {
-  const handleSubmit = () => {};
-
   if (props.isAuth) return <Redirect to={"/profile"} />;
 
   return (
