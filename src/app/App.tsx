@@ -7,7 +7,7 @@ import { compose } from "redux";
 import { Login, Preloader } from "components";
 import { WithSuspense } from "hoc";
 import { AppStateType, initializeApp } from "store";
-import { Flex } from "antd";
+import { Col, Row } from "antd";
 import s from "./App.module.scss";
 import { NavigationContainer } from "../components/Navigation";
 
@@ -28,23 +28,26 @@ class App extends React.Component<AppProps> {
   componentWillUnmount() {
     window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
   }
-
   render() {
     if (!this.props.initialized) return <Preloader />;
     return (
-      <Flex className={s.container} gap={"middle"} align="start">
-        <NavigationContainer className={s.navigation} />
-        <main className={s.main}>
-          <Switch>
-            <Route path="/" render={() => <Redirect to={"/profile"} />} exact />
-            <Route path="/dialogs" render={WithSuspense(DialogsContainer)} />
-            <Route path="/profile/:userId?" render={WithSuspense(ProfileContainer)} />
-            <Route path="/users" render={WithSuspense(UsersContainer)} />
-            <Route path="/login" render={() => <Login />} />
-            <Route path="*" render={() => <div> 404 NOT FOUND </div>} />
-          </Switch>
-        </main>
-      </Flex>
+      <Row justify="center">
+        <Col span={4}>
+          <NavigationContainer className={s.navigation} />
+        </Col>
+        <Col span={12}>
+          <main>
+            <Switch>
+              <Route path="/" render={() => <Redirect to={"/profile"} />} exact />
+              <Route path="/dialogs" render={WithSuspense(DialogsContainer)} />
+              <Route path="/profile/:userId?" render={WithSuspense(ProfileContainer)} />
+              <Route path="/users" render={WithSuspense(UsersContainer)} />
+              <Route path="/login" render={() => <Login />} />
+              <Route path="*" render={() => <div> 404 NOT FOUND </div>} />
+            </Switch>
+          </main>
+        </Col>
+      </Row>
     );
   }
 }

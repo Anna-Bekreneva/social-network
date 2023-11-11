@@ -1,20 +1,7 @@
-.container {
-  max-width: 1400px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 20px;
-  min-height: 100vh;
-}
-
 .navigation {
-  width: 20%;
   padding-bottom: 16px;
   padding-top: 16px;
   box-shadow: var(--shadow-normal) !important;
   background-color: var(--color-white);
   border-radius: 8px;
-}
-
-.main {
-  width: 80%;
 }
