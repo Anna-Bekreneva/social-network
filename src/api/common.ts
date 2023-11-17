@@ -8,8 +8,8 @@ export const instance = axios.create({
   },
 });
 
-export type ResponseType<T = {}> = {
-  resultCode: typeof ResultCode;
+export type ResponseType<T = {}, R = (typeof ResultCode)[keyof typeof ResultCode]> = {
+  resultCode: R;
   messages: string[];
   data: T;
 };
@@ -17,5 +17,9 @@ export type ResponseType<T = {}> = {
 export const ResultCode = {
   Success: 0,
   Error: 1,
+} as const;
+
+export const ResultCodeWithCaptcha = {
+  ...ResultCode,
   CaptchaIsRequired: 10,
 } as const;
