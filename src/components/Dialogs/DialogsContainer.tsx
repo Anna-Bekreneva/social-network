@@ -6,10 +6,10 @@ import { compose, Dispatch } from "redux";
 import { Dialogs } from "./Dialogs";
 
 import { withAuthRedirect } from "hoc";
-import { sendMessageActionCreator, DialogPageType, AppStateType } from "store";
+import { AppStateType, dialogsActions, DialogsStateType } from "store";
 
 type MapStatePropsType = {
-  dialogsPage: DialogPageType;
+  dialogsPage: DialogsStateType;
   isAuth: boolean;
 };
 
@@ -26,7 +26,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
 
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
   return {
-    sendMessage: (newMessageBody: string) => dispatch(sendMessageActionCreator(newMessageBody)),
+    sendMessage: (newMessageBody: string) => dispatch(dialogsActions.sendMessage(newMessageBody)),
   };
 };
 

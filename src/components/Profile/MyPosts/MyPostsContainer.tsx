@@ -3,7 +3,7 @@ import { Dispatch } from "redux";
 
 import { MyPosts } from "./MyPosts";
 
-import { addPostActionCreator, ProfilePageType, AppStateType } from "store";
+import { ProfilePageType, AppStateType, profileActions } from "store";
 
 type MapStatePropsType = {
   profilePage: ProfilePageType;
@@ -21,7 +21,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
 
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
   return {
-    addPost: (newPostText: string) => dispatch(addPostActionCreator(newPostText)),
+    addPost: (newPostText: string) => dispatch(profileActions.addPost(newPostText)),
   };
 };
 

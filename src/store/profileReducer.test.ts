@@ -1,4 +1,4 @@
-import { addPostActionCreator, deletePost, ProfilePageType, profile } from "store";
+import { ProfilePageType, profile, profileActions } from "store";
 
 const initialState: ProfilePageType = {
   posts: [
@@ -32,7 +32,7 @@ const initialState: ProfilePageType = {
 };
 
 test("new post should be added", () => {
-  let action = addPostActionCreator("test");
+  let action = profileActions.addPost("test");
 
   let newState = profile(initialState, action);
 
@@ -40,7 +40,7 @@ test("new post should be added", () => {
 });
 
 test("message of new post should be correct", () => {
-  let action = addPostActionCreator("test");
+  let action = profileActions.addPost("test");
 
   let newState = profile(initialState, action);
 
@@ -48,7 +48,7 @@ test("message of new post should be correct", () => {
 });
 
 test("after deleting length of messages should be decrement", () => {
-  let action = deletePost(1);
+  let action = profileActions.deletePost(1);
 
   let newState = profile(initialState, action);
 
@@ -56,7 +56,7 @@ test("after deleting length of messages should be decrement", () => {
 });
 
 test("after deleting length shouldn't be decrement if id is incorrect", () => {
-  let action = deletePost(1000);
+  let action = profileActions.deletePost(1000);
 
   let newState = profile(initialState, action);
 

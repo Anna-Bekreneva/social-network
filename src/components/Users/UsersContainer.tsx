@@ -13,16 +13,11 @@ import {
   getPageSize,
   getTotalUsersCount,
   getUsers,
-  followSuccess,
   requestUsers,
-  setCurrentPage,
-  setTotalUsersCount,
-  setUsers,
-  toggleIsFetching,
-  toggleIsFollowingProgress,
-  unfollowSuccess,
   UserType,
   AppStateType,
+  profileActions,
+  usersActions,
 } from "store";
 
 class UsersContainer extends React.Component<UsersPropsType> {
@@ -93,13 +88,13 @@ export type UsersPropsType = MapStatePropsType & mapDispatchToPropsType;
 
 export default compose<React.ComponentType>(
   connect(mapStateToProps, {
-    follow: followSuccess,
-    unfollow: unfollowSuccess,
-    setUsers,
-    setCurrentPage,
-    setTotalUsersCount,
-    toggleIsFetching,
-    toggleIsFollowingProgress,
+    follow: usersActions.followSuccess,
+    unfollow: usersActions.unfollowSuccess,
+    setUsers: usersActions.setUsers,
+    setCurrentPage: usersActions.setCurrentPage,
+    setTotalUsersCount: usersActions.setTotalUsersCount,
+    toggleIsFetching: usersActions.toggleIsFetching,
+    toggleIsFollowingProgress: usersActions.toggleIsFollowingProgress,
     requestUsers,
   }),
 )(UsersContainer);

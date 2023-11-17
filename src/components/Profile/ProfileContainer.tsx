@@ -44,7 +44,7 @@ type mapDispatchToPropsType = {
   getStatus: (userId: number) => void;
   updateStatus: (status: string) => void;
   savePhoto: (file: File) => void;
-  saveProfile: (profile: any) => any;
+  saveProfile: (profile: ProfileType) => Promise<void>;
 };
 
 export type ProfilePagePropsType = mapDispatchToPropsType &

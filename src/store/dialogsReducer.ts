@@ -1,6 +1,6 @@
-import { DialogPageType } from "./";
+import { InferActionsTypes } from "./";
 
-const initialState: DialogPageType = {
+const initialState = {
   dialogs: [
     { id: 1, name: "Dimych" },
     { id: 2, name: "Andrey" },
@@ -18,18 +18,21 @@ const initialState: DialogPageType = {
   ],
 };
 
-export const dialogs = (state: DialogPageType = initialState, action: ActionsTypeDialogs): DialogPageType => {
+export const dialogs = (state: DialogsStateType = initialState, action: ActionsTypeDialogs): DialogsStateType => {
   switch (action.type) {
-    case "SEND-MESSAGE":
+    case "dialogs/SEND-MESSAGE":
       return { ...state, messages: [...state.messages, { id: 6, message: action.newMessageBody }] };
     default:
       return state;
   }
 };
 
-type ActionsTypeDialogs = ReturnType<typeof sendMessageActionCreator>;
+export const dialogsActions = {
+  sendMessage: (newMessageBody: string) => ({
+    type: "dialogs/SEND-MESSAGE" as const,
+    newMessageBody,
+  }),
+};
 
-export const sendMessageActionCreator = (newMessageBody: string) => ({
-  type: "SEND-MESSAGE" as const,
-  newMessageBody,
-});
+export type DialogsStateType = typeof initialState;
+type ActionsTypeDialogs = InferActionsTypes<typeof dialogsActions>;
