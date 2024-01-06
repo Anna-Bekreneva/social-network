@@ -8,9 +8,18 @@ import { Dialogs } from "./Dialogs";
 import { withAuthRedirect } from "hoc";
 import { AppStateType, dialogsActions, DialogsStateType } from "store";
 
+const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
+  dialogsPage: state.dialogs,
+});
+
+// const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
+//   return {
+//     sendMessage: (newMessageBody: string) => dispatch(dialogsActions.sendMessage(newMessageBody)),
+//   };
+// };
+
 type MapStatePropsType = {
   dialogsPage: DialogsStateType;
-  isAuth: boolean;
 };
 
 type MapDispatchToPropsType = {
@@ -19,15 +28,5 @@ type MapDispatchToPropsType = {
 
 export type DialogsPropsType = MapStatePropsType & MapDispatchToPropsType;
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
-  dialogsPage: state.dialogs,
-  isAuth: state.auth.isAuth,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-  return {
-    sendMessage: (newMessageBody: string) => dispatch(dialogsActions.sendMessage(newMessageBody)),
-  };
-};
-
-export default compose<React.ComponentType>(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(Dialogs);
+// export default compose<React.ComponentType>(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(Dialogs);
+export default compose<React.ComponentType>(connect(mapStateToProps, { ...dialogsActions }), withAuthRedirect)(Dialogs);

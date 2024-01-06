@@ -1,9 +1,18 @@
 import React, { ChangeEvent } from "react";
 
 import "./Profile.css";
-import { ProfilePagePropsType, MyPostsContainer, ProfileInfo } from "components";
+import { MyPostsContainer, ProfileInfo, ProfileType } from "components";
 
-export const Profile = (props: ProfilePagePropsType) => {
+type PropsType = {
+  profile: ProfileType | null;
+  status: string;
+  updateStatus: (status: string) => void;
+  isOwner: boolean;
+  savePhoto: (file: File) => void;
+  saveProfile: (profile: ProfileType) => Promise<unknown>;
+};
+
+export const Profile: React.FC<PropsType> = (props) => {
   const onMainPhotoSelected = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files?.length) {
       props.savePhoto(event.target.files[0]);
@@ -16,18 +25,9 @@ export const Profile = (props: ProfilePagePropsType) => {
         saveProfile={props.saveProfile}
         savePhoto={props.savePhoto}
         isOwner={props.isOwner}
-        photos={props.photos}
-        contacts={props.contacts}
-        fullName={props.fullName}
-        lookingForAJob={props.lookingForAJob}
-        lookingForAJobDescription={props.lookingForAJobDescription}
-        userId={props.userId}
-        aboutMe={props.aboutMe}
+        profile={props.profile}
         status={props.status}
-        getStatus={props.getStatus}
-        getUserProfile={props.getUserProfile}
         updateStatus={props.updateStatus}
-        isAuth={props.isAuth}
       />
       {props.isOwner && <input onChange={onMainPhotoSelected} type={"file"} />}
       <MyPostsContainer />

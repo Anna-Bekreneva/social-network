@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 import { InjectedFormProps, reduxForm } from "redux-form";
 
 import s from "./Login.module.scss";
-import { Card, createField, Input } from "components";
+import { Card, createField, GetStringKeys, Input } from "components";
 import { AppStateType, login } from "store";
 import { required } from "utils";
 import { Button, Form, Typography } from "antd";
@@ -83,6 +83,6 @@ type FormDataType = {
 };
 
 type LoginPropsType = mapStateToPropsType & mapDispatchPropsType;
-type ValuesTypeKeys = Extract<keyof FormDataType, string>;
+type ValuesTypeKeys = GetStringKeys<FormDataType>;
 
 export const Login = connect(mapStateToProps, { login })(LoginInner);

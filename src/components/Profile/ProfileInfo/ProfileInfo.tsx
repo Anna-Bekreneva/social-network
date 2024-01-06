@@ -4,22 +4,25 @@ import userPhoto from "../../../assets/img/user.png";
 
 import s from "./ProfileInfo.module.css";
 
-import {
-  ProfileDataForm,
-  ProfileFormDataType,
-  Preloader,
-  ProfilePagePropsType,
-  ProfileType,
-  ProfileStatusWithHooks,
-} from "components";
+import { Preloader, ProfileType, ProfileStatusWithHooks, ProfileDataFormReduxForm } from "components";
+import { ContactsType } from "../../../store";
 
-export const ProfileInfo = (props: ProfilePagePropsType) => {
+type PropsType = {
+  profile: ProfileType | null;
+  status: string;
+  updateStatus: (status: string) => void;
+  isOwner: boolean;
+  savePhoto: (file: File) => void;
+  saveProfile: (profile: ProfileType) => Promise<unknown>;
+};
+
+export const ProfileInfo: React.FC<PropsType> = (props) => {
   const [editMode, setEditMode] = useState(false);
 
-  if (!props) {
+  if (!props.profile) {
     return <Preloader></Preloader>;
   } else {
-    const onSubmit = (formData: ProfileFormDataType) => {
+    const onSubmit = (formData: ProfileType) => {
       props.saveProfile(formData).then(() => {
         setEditMode(false);
       });
@@ -36,21 +39,21 @@ export const ProfileInfo = (props: ProfilePagePropsType) => {
           height="350"
         />
         <div className={s.description}>
-          <img src={props.photos.small || userPhoto} alt="Ava" />
+          <img src={props.profile.photos.small || userPhoto} alt="Ava" />
 
           {editMode ? (
-            <ProfileDataForm onSubmit={onSubmit} />
+            <ProfileDataFormReduxForm profile={props.profile} onSubmit={onSubmit} initialValues={props.profile} />
           ) : (
             <ProfileData
               goToEditMode={() => {
                 setEditMode(true);
               }}
               isOwner={props.isOwner}
-              aboutMe={props.aboutMe}
-              contacts={props.contacts}
-              fullName={props.fullName}
-              lookingForAJob={props.lookingForAJob}
-              lookingForAJobDescription={props.lookingForAJobDescription}
+              aboutMe={props.profile.aboutMe}
+              contacts={props.profile.contacts}
+              fullName={props.profile.fullName}
+              lookingForAJob={props.profile.lookingForAJob}
+              lookingForAJobDescription={props.profile.lookingForAJobDescription}
             />
           )}
           <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus} />
@@ -60,7 +63,7 @@ export const ProfileInfo = (props: ProfilePagePropsType) => {
   }
 };
 
-type ProfileDataProps = ProfileType & {
+type ProfileDataProps = Omit<ProfileType, "photos"> & {
   isOwner: boolean;
   goToEditMode: () => void;
 };
@@ -80,9 +83,9 @@ const ProfileData: FC<ProfileDataProps> = (props) => {
         <p>About me: {props.aboutMe}</p>
 
         <div>
-          Contacts:{" "}
+          Contacts:
           {Object.keys(props.contacts).map((key) => (
-            <Contact key={key} contactTitle={key} contactValue={props.contacts[key]} />
+            <Contact key={key} contactTitle={key} contactValue={props.contacts[key as keyof ContactsType]} />
           ))}
         </div>
       </div>

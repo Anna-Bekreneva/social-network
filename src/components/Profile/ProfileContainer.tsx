@@ -5,16 +5,7 @@ import { RouteComponentProps, withRouter } from "react-router-dom";
 import { compose } from "redux";
 
 import { Profile } from "components";
-import {
-  ContactsType,
-  getStatus,
-  getUserProfile,
-  PhotosType,
-  savePhoto,
-  saveProfile,
-  updateStatus,
-  AppStateType,
-} from "store";
+import { ContactsType, getStatus, getUserProfile, savePhoto, saveProfile, updateStatus, AppStateType } from "store";
 
 type ProfilePropsType = MapStatePropsType & mapDispatchToPropsType;
 
@@ -24,9 +15,9 @@ type PathParamsType = {
 
 type PropsType = RouteComponentProps<PathParamsType> & ProfilePropsType;
 
-export type MapStatePropsType = ProfileType & {
+export type MapStatePropsType = {
   userId: number | null;
-  photos: PhotosType;
+  profile: ProfileType | null;
   status: string;
   isAuth: boolean;
 };
@@ -37,6 +28,10 @@ export type ProfileType = {
   lookingForAJobDescription: string;
   fullName: string;
   contacts: ContactsType;
+  photos: {
+    large: string;
+    small: string;
+  };
 };
 
 type mapDispatchToPropsType = {
@@ -44,13 +39,8 @@ type mapDispatchToPropsType = {
   getStatus: (userId: number) => void;
   updateStatus: (status: string) => void;
   savePhoto: (file: File) => void;
-  saveProfile: (profile: ProfileType) => Promise<void>;
+  saveProfile: (profile: ProfileType) => Promise<unknown>;
 };
-
-export type ProfilePagePropsType = mapDispatchToPropsType &
-  MapStatePropsType & {
-    isOwner: boolean;
-  };
 
 class ProfileInner extends React.Component<PropsType> {
   refreshProfile() {
@@ -62,8 +52,15 @@ class ProfileInner extends React.Component<PropsType> {
         this.props.history.push("/login");
       }
     }
-    userId && this.props.getUserProfile(userId);
-    userId && this.props.getStatus(userId);
+
+    if (!userId) {
+      console.error("ID should exists in URI params or in state ('authorizedUserId')");
+    } else {
+      //userId && this.props.getUserProfile(userId);
+      this.props.getUserProfile(userId);
+      //userId && this.props.getStatus(userId);
+      this.props.getStatus(userId);
+    }
   }
   componentDidMount() {
     this.refreshProfile();
@@ -81,18 +78,9 @@ class ProfileInner extends React.Component<PropsType> {
         saveProfile={this.props.saveProfile}
         savePhoto={this.props.savePhoto}
         isOwner={!this.props.match.params.userId}
-        userId={this.props.userId}
-        photos={this.props.photos}
-        contacts={this.props.contacts}
-        fullName={this.props.fullName}
-        lookingForAJob={this.props.lookingForAJob}
-        lookingForAJobDescription={this.props.lookingForAJobDescription}
-        aboutMe={this.props.aboutMe}
         status={this.props.status}
-        getStatus={this.props.getStatus}
-        getUserProfile={this.props.getUserProfile}
         updateStatus={this.props.updateStatus}
-        isAuth={this.props.isAuth}
+        profile={this.props.profile}
       />
     );
   }
@@ -100,14 +88,9 @@ class ProfileInner extends React.Component<PropsType> {
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
   return {
-    userId: state.auth.userId,
-    photos: state.profile.profile.photos,
-    lookingForAJob: state.profile.profile.lookingForAJob,
-    contacts: state.profile.profile.contacts,
-    fullName: state.profile.profile.fullName,
-    lookingForAJobDescription: state.profile.profile.lookingForAJobDescription,
-    aboutMe: state.profile.profile.aboutMe,
+    profile: state.profile.profile,
     status: state.profile.profile.status,
+    userId: state.auth.userId,
     isAuth: state.auth.isAuth,
   };
 };

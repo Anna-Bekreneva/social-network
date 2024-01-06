@@ -1,14 +1,6 @@
 import React from "react";
-
-import { Redirect } from "react-router-dom";
-import { Field, InjectedFormProps, reduxForm } from "redux-form";
-
 import s from "./Dialogs.module.css";
-
-import { DialogItem, Textarea, DialogsPropsType, Message } from "components";
-import { maxLengthCreator, required } from "utils";
-
-const maxLength100 = maxLengthCreator(100);
+import { AddMessageFormDataType, AddMessageFormRedux, DialogItem, DialogsPropsType, Message } from "components";
 
 export const Dialogs: React.FC<DialogsPropsType> = (props) => {
   const dialogElements = props.dialogsPage.dialogs.map((dialog) => (
@@ -18,11 +10,9 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
     <Message message={message.message} key={message.id}></Message>
   ));
 
-  const addNewMessage = (values: FormDataType) => {
+  const addNewMessage = (values: AddMessageFormDataType) => {
     props.sendMessage(values.newMessageBody);
   };
-
-  if (!props.isAuth) return <Redirect to={"/login"} />;
 
   return (
     <div className={s.dialogs}>
@@ -33,25 +23,4 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
       </div>
     </div>
   );
-};
-
-const AddMessageForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
-  return (
-    <form onSubmit={props.handleSubmit}>
-      <Field
-        component={Textarea}
-        validate={[required, maxLength100]}
-        name={"newMessageBody"}
-        placeholder={"Enter your message"}></Field>
-      <button>Send</button>
-    </form>
-  );
-};
-
-const AddMessageFormRedux = reduxForm<FormDataType>({
-  form: "dialogAddMessageForm",
-})(AddMessageForm);
-
-type FormDataType = {
-  newMessageBody: string;
 };

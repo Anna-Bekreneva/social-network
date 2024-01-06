@@ -1,7 +1,11 @@
 import React from "react";
 import "./Post.css";
 
-export const Post = (props: any) => {
+type PropsType = {
+  message: string;
+  likesCount: string;
+};
+export const Post: React.FC<PropsType> = (props) => {
   return (
     <article className="post">
       <img
@@ -18,6 +22,7 @@ export const Post = (props: any) => {
       <button className="post__like" type="button">
         like
       </button>
+      <span>{props.likesCount}</span>
     </article>
   );
 };

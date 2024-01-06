@@ -147,7 +147,7 @@ export type PhotosType = {
   large: string;
 };
 
-type PostType = {
+export type PostType = {
   id: number;
   message: string;
   likesCount: number;

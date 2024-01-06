@@ -2,23 +2,26 @@ import React from "react";
 
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
 
-import { Input, Textarea } from "components";
+import { createField, GetStringKeys, Input, ProfileType, Textarea } from "components";
 import style from "components/common/FormsControls/FormControls.module.scss";
 
-export type ProfileFormDataType = {
-  fullName: string;
-  lookingForAJob: boolean;
-  lookingForAJobDescription: string;
-  aboutMe: string;
+type ProfileTypeKeys = GetStringKeys<ProfileType>;
+
+type PropsType = {
+  profile: ProfileType;
 };
 
-const ProfileDataFormInner = (props: InjectedFormProps<ProfileFormDataType>) => {
+const ProfileDataForm: React.FC<InjectedFormProps<ProfileType, PropsType> & PropsType> = ({
+  handleSubmit,
+  profile,
+  error,
+}) => {
   return (
-    <form action={"#"} onSubmit={props.handleSubmit}>
+    <form action={"#"} onSubmit={handleSubmit}>
       <button type={"submit"}>save</button>
-      {props.error && <span className={style.formSummaryError}>{props.error}</span>}
+      {error && <span className={style.formSummaryError}>{error}</span>}
       <div>
-        <p>Full name: {<Field component={Input} placeholder="Full name" name="fullName" type="text" />}</p>
+        <p>Full name: {createField<ProfileTypeKeys>("Full name", "fullName", [], Input, { type: "text" })}</p>
 
         <p>Looking for a job: {<Field component={Input} name="lookingForAJob" type="checkbox" />}</p>
 
@@ -29,14 +32,19 @@ const ProfileDataFormInner = (props: InjectedFormProps<ProfileFormDataType>) => 
 
         <p>About me: {<Field component={Textarea} placeholder="About me" name="aboutMe" />}</p>
 
-        {/*<div>*/}
-        {/*    Contacts: { Object.keys(props.contacts).map(key => <Contact key={key} contactTitle={key} contactValue={props.contacts[key]}/>)}*/}
-        {/*</div>*/}
+        <div>
+          Contacts:
+          {Object.keys(profile.contacts).map((key) => {
+            return (
+              <div key={key} className={"s.contact"}>
+                {key}: {createField(key, "contacts." + key, [], Input, { type: "text" })}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </form>
   );
 };
 
-export const ProfileDataForm = reduxForm<ProfileFormDataType>({
-  form: "edit-profile",
-})(ProfileDataFormInner);
+export const ProfileDataFormReduxForm = reduxForm<ProfileType, PropsType>({ form: "edit-profile" })(ProfileDataForm);

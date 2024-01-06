@@ -1,12 +1,11 @@
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
 
 import { MyPosts } from "./MyPosts";
 
-import { ProfilePageType, AppStateType, profileActions } from "store";
+import { AppStateType, profileActions, PostType } from "store";
 
 type MapStatePropsType = {
-  profilePage: ProfilePageType;
+  posts: Array<PostType>;
 };
 
 type MapDispatchToProps = {
@@ -16,13 +15,9 @@ type MapDispatchToProps = {
 export type ProfilePropsType = MapStatePropsType & MapDispatchToProps;
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
-  profilePage: state.profile,
+  posts: state.profile.posts,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
-  return {
-    addPost: (newPostText: string) => dispatch(profileActions.addPost(newPostText)),
-  };
-};
-
-export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
+export const MyPostsContainer = connect<MapStatePropsType, MapDispatchToProps, {}, AppStateType>(mapStateToProps, {
+  addPost: profileActions.addPost,
+})(MyPosts);

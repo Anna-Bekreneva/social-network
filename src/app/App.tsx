@@ -15,8 +15,10 @@ const DialogsContainer = React.lazy(() => import("../components/Dialogs/DialogsC
 const ProfileContainer = React.lazy(() => import("../components/Profile/ProfileContainer"));
 const UsersContainer = React.lazy(() => import("../components/Users/UsersContainer"));
 
+// todo: Возможно сделать деструктуризацию пропсов, проверить тесты на редьюсеры и разобраться с тестами от Димыча
+
 class App extends React.Component<AppProps> {
-  catchAllUnhandledErrors = (promiseRejectionEvent: any) => {
+  catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
     alert("Some error occurred");
   };
 
@@ -39,6 +41,7 @@ class App extends React.Component<AppProps> {
         <Col span={12}>
           <main>
             <Switch>
+              {/*Было бы круто с роутерами поработать */}
               <Route path="/" render={() => <Redirect to={"/profile"} />} exact />
               <Route path="/dialogs" render={WithSuspense(DialogsContainer)} />
               <Route path="/profile/:userId?" render={WithSuspense(ProfileContainer)} />
