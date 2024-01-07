@@ -4,12 +4,11 @@ import { connect } from "react-redux";
 import { Redirect, Route, Switch, withRouter } from "react-router-dom";
 import { compose } from "redux";
 
-import { Login, Preloader } from "components";
+import { Login, NavigationContainer, Preloader } from "components";
 import { WithSuspense } from "hoc";
 import { AppStateType, initializeApp } from "store";
 import { Col, Row } from "antd";
 import s from "./App.module.scss";
-import { NavigationContainer } from "../components/Navigation";
 
 const DialogsContainer = React.lazy(() => import("../components/Dialogs/DialogsContainer"));
 const ProfileContainer = React.lazy(() => import("../components/Profile/ProfileContainer"));
@@ -32,7 +31,9 @@ class App extends React.Component<AppProps> {
   }
 
   render() {
-    if (!this.props.initialized) return <Preloader />;
+    if (!this.props.initialized) {
+      return <Preloader />;
+    }
     return (
       <Row justify="center">
         <Col span={4}>

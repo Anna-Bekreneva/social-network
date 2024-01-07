@@ -40,8 +40,6 @@ type InputPropsType = WrappedFieldProps & {
 };
 
 export const Input: React.FC<InputPropsType> = (props) => {
-  console.log(props);
-
   return (
     <FormControl {...props}>
       {props.type === "checkbox" ? (

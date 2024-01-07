@@ -1,4 +1,4 @@
-import { instance, ResponseType, ResultCode, ResultCodeWithCaptcha } from "./";
+import { instance, APIResponseType, ResultCode, ResultCodeWithCaptcha } from "./";
 
 type MeType = {
   id: number;
@@ -8,11 +8,11 @@ type MeType = {
 
 export const authAPI = {
   me() {
-    return instance.get<ResponseType<MeType>>(`auth/me`);
+    return instance.get<APIResponseType<MeType>>(`auth/me`);
   },
   login(email: string, password: string, rememberMe: boolean = false, captcha: null | string) {
     return instance.post<
-      ResponseType<{ userId: number }, (typeof ResultCodeWithCaptcha)[keyof typeof ResultCodeWithCaptcha]>
+      APIResponseType<{ userId: number }, (typeof ResultCodeWithCaptcha)[keyof typeof ResultCodeWithCaptcha]>
     >("auth/login", {
       email,
       password,
@@ -21,6 +21,6 @@ export const authAPI = {
     });
   },
   logout() {
-    return instance.delete<ResponseType>("auth/login");
+    return instance.delete<APIResponseType>("auth/login");
   },
 };

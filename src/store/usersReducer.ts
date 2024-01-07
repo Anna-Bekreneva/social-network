@@ -1,7 +1,8 @@
 import { BaseThunkType, InferActionsTypes } from "./store";
 
-import { usersAPI } from "api";
+import { APIResponseType, usersAPI } from "api";
 import { updateObjectInArray } from "utils";
+import { Dispatch } from "redux";
 
 export type UsersPageType = {
   users: Array<UserType>;
@@ -13,17 +14,16 @@ export type UsersPageType = {
 };
 
 export type UserType = {
-  followed: boolean;
   id: number;
   name: string;
   status: string;
-  uniqueUrlName: string;
+  followed: boolean;
   photos: PhotosType;
 };
 
-type PhotosType = {
-  large: string;
-  small: string;
+export type PhotosType = {
+  large: string | null;
+  small: string | null;
 };
 
 const initialState: UsersPageType = {
@@ -75,9 +75,9 @@ export const users = (state: UsersPageType = initialState, action: ActionsTypeUs
 type ActionsTypeUser = InferActionsTypes<typeof usersActions>;
 
 export const usersActions = {
-  followSuccess: (userId: number) => ({ type: "users/FOLLOW", userId }) as const,
+  followSuccess: (userId: number) => ({ type: "users/FOLLOW" as const, userId }),
 
-  unfollowSuccess: (userId: number) => ({ type: "users/UNFOLLOW", userId }) as const,
+  unfollowSuccess: (userId: number) => ({ type: "users/UNFOLLOW" as const, userId }),
 
   setUsers: (users: Array<UserType>) => ({ type: "users/SET-USERS", users }) as const,
 
@@ -101,18 +101,21 @@ export const requestUsers = (page: number, pageSize: number): BaseThunkType<Acti
     dispatch(usersActions.setCurrentPage(page));
     const data = await usersAPI.getUsers(page, pageSize);
     dispatch(usersActions.toggleIsFetching(false));
-    dispatch(usersActions.setUsers(data.data.items));
-    dispatch(usersActions.setTotalUsersCount(data.data.totalCount));
+    dispatch(usersActions.setUsers(data.items));
+    dispatch(usersActions.setTotalUsersCount(data.totalCount));
   };
 };
 
-// Resolve followUnfollowFlow / follow / unfollow
-
-const followUnfollowFlow = async (dispatch: any, userId: number, apiMethod: any, actionCreator: any) => {
+const followUnfollowFlow = async (
+  dispatch: Dispatch<ActionsTypeUser>,
+  userId: number,
+  apiMethod: (userId: number) => Promise<APIResponseType>,
+  actionCreator: (userId: number) => ActionsTypeUser,
+) => {
   dispatch(usersActions.toggleIsFollowingProgress(true, userId));
   const response = await apiMethod(userId);
 
-  if (response.data.resultCode === 0) {
+  if (response.resultCode === 0) {
     dispatch(actionCreator(userId));
   }
   dispatch(usersActions.toggleIsFollowingProgress(false, userId));
@@ -120,18 +123,13 @@ const followUnfollowFlow = async (dispatch: any, userId: number, apiMethod: any,
 
 export const follow = (userId: number): BaseThunkType<ActionsTypeUser> => {
   return async (dispatch) => {
-    const apiMethod = usersAPI.follow.bind(usersAPI);
-    const actionCreator = usersActions.followSuccess;
-
-    followUnfollowFlow(dispatch, userId, apiMethod, actionCreator);
+    await followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), usersActions.followSuccess);
   };
 };
 
+// todo: why unfollow isn't used
 export const unfollow = (userId: number): BaseThunkType<ActionsTypeUser> => {
   return async (dispatch) => {
-    const apiMethod = usersAPI.unfollow.bind(usersAPI);
-    const actionCreator = usersActions.unfollowSuccess;
-
-    followUnfollowFlow(dispatch, userId, apiMethod, actionCreator);
+    await followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), usersActions.unfollowSuccess);
   };
 };

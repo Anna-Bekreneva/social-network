@@ -3,7 +3,7 @@ import "./Post.css";
 
 type PropsType = {
   message: string;
-  likesCount: string;
+  likesCount: number;
 };
 export const Post: React.FC<PropsType> = (props) => {
   return (

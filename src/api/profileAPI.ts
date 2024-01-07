@@ -1,26 +1,26 @@
-import { instance, ResponseType } from "./";
+import { instance, APIResponseType } from "./";
 import { PhotosType, ProfileType } from "../store";
 
 export const profileAPI = {
   getProfile(userId: number) {
-    return instance.get<ResponseType<ProfileType>>(`profile/` + userId);
+    return instance.get<ProfileType>(`profile/` + userId);
   },
   getStatus(userId: number) {
     return instance.get<string>(`profile/status/` + userId);
   },
   updateStatus(status: string) {
-    return instance.put<ResponseType<{ status: string }>>(`profile/status`, { status });
+    return instance.put<APIResponseType<{ status: string }>>(`profile/status`, { status });
   },
-  savePhoto(file: string) {
+  savePhoto(file: File) {
     const formData = new FormData();
 
     formData.append("image", file);
 
-    return instance.put<ResponseType<{ photos: PhotosType }>>(`profile/photo`, formData, {
+    return instance.put<APIResponseType<{ photos: PhotosType }>>(`profile/photo`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
   },
   saveProfile(profile: ProfileType) {
-    return instance.put<ResponseType>(`profile`, profile);
+    return instance.put<APIResponseType>(`profile`, profile);
   },
 };

@@ -1,8 +1,9 @@
-import { stopSubmit } from "redux-form";
+import { FormAction, stopSubmit } from "redux-form";
 
 import { BaseThunkType, InferActionsTypes } from "./store";
 
 import { profileAPI, ResultCode } from "api";
+import { PhotosType } from "./usersReducer";
 
 const initialState: ProfilePageType = {
   posts: [
@@ -54,7 +55,7 @@ export const profile = (state: ProfilePageType = initialState, action: ActionsTy
       };
     }
     case "profile/SAVE-PHOTO-SUCCESS":
-      return { ...state, profile: { ...state.profile, photos: action.photos } };
+      return { ...state, profile: { ...state.profile, photos: action.photos } as ProfileType };
 
     default:
       return state;
@@ -70,18 +71,16 @@ export const profileActions = {
 
   deletePost: (id: number) => ({ type: "profile/DELETE-POST", id }) as const,
 
-  savePhotoSuccess: (photos: { small: string; large: string }) =>
-    ({ type: "profile/SAVE-PHOTO-SUCCESS", photos }) as const,
+  savePhotoSuccess: (photos: PhotosType) => ({ type: "profile/SAVE-PHOTO-SUCCESS", photos }) as const,
 };
 
 type ActionsTypeProfile = InferActionsTypes<typeof profileActions>;
 
 export const getUserProfile =
-  (userId: number): BaseThunkType<ActionsTypeProfile> =>
+  (userId: number): BaseThunkType<ActionsTypeProfile | FormAction> =>
   async (dispatch) => {
     const response = await profileAPI.getProfile(userId);
-
-    dispatch(profileActions.setUserProfile(response.data.data));
+    dispatch(profileActions.setUserProfile(response.data));
   };
 
 export const getStatus =
@@ -103,7 +102,7 @@ export const updateStatus =
   };
 
 export const savePhoto =
-  (file: string): BaseThunkType<ActionsTypeProfile> =>
+  (file: File): BaseThunkType<ActionsTypeProfile> =>
   async (dispatch) => {
     const response = await profileAPI.savePhoto(file);
 
@@ -117,7 +116,6 @@ export const saveProfile =
   async (dispatch, getState) => {
     const userId = getState().auth.userId;
     const response = await profileAPI.saveProfile(profile);
-
     if (response.data.resultCode === ResultCode.Success) {
       if (userId !== null) {
         dispatch(getUserProfile(userId));
@@ -140,11 +138,6 @@ export type ContactsType = {
   website: string;
   youtube: string;
   mainLink: string;
-};
-
-export type PhotosType = {
-  small: string;
-  large: string;
 };
 
 export type PostType = {

@@ -26,17 +26,15 @@ export const auth = (state = initialState, action: ActionsAuth): InitialStateTyp
 
 type ActionsAuth = InferActionsTypes<typeof authActions>;
 export const authActions = {
-  setAuthUserData: (userId: number | null, email: string | null, login: string | null, isAuth: boolean) =>
-    ({
-      type: "auth/SET-USER-DATA",
-      payload: { userId, email, login, isAuth },
-    }) as const,
+  setAuthUserData: (userId: number | null, email: string | null, login: string | null, isAuth: boolean) => ({
+    type: "auth/SET-USER-DATA" as const,
+    payload: { userId, email, login, isAuth },
+  }),
 
-  getCaptchaUrlSuccess: (captchaUrl: string) =>
-    ({
-      type: "auth/GET-CAPTCHA-URL-SUCCESS",
-      payload: { captchaUrl },
-    }) as const,
+  getCaptchaUrlSuccess: (captchaUrl: string) => ({
+    type: "auth/GET-CAPTCHA-URL-SUCCESS" as const,
+    payload: { captchaUrl },
+  }),
 };
 
 export const getAuthUserData = (): BaseThunkType<ActionsAuth> => async (dispatch) => {

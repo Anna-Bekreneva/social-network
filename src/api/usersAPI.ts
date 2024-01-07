@@ -1,4 +1,4 @@
-import { instance, ResponseType } from "./";
+import { instance, APIResponseType } from "./";
 import { UserType } from "../store";
 
 type GetUsersType = {
@@ -6,19 +6,17 @@ type GetUsersType = {
   totalCount: number;
   error: string | null;
 };
+
 export const usersAPI = {
   getUsers: async (currentPage: number, pageSize: number) => {
-    const response = await instance.get<ResponseType<GetUsersType>>(`users?page=${currentPage}&count=${pageSize}`, {
-      withCredentials: true,
-    });
-    return response.data;
+    return instance.get<GetUsersType>(`users?page=${currentPage}&count=${pageSize}`).then((res) => res.data);
   },
 
   follow(userId: number) {
-    return instance.post<ResponseType>(`follow/${userId}`);
+    return instance.post<APIResponseType>(`follow/${userId}`).then((res) => res.data);
   },
 
   unfollow(userId: number) {
-    return instance.delete<ResponseType>(`follow/${userId}`);
+    return instance.delete<APIResponseType>(`follow/${userId}`).then((res) => res.data) as Promise<APIResponseType>;
   },
 };

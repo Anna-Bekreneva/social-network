@@ -5,7 +5,16 @@ import { RouteComponentProps, withRouter } from "react-router-dom";
 import { compose } from "redux";
 
 import { Profile } from "components";
-import { ContactsType, getStatus, getUserProfile, savePhoto, saveProfile, updateStatus, AppStateType } from "store";
+import {
+  ContactsType,
+  getStatus,
+  getUserProfile,
+  savePhoto,
+  saveProfile,
+  updateStatus,
+  AppStateType,
+  PhotosType,
+} from "store";
 
 type ProfilePropsType = MapStatePropsType & mapDispatchToPropsType;
 
@@ -23,15 +32,13 @@ export type MapStatePropsType = {
 };
 
 export type ProfileType = {
-  aboutMe: string;
+  userId: number;
   lookingForAJob: boolean;
   lookingForAJobDescription: string;
   fullName: string;
   contacts: ContactsType;
-  photos: {
-    large: string;
-    small: string;
-  };
+  photos: PhotosType;
+  aboutMe: string;
 };
 
 type mapDispatchToPropsType = {
@@ -42,10 +49,13 @@ type mapDispatchToPropsType = {
   saveProfile: (profile: ProfileType) => Promise<unknown>;
 };
 
-class ProfileInner extends React.Component<PropsType> {
+class ProfileContainer extends React.Component<PropsType> {
+  constructor(props: PropsType) {
+    super(props);
+  }
   refreshProfile() {
+    console.log(this.props.userId);
     let userId: number | null = Number(this.props.match.params.userId);
-
     if (!userId) {
       userId = this.props.userId;
       if (!userId) {
@@ -54,11 +64,9 @@ class ProfileInner extends React.Component<PropsType> {
     }
 
     if (!userId) {
-      console.error("ID should exists in URI params or in state ('authorizedUserId')");
+      console.error("ID should exists in URI params or in state ('UserId')");
     } else {
-      //userId && this.props.getUserProfile(userId);
       this.props.getUserProfile(userId);
-      //userId && this.props.getStatus(userId);
       this.props.getStatus(userId);
     }
   }
@@ -66,16 +74,18 @@ class ProfileInner extends React.Component<PropsType> {
     this.refreshProfile();
   }
 
-  componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>) {
-    if (this.props.match.params.userId !== this.props.match.params.userId) {
+  componentDidUpdate(prevProps: PropsType, prevState: PropsType) {
+    if (this.props.match.params.userId !== prevProps.match.params.userId) {
       this.refreshProfile();
     }
   }
 
+  componentWillUnmount(): void {}
+
   render() {
     return (
       <Profile
-        saveProfile={this.props.saveProfile}
+        {...this.props}
         savePhoto={this.props.savePhoto}
         isOwner={!this.props.match.params.userId}
         status={this.props.status}
@@ -104,4 +114,4 @@ export default compose<React.ComponentType>(
     saveProfile,
   }),
   withRouter,
-)(ProfileInner);
+)(ProfileContainer);
