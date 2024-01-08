@@ -5,38 +5,20 @@ import { BaseThunkType, InferActionsTypes } from "./store";
 import { profileAPI, ResultCode } from "api";
 import { PhotosType } from "./usersReducer";
 
-const initialState: ProfilePageType = {
+const initialState = {
   posts: [
     { id: 1, message: "Hi, how are you?", likesCount: 12 },
     { id: 2, message: "It's, my first post?", likesCount: 11 },
     { id: 3, message: "Blabla", likesCount: 11 },
     { id: 4, message: "Dadada", likesCount: 11 },
   ],
-  profile: {
-    aboutMe: "",
-    userId: 0,
-    lookingForAJobDescription: "",
-    fullName: "",
-    contacts: {
-      youtube: "",
-      website: "",
-      vk: "",
-      twitter: "",
-      mainLink: "",
-      instagram: "",
-      github: "",
-      facebook: "",
-    },
-    lookingForAJob: false,
-    photos: {
-      small: "",
-      large: "",
-    },
-    status: "string",
-  },
+  profile: null as ProfileType | null,
+  status: "",
 };
 
-export const profile = (state: ProfilePageType = initialState, action: ActionsTypeProfile): ProfilePageType => {
+type InitialStateType = typeof initialState;
+
+export const profile = (state = initialState, action: ActionsTypeProfile): InitialStateType => {
   switch (action.type) {
     case "profile/ADD-POST":
       return {
@@ -47,7 +29,7 @@ export const profile = (state: ProfilePageType = initialState, action: ActionsTy
     case "profile/SET-USER-PROFILE":
       return { ...state, profile: { ...action.profile } };
     case "profile/SET-STATUS":
-      return { ...state, profile: { ...state.profile, status: action.status } };
+      return { ...state, status: action.status };
     case "profile/DELETE-POST": {
       return {
         ...state,

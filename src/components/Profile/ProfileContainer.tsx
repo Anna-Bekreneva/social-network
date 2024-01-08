@@ -25,7 +25,7 @@ type PathParamsType = {
 type PropsType = RouteComponentProps<PathParamsType> & ProfilePropsType;
 
 export type MapStatePropsType = {
-  userId: number | null;
+  authorizedUserId: number | null;
   profile: ProfileType | null;
   status: string;
   isAuth: boolean;
@@ -54,10 +54,10 @@ class ProfileContainer extends React.Component<PropsType> {
     super(props);
   }
   refreshProfile() {
-    console.log(this.props.userId);
+    console.log(this.props.authorizedUserId);
     let userId: number | null = Number(this.props.match.params.userId);
     if (!userId) {
-      userId = this.props.userId;
+      userId = this.props.authorizedUserId;
       if (!userId) {
         this.props.history.push("/login");
       }
@@ -99,8 +99,8 @@ class ProfileContainer extends React.Component<PropsType> {
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
   return {
     profile: state.profile.profile,
-    status: state.profile.profile.status,
-    userId: state.auth.userId,
+    status: state.profile.status,
+    authorizedUserId: state.auth.userId,
     isAuth: state.auth.isAuth,
   };
 };

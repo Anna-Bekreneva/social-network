@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 
 import "./Profile.css";
 import { MyPostsContainer, ProfileInfo, ProfileType } from "components";
@@ -13,12 +13,6 @@ type PropsType = {
 };
 
 export const Profile: React.FC<PropsType> = (props) => {
-  const onMainPhotoSelected = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files?.length) {
-      props.savePhoto(event.target.files[0]);
-    }
-  };
-
   return (
     <>
       <ProfileInfo
@@ -29,7 +23,6 @@ export const Profile: React.FC<PropsType> = (props) => {
         status={props.status}
         updateStatus={props.updateStatus}
       />
-      {props.isOwner && <input onChange={onMainPhotoSelected} type={"file"} />}
       <MyPostsContainer />
     </>
   );

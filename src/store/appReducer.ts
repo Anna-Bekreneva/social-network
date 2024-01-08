@@ -21,6 +21,8 @@ const appActions = {
 
 type ActionsApp = InferActionsTypes<typeof appActions>;
 export const initializeApp = (): BaseThunkType<ActionsApp> => async (dispatch) => {
-  dispatch(getAuthUserData());
-  dispatch(appActions.initializedSuccess());
+  const promise = dispatch(getAuthUserData());
+  Promise.all([promise]).then(() => {
+    dispatch(appActions.initializedSuccess());
+  });
 };

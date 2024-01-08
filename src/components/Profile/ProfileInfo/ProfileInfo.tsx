@@ -20,7 +20,7 @@ export const ProfileInfo: React.FC<PropsType> = (props) => {
   const [editMode, setEditMode] = useState(false);
 
   if (!props.profile) {
-    return <Preloader></Preloader>;
+    return <Preloader />;
   } else {
     const onSubmit = (formData: ProfileType) => {
       props.saveProfile(formData).then(() => {

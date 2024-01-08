@@ -6,8 +6,8 @@ import { AppStateType, logout } from "store";
 import { Navigation } from "./";
 
 type MapStatePropsType = {
-  name: string | null;
-  ava: string | null;
+  name: string | undefined;
+  ava: string | undefined | null;
 };
 
 type MapDispatchToPropsType = {
@@ -22,8 +22,8 @@ class NavigationInner extends React.Component<NavigationPropsType> {
 }
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
-  name: state.profile.profile.fullName,
-  ava: state.profile.profile.photos.small,
+  name: state.profile.profile?.fullName,
+  ava: state.profile.profile?.photos.small,
 });
 
 export type NavigationPropsType = MapStatePropsType & MapDispatchToPropsType & ComponentPropsWithoutRef<"nav">;
