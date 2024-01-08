@@ -8,8 +8,12 @@ type GetUsersType = {
 };
 
 export const usersAPI = {
-  getUsers: async (currentPage: number, pageSize: number) => {
-    return instance.get<GetUsersType>(`users?page=${currentPage}&count=${pageSize}`).then((res) => res.data);
+  getUsers: async (currentPage: number, pageSize: number, term = "", friend: null | boolean = null) => {
+    return instance
+      .get<GetUsersType>(
+        `users?page=${currentPage}&count=${pageSize}&term=${term}` + (friend === null ? "" : `friend=${friend}`),
+      )
+      .then((res) => res.data);
   },
 
   follow(userId: number) {

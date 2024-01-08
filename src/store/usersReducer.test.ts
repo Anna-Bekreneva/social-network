@@ -1,6 +1,7 @@
-import { users, usersActions, UsersPageType } from "./usersReducer";
+import { users, usersActions } from "./usersReducer";
 
-let state: UsersPageType;
+// todo: fix any
+let state: any;
 beforeEach(() => {
   state = {
     users: [

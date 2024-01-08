@@ -4,15 +4,6 @@ import { APIResponseType, usersAPI } from "api";
 import { updateObjectInArray } from "utils";
 import { Dispatch } from "redux";
 
-export type UsersPageType = {
-  users: Array<UserType>;
-  pageSize: number;
-  totalUsersCount: number;
-  currentPage: number;
-  isFetching: boolean;
-  followingInProgress: Array<number>;
-};
-
 export type UserType = {
   id: number;
   name: string;
@@ -26,16 +17,21 @@ export type PhotosType = {
   small: string | null;
 };
 
-const initialState: UsersPageType = {
-  users: [],
+const initialState = {
+  users: [] as UserType[],
   pageSize: 5,
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: false,
-  followingInProgress: [],
+  followingInProgress: [] as number[],
+  filter: { term: "", friend: null as null | boolean },
 };
 
-export const users = (state: UsersPageType = initialState, action: ActionsTypeUser): UsersPageType => {
+// todo: create specially name for everything InitialStateType
+type InitialStateType = typeof initialState;
+export type FilterType = typeof initialState.filter;
+
+export const users = (state = initialState, action: ActionsTypeUser): InitialStateType => {
   switch (action.type) {
     case "users/FOLLOW":
       return {
@@ -57,6 +53,8 @@ export const users = (state: UsersPageType = initialState, action: ActionsTypeUs
       return { ...state, currentPage: action.currentPage };
     case "users/SET-TOTAL-USERS-COUNT":
       return { ...state, totalUsersCount: action.usersCount };
+    case "users/SET-FILTER":
+      return { ...state, filter: action.payload };
     case "users/TOGGLE-IS-FETCHING":
       return { ...state, isFetching: action.isFetching };
     case "users/TOGGLE-IS-FOLLOWING-PROGRESS": {
@@ -85,6 +83,8 @@ export const usersActions = {
 
   setTotalUsersCount: (usersCount: number) => ({ type: "users/SET-TOTAL-USERS-COUNT", usersCount }) as const,
 
+  setFilter: (filter: FilterType) => ({ type: "users/SET-FILTER" as const, payload: filter }),
+
   toggleIsFetching: (isFetching: boolean) => ({ type: "users/TOGGLE-IS-FETCHING", isFetching }) as const,
 
   toggleIsFollowingProgress: (isFollowing: boolean, userId: number) =>
@@ -95,11 +95,14 @@ export const usersActions = {
     }) as const,
 };
 
-export const requestUsers = (page: number, pageSize: number): BaseThunkType<ActionsTypeUser> => {
+export const requestUsers = (page: number, pageSize: number, filter: FilterType): BaseThunkType<ActionsTypeUser> => {
   return async (dispatch) => {
     dispatch(usersActions.toggleIsFetching(true));
     dispatch(usersActions.setCurrentPage(page));
-    const data = await usersAPI.getUsers(page, pageSize);
+    dispatch(usersActions.setFilter(filter));
+
+    // todo: give all filter
+    const data = await usersAPI.getUsers(page, pageSize, filter.term, filter.friend);
     dispatch(usersActions.toggleIsFetching(false));
     dispatch(usersActions.setUsers(data.items));
     dispatch(usersActions.setTotalUsersCount(data.totalCount));
@@ -127,7 +130,6 @@ export const follow = (userId: number): BaseThunkType<ActionsTypeUser> => {
   };
 };
 
-// todo: why unfollow isn't used
 export const unfollow = (userId: number): BaseThunkType<ActionsTypeUser> => {
   return async (dispatch) => {
     await followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), usersActions.unfollowSuccess);
