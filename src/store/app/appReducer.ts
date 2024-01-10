@@ -1,4 +1,4 @@
-import { BaseThunkType, getAuthUserData, InferActionsTypes } from "./";
+import { BaseThunkType, getAuthUserData, InferActionsTypes } from "../index";
 
 const initialState = {
   initialized: false,

@@ -1,6 +1,6 @@
 import { stopSubmit } from "redux-form";
 
-import { BaseThunkType, InferActionsTypes } from "./store";
+import { BaseThunkType, InferActionsTypes } from "../store";
 
 import { authAPI, ResultCode, ResultCodeWithCaptcha, securityAPI } from "api";
 

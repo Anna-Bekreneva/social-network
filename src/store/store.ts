@@ -2,8 +2,8 @@ import { Action, applyMiddleware, combineReducers, compose, createStore } from "
 import { reducer as form } from "redux-form";
 import thunk, { ThunkAction } from "redux-thunk";
 
-import { dialogs } from "./dialogsReducer";
-import { users } from "./usersReducer";
+import { dialogs } from "./dialogs/dialogsReducer";
+import { users } from "./users/usersReducer";
 
 import { app, auth, profile } from "./";
 

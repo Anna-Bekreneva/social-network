@@ -19,6 +19,8 @@ import {
   usersActions,
   FilterType,
   getUsersFilter,
+  follow,
+  unfollow,
 } from "store";
 
 class UsersContainer extends React.Component<UsersPropsType> {
@@ -93,8 +95,8 @@ export type UsersPropsType = MapStatePropsType & mapDispatchToPropsType;
 
 export default compose<React.ComponentType>(
   connect(mapStateToProps, {
-    follow: usersActions.followSuccess,
-    unfollow: usersActions.unfollowSuccess,
+    follow: follow,
+    unfollow: unfollow,
     requestUsers,
   }),
 )(UsersContainer);

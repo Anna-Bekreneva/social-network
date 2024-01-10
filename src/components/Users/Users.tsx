@@ -3,6 +3,7 @@ import React from "react";
 import { Paginator, User } from "components";
 import { FilterType, UserType } from "store";
 import { UsersSearchForm } from "./UsersSearchForm";
+import { useHistory } from "react-router-dom";
 
 type UsersPropsType = {
   totalUsersCount: number;

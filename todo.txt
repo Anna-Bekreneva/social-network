@@ -41,6 +41,12 @@ https://www.figma.com/file/9TDTs1KehhkUIe9EjeP8vG/Fox-stocks-Dashboard-(Communit
 
 ------------------------------------
 
+ФИЧИ 
+
+1) Кроп фото
+
+------------------------------------
+
 Login — Anna_Bekreneva
 Email — anjbekrenewa@gmail.com
 Password  — u9bm_tZHaA9zCYL

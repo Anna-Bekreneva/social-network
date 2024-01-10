@@ -1,9 +1,9 @@
 import { FormAction, stopSubmit } from "redux-form";
 
-import { BaseThunkType, InferActionsTypes } from "./store";
+import { BaseThunkType, InferActionsTypes } from "../store";
 
 import { profileAPI, ResultCode } from "api";
-import { PhotosType } from "./usersReducer";
+import { PhotosType } from "../users";
 
 const initialState = {
   posts: [

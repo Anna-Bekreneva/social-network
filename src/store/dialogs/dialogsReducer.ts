@@ -1,4 +1,4 @@
-import { InferActionsTypes } from "./";
+import { InferActionsTypes } from "../index";
 
 const initialState = {
   dialogs: [

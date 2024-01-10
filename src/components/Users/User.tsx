@@ -26,6 +26,7 @@ export const User: React.FC<UserPropsType> = ({ user, unfollow, follow, followin
           <button
             disabled={followingInProgress.some((id) => id === user.id)}
             onClick={() => {
+              console.log("unfollow");
               unfollow(user.id);
             }}
             type={"button"}>
@@ -35,6 +36,7 @@ export const User: React.FC<UserPropsType> = ({ user, unfollow, follow, followin
           <button
             disabled={followingInProgress.some((id) => id === user.id)}
             onClick={() => {
+              console.log("follow");
               follow(user.id);
             }}
             type={"button"}>
