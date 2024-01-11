@@ -4,9 +4,9 @@ const initialState = {
   initialized: false,
 };
 
-type InitialStateType = typeof initialState;
+export type AppInitialStateType = typeof initialState;
 
-export const app = (state: InitialStateType = initialState, action: ActionsApp): InitialStateType => {
+export const app = (state: AppInitialStateType = initialState, action: ActionsApp): AppInitialStateType => {
   switch (action.type) {
     case "app/INITIALIZED-SUCCESS":
       return { ...state, initialized: true };
@@ -16,7 +16,7 @@ export const app = (state: InitialStateType = initialState, action: ActionsApp):
 };
 
 const appActions = {
-  initializedSuccess: () => ({ type: "app/INITIALIZED-SUCCESS" }) as const,
+  initializedSuccess: () => ({ type: "app/INITIALIZED-SUCCESS" as const }),
 };
 
 type ActionsApp = InferActionsTypes<typeof appActions>;

@@ -4,19 +4,6 @@ import { APIResponseType, ResultCode, usersAPI } from "api";
 import { updateObjectInArray } from "utils";
 import { Dispatch } from "redux";
 
-export type UserType = {
-  id: number;
-  name: string;
-  status: string;
-  followed: boolean;
-  photos: PhotosType;
-};
-
-export type PhotosType = {
-  large: string | null;
-  small: string | null;
-};
-
 const initialState = {
   users: [] as UserType[],
   pageSize: 5,
@@ -26,10 +13,6 @@ const initialState = {
   followingInProgress: [] as number[],
   filter: { term: "", friend: null as null | boolean },
 };
-
-// todo: create specially name for everything InitialStateType
-export type UsersInitialStateType = typeof initialState;
-export type FilterType = typeof initialState.filter;
 
 export const users = (state = initialState, action: ActionsTypeUser): UsersInitialStateType => {
   switch (action.type) {
@@ -134,3 +117,20 @@ export const unfollow = (userId: number): BaseThunkType<ActionsTypeUser> => {
     await followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), usersActions.unfollowSuccess);
   };
 };
+
+export type UserType = {
+  id: number;
+  name: string;
+  status: string;
+  followed: boolean;
+  photos: PhotosType;
+};
+
+export type PhotosType = {
+  large: string | null;
+  small: string | null;
+};
+
+// todo: create specially name for everything InitialStateType
+export type UsersInitialStateType = typeof initialState;
+export type FilterType = typeof initialState.filter;

@@ -12,9 +12,9 @@ const initialState = {
   captchaUrl: null as string | null,
 };
 
-type InitialStateType = typeof initialState;
+export type AuthInitialStateType = typeof initialState;
 
-export const auth = (state = initialState, action: ActionsAuth): InitialStateType => {
+export const auth = (state = initialState, action: ActionsAuth): AuthInitialStateType => {
   switch (action.type) {
     case "auth/SET-USER-DATA":
     case "auth/GET-CAPTCHA-URL-SUCCESS":

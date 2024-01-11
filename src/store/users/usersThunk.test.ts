@@ -21,6 +21,7 @@ const response: APIResponseType = {
 };
 
 test("success follow thunk", async () => {
+  // todo: can short these lines?
   userAPIMock.follow.mockReturnValue(Promise.resolve(response));
   userAPIMock.unfollow.mockReturnValue(Promise.resolve(response));
 

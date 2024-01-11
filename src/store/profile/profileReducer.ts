@@ -16,16 +16,14 @@ const initialState = {
   status: "",
 };
 
-type InitialStateType = typeof initialState;
-
-export const profile = (state = initialState, action: ActionsTypeProfile): InitialStateType => {
+export const profile = (state = initialState, action: ActionsTypeProfile): ProfileInitialStateType => {
   switch (action.type) {
     case "profile/ADD-POST":
       return {
         ...state,
+        // todo: change id, remove hardcode
         posts: [...state.posts, { id: 5, message: action.newPostText, likesCount: 0 }],
       };
-
     case "profile/SET-USER-PROFILE":
       return { ...state, profile: { ...action.profile } };
     case "profile/SET-STATUS":
@@ -45,31 +43,31 @@ export const profile = (state = initialState, action: ActionsTypeProfile): Initi
 };
 
 export const profileActions = {
-  addPost: (newPostText: string) => ({ type: "profile/ADD-POST", newPostText }) as const,
+  addPost: (newPostText: string) => ({ type: "profile/ADD-POST" as const, newPostText }),
 
-  setUserProfile: (profile: ProfileType) => ({ type: "profile/SET-USER-PROFILE", profile }) as const,
+  setUserProfile: (profile: ProfileType) => ({ type: "profile/SET-USER-PROFILE" as const, profile }),
 
-  setStatus: (status: string) => ({ type: "profile/SET-STATUS", status }) as const,
+  setStatus: (status: string) => ({ type: "profile/SET-STATUS" as const, status }),
 
-  deletePost: (id: number) => ({ type: "profile/DELETE-POST", id }) as const,
+  deletePost: (id: number) => ({ type: "profile/DELETE-POST" as const, id }),
 
-  savePhotoSuccess: (photos: PhotosType) => ({ type: "profile/SAVE-PHOTO-SUCCESS", photos }) as const,
+  savePhotoSuccess: (photos: PhotosType) => ({ type: "profile/SAVE-PHOTO-SUCCESS" as const, photos }),
 };
 
-type ActionsTypeProfile = InferActionsTypes<typeof profileActions>;
+export type ActionsTypeProfile = InferActionsTypes<typeof profileActions>;
 
 export const getUserProfile =
   (userId: number): BaseThunkType<ActionsTypeProfile | FormAction> =>
   async (dispatch) => {
-    const response = await profileAPI.getProfile(userId);
-    dispatch(profileActions.setUserProfile(response.data));
+    const profile = await profileAPI.getProfile(userId);
+    dispatch(profileActions.setUserProfile(profile));
   };
 
 export const getStatus =
   (userId: number): BaseThunkType<ActionsTypeProfile> =>
   async (dispatch) => {
-    profileAPI.getStatus(userId).then((response) => {
-      dispatch(profileActions.setStatus(response.data));
+    profileAPI.getStatus(userId).then((status) => {
+      dispatch(profileActions.setStatus(status));
     });
   };
 
@@ -78,7 +76,7 @@ export const updateStatus =
   async (dispatch) => {
     const response = await profileAPI.updateStatus(status);
 
-    if (response.data.resultCode === ResultCode.Success) {
+    if (response.resultCode === ResultCode.Success) {
       dispatch(profileActions.setStatus(status));
     }
   };
@@ -88,26 +86,27 @@ export const savePhoto =
   async (dispatch) => {
     const response = await profileAPI.savePhoto(file);
 
-    if (response.data.resultCode === ResultCode.Success) {
-      dispatch(profileActions.savePhotoSuccess(response.data.data.photos));
+    if (response.resultCode === ResultCode.Success) {
+      dispatch(profileActions.savePhotoSuccess(response.data.photos));
     }
   };
 
 export const saveProfile =
   (profile: ProfileType): BaseThunkType<ActionsTypeProfile | ReturnType<typeof stopSubmit>> =>
   async (dispatch, getState) => {
+    // todo: do i need to add await?
     const userId = getState().auth.userId;
     const response = await profileAPI.saveProfile(profile);
-    if (response.data.resultCode === ResultCode.Success) {
+    if (response.resultCode === ResultCode.Success) {
       if (userId !== null) {
-        dispatch(getUserProfile(userId));
+        await dispatch(getUserProfile(userId));
       } else {
         throw new Error("userId can't be null");
       }
     } else {
-      dispatch(stopSubmit("edit-profile", { _error: response.data.messages[0] }));
+      dispatch(stopSubmit("edit-profile", { _error: response.messages[0] }));
 
-      return Promise.reject(response.data.messages[0]);
+      return Promise.reject(response.messages[0]);
     }
   };
 
@@ -128,11 +127,6 @@ export type PostType = {
   likesCount: number;
 };
 
-export type ProfilePageType = {
-  posts: Array<PostType>;
-  profile: ProfileType;
-};
-
 export type ProfileType = {
   aboutMe: string;
   userId: number;
@@ -141,5 +135,6 @@ export type ProfileType = {
   fullName: string;
   contacts: ContactsType;
   photos: PhotosType;
-  status: string;
 };
+
+export type ProfileInitialStateType = typeof initialState;
