@@ -11,9 +11,6 @@ const initialState = {
   isAuth: false,
   captchaUrl: null as string | null,
 };
-
-export type AuthInitialStateType = typeof initialState;
-
 export const auth = (state = initialState, action: ActionsAuth): AuthInitialStateType => {
   switch (action.type) {
     case "auth/SET-USER-DATA":
@@ -40,8 +37,8 @@ export const authActions = {
 export const getAuthUserData = (): BaseThunkType<ActionsAuth> => async (dispatch) => {
   const response = await authAPI.me();
 
-  if (response.data.resultCode === ResultCode.Success) {
-    const { id, login, email } = response.data.data;
+  if (response.resultCode === ResultCode.Success) {
+    const { id, login, email } = response.data;
 
     dispatch(authActions.setAuthUserData(id, login, email, true));
   }
@@ -57,13 +54,13 @@ export const login =
   async (dispatch) => {
     const response = await authAPI.login(email, password, rememberMe, captcha);
 
-    if (response.data.resultCode === ResultCode.Success) {
+    if (response.resultCode === ResultCode.Success) {
       dispatch(getAuthUserData());
     } else {
-      if (response.data.resultCode === ResultCodeWithCaptcha.CaptchaIsRequired) {
+      if (response.resultCode === ResultCodeWithCaptcha.CaptchaIsRequired) {
         dispatch(getCaptchaUrl());
       }
-      const message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
+      const message = response.messages.length > 0 ? response.messages[0] : "Some error";
 
       dispatch(stopSubmit("login", { _error: message }));
     }
@@ -71,7 +68,7 @@ export const login =
 
 export const getCaptchaUrl = (): BaseThunkType<ActionsAuth> => async (dispatch) => {
   const response = await securityAPI.getCaptchaUrl();
-  const captchaUrl = response.data.url;
+  const captchaUrl = response.url;
 
   dispatch(authActions.getCaptchaUrlSuccess(captchaUrl));
 };
@@ -79,7 +76,9 @@ export const getCaptchaUrl = (): BaseThunkType<ActionsAuth> => async (dispatch) 
 export const logout = (): BaseThunkType<ActionsAuth> => async (dispatch) => {
   const response = await authAPI.logout();
 
-  if (response.data.resultCode === ResultCode.Error) {
+  if (response.resultCode === ResultCode.Error) {
     dispatch(authActions.setAuthUserData(null, null, null, false));
   }
 };
+
+export type AuthInitialStateType = typeof initialState;
