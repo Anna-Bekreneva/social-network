@@ -4,8 +4,6 @@ const initialState = {
   initialized: false,
 };
 
-export type AppInitialStateType = typeof initialState;
-
 export const app = (state: AppInitialStateType = initialState, action: ActionsApp): AppInitialStateType => {
   switch (action.type) {
     case "app/INITIALIZED-SUCCESS":
@@ -15,7 +13,7 @@ export const app = (state: AppInitialStateType = initialState, action: ActionsAp
   }
 };
 
-const appActions = {
+export const appActions = {
   initializedSuccess: () => ({ type: "app/INITIALIZED-SUCCESS" as const }),
 };
 
@@ -26,3 +24,5 @@ export const initializeApp = (): BaseThunkType<ActionsApp> => async (dispatch) =
     dispatch(appActions.initializedSuccess());
   });
 };
+
+export type AppInitialStateType = typeof initialState;
