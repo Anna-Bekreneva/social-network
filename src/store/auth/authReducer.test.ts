@@ -9,6 +9,8 @@ beforeEach(() => {
     login: null,
     isAuth: false,
     captchaUrl: null,
+    // todo: write a test for ava
+    ava: null,
   };
 });
 

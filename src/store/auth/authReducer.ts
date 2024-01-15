@@ -2,7 +2,7 @@ import { stopSubmit } from "redux-form";
 
 import { BaseThunkType, InferActionsTypes } from "../store";
 
-import { authAPI, ResultCode, ResultCodeWithCaptcha, securityAPI } from "api";
+import { authAPI, profileAPI, ResultCode, ResultCodeWithCaptcha, securityAPI } from "api";
 
 const initialState = {
   userId: null as number | null,
@@ -10,12 +10,15 @@ const initialState = {
   login: null as string | null,
   isAuth: false,
   captchaUrl: null as string | null,
+  ava: "" as string | null,
 };
 export const auth = (state = initialState, action: ActionsAuth): AuthInitialStateType => {
   switch (action.type) {
     case "auth/SET-USER-DATA":
     case "auth/GET-CAPTCHA-URL-SUCCESS":
       return { ...state, ...action.payload };
+    case "auth/SET-AVA":
+      return { ...state, ava: action.ava };
     default:
       return state;
   }
@@ -32,6 +35,8 @@ export const authActions = {
     type: "auth/GET-CAPTCHA-URL-SUCCESS" as const,
     payload: { captchaUrl },
   }),
+
+  setAva: (ava: string | null) => ({ type: "auth/SET-AVA" as const, ava }),
 };
 
 export const getAuthUserData = (): BaseThunkType<ActionsAuth> => async (dispatch) => {
@@ -40,7 +45,7 @@ export const getAuthUserData = (): BaseThunkType<ActionsAuth> => async (dispatch
   if (response.resultCode === ResultCode.Success) {
     const { id, login, email } = response.data;
 
-    dispatch(authActions.setAuthUserData(id, login, email, true));
+    dispatch(authActions.setAuthUserData(id, email, login, true));
   }
 };
 
@@ -78,6 +83,14 @@ export const logout = (): BaseThunkType<ActionsAuth> => async (dispatch) => {
 
   if (response.resultCode === ResultCode.Error) {
     dispatch(authActions.setAuthUserData(null, null, null, false));
+  }
+};
+
+export const getAva = (): BaseThunkType<ActionsAuth> => async (dispatch, getState) => {
+  const myId = getState().auth.userId;
+  if (myId) {
+    const response = await profileAPI.getProfile(myId);
+    dispatch(authActions.setAva(response.photos?.small));
   }
 };
 
