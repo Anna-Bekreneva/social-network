@@ -8,7 +8,7 @@ import { LogoutOutlined, MessageOutlined, UsergroupAddOutlined } from "@ant-desi
 import s from "./Navigation.module.scss";
 import classNames from "classnames";
 
-export const Navigation: FC<NavigationPropsType> = ({ name, ava, logout, ...props }) => {
+export const Navigation: FC<Omit<NavigationPropsType, "getAva">> = ({ name, logout, ava, ...props }) => {
   const iconColor = { color: "#F46119" };
   const { pathname } = useLocation();
   return (
@@ -18,7 +18,7 @@ export const Navigation: FC<NavigationPropsType> = ({ name, ava, logout, ...prop
           <MenuItem className={classNames(s.item, { [s.active]: pathname === "/profile" })} key={"/profile"}>
             <NavLink to="/profile">
               <Flex gap={"small"} align={"center"}>
-                <Avatar src={ava} alt={"avatar"} />
+                {ava && <Avatar src={ava} alt={"avatar"} />}
                 <Typography.Text> {name} </Typography.Text>
               </Flex>
             </NavLink>
@@ -26,20 +26,20 @@ export const Navigation: FC<NavigationPropsType> = ({ name, ava, logout, ...prop
         )}
         <MenuItem className={classNames(s.item, { [s.active]: pathname === "/users" })} key={"/users"}>
           <NavLink to="/users">
-            <UsergroupAddOutlined style={iconColor} rev />
+            <UsergroupAddOutlined style={iconColor} rev={""} />
             <Typography.Text>Users</Typography.Text>
           </NavLink>
         </MenuItem>
         <MenuItem className={classNames(s.item, { [s.active]: pathname === "/dialogs" })} key={"/dialogs"}>
           <NavLink to="/dialogs">
-            <MessageOutlined style={iconColor} rev />
+            <MessageOutlined style={iconColor} rev={""} />
             <Typography.Text>Message</Typography.Text>
           </NavLink>
         </MenuItem>
       </Menu>
       {!!name && (
         <Button className={s.logout} type="link" onClick={logout}>
-          <LogoutOutlined className={s.logoutContent} rev />
+          <LogoutOutlined className={s.logoutContent} rev={""} />
           <Typography.Text rootClassName={s.logoutContent}> Log out</Typography.Text>
         </Button>
       )}
