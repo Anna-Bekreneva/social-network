@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { NavLink } from "react-router-dom";
 
@@ -15,7 +15,7 @@ type UserPropsType = {
   followingInProgress: Array<number>;
 };
 
-export const User: React.FC<UserPropsType> = ({ user, unfollow, follow, followingInProgress }) => {
+export const User: React.FC<UserPropsType> = memo(({ user, unfollow, follow, followingInProgress }) => {
   return (
     <div>
       <div>
@@ -25,20 +25,14 @@ export const User: React.FC<UserPropsType> = ({ user, unfollow, follow, followin
         {user.followed ? (
           <button
             disabled={followingInProgress.some((id) => id === user.id)}
-            onClick={() => {
-              console.log("unfollow");
-              unfollow(user.id);
-            }}
+            onClick={() => unfollow(user.id)}
             type={"button"}>
             Unfollow
           </button>
         ) : (
           <button
             disabled={followingInProgress.some((id) => id === user.id)}
-            onClick={() => {
-              console.log("follow");
-              follow(user.id);
-            }}
+            onClick={() => follow(user.id)}
             type={"button"}>
             Follow
           </button>
@@ -56,4 +50,4 @@ export const User: React.FC<UserPropsType> = ({ user, unfollow, follow, followin
       </div>
     </div>
   );
-};
+});

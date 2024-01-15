@@ -1,19 +1,17 @@
 import React from "react";
 import { InjectedFormProps, reduxForm } from "redux-form";
 
-// Почему пути такие длинные
+import { createField, GetStringKeys, Textarea } from "../../../common";
 import { required } from "../../../../utils";
-import { createField, GetStringKeys, Input } from "../../../common";
 
 type ValuesTypeKeys = GetStringKeys<FormDataType>;
 export type FormDataType = {
   newPostText: string;
 };
-const AddPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const AddPostForm: React.FC<InjectedFormProps<FormDataType>> = ({ handleSubmit }) => {
   return (
-    <form onSubmit={props.handleSubmit}>
-      {/* А разве тут не textarea */}
-      {createField<ValuesTypeKeys>("Your post", "newPostText", [required], Input, {
+    <form onSubmit={handleSubmit}>
+      {createField<ValuesTypeKeys>("Your post", "newPostText", [required], Textarea, {
         type: "text",
         label: "ADd your post",
       })}

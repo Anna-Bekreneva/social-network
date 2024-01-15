@@ -6,7 +6,7 @@ import { InjectedFormProps, reduxForm } from "redux-form";
 
 import s from "./Login.module.scss";
 import { Card, createField, GetStringKeys, Input } from "components";
-import { AppStateType, login } from "store";
+import { AppStateType, login, selectCaptchaUrl, selectIsAuth } from "store";
 import { required } from "utils";
 import { Button, Form, Typography } from "antd";
 
@@ -50,20 +50,20 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, PropsType> & PropsType
 
 const LoginReduxForm = reduxForm<FormDataType, PropsType>({ form: "login" })(LoginForm);
 
-const LoginInner = (props: LoginPropsType) => {
-  if (props.isAuth) return <Redirect to={"/profile"} />;
+const LoginInner: React.FC<LoginPropsType> = ({ login, isAuth, captchaUrl }) => {
+  if (isAuth) return <Redirect to={"/profile"} />;
 
   return (
     <Card className={s.card}>
       <Typography.Title>Login</Typography.Title>
-      <LoginReduxForm login={props.login} captchaUrl={props.captchaUrl} />
+      <LoginReduxForm login={login} captchaUrl={captchaUrl} />
     </Card>
   );
 };
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
-  captchaUrl: state.auth.captchaUrl,
-  isAuth: state.auth.isAuth,
+  captchaUrl: selectCaptchaUrl(state),
+  isAuth: selectIsAuth(state),
 });
 
 type mapDispatchPropsType = {

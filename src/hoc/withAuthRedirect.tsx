@@ -3,18 +3,15 @@ import React, { ComponentType } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
-import { AppStateType } from "store";
+import { AppStateType, selectIsAuth } from "store";
 
 type MapStatePropsType = {
   isAuth: boolean;
 };
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => {
-  return {
-    isAuth: state.auth.isAuth,
-  };
-};
-
+const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
+  isAuth: selectIsAuth(state),
+});
 export function withAuthRedirect<T>(Component: ComponentType<T>) {
   function RedirectComponent(props: MapStatePropsType) {
     const { isAuth, ...restProps } = props;

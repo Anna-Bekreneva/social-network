@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 
 import { MyPosts } from "./MyPosts";
 
-import { AppStateType, profileActions, PostType } from "store";
+import { AppStateType, profileActions, PostType, selectPosts } from "store";
 
 type MapStatePropsType = {
   posts: Array<PostType>;
@@ -15,7 +15,7 @@ type MapDispatchToProps = {
 export type ProfilePropsType = MapStatePropsType & MapDispatchToProps;
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
-  posts: state.profile.posts,
+  posts: selectPosts(state),
 });
 
 export const MyPostsContainer = connect<MapStatePropsType, MapDispatchToProps, {}, AppStateType>(mapStateToProps, {

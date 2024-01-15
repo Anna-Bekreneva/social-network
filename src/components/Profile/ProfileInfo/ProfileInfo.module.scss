@@ -1,0 +1,63 @@
+.topContainer {
+  background-color: rgba(244, 97, 25, 0.05);
+  box-shadow: var(--shadow-normal);
+  border-radius: 12px;
+}
+
+.gradient {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.topImg {
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.topContent {
+  border-radius: 12px;
+}
+
+.cover {
+  position: relative;
+  margin-bottom: 28px;
+}
+
+.dropdown {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 4;
+}
+
+.trigger {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background-color: var(--color-orange-light);
+  padding: 8px 16px;
+  border-radius: 10px;
+}
+
+.dropdownIcon {
+  color: var(--color-primary);
+}
+
+.ava {
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+.title {
+  margin-bottom: 0.2em !important;
+}
+
+.buttonEdit {
+  margin-left: auto;
+}
+
+.iconEdit {
+  color: var(--color-primary)
+}

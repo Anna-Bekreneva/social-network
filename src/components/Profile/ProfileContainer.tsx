@@ -7,13 +7,17 @@ import { compose } from "redux";
 import { Profile } from "components";
 import {
   ContactsType,
-  getStatus,
   getUserProfile,
   savePhoto,
   saveProfile,
   updateStatus,
   AppStateType,
   PhotosType,
+  selectProfile,
+  getStatus,
+  selectStatusProfile,
+  selectIsAuth,
+  selectUserId,
 } from "store";
 
 type ProfilePropsType = MapStatePropsType & mapDispatchToPropsType;
@@ -54,7 +58,6 @@ class ProfileContainer extends React.Component<PropsType> {
     super(props);
   }
   refreshProfile() {
-    console.log(this.props.authorizedUserId);
     let userId: number | null = Number(this.props.match.params.userId);
     if (!userId) {
       userId = this.props.authorizedUserId;
@@ -98,10 +101,10 @@ class ProfileContainer extends React.Component<PropsType> {
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
   return {
-    profile: state.profile.profile,
-    status: state.profile.status,
-    authorizedUserId: state.auth.userId,
-    isAuth: state.auth.isAuth,
+    profile: selectProfile(state),
+    status: selectStatusProfile(state),
+    authorizedUserId: selectUserId(state),
+    isAuth: selectIsAuth(state),
   };
 };
 

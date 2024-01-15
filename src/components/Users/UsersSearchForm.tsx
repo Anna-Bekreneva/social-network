@@ -1,8 +1,8 @@
 import { Field, Form, Formik } from "formik";
-import React from "react";
+import React, { memo } from "react";
 import { FilterType } from "../../store";
 
-const usersSearchFormValidate = (values: any) => {
+const usersSearchFormValidate = () => {
   const errors = {};
   return errors;
 };
@@ -14,14 +14,13 @@ type FormType = {
 
 type PropsType = { onFilterChanged: (filter: FilterType) => void };
 
-// todo: all components wrap in memo
-export const UsersSearchForm: React.FC<PropsType> = (props) => {
+export const UsersSearchForm: React.FC<PropsType> = memo(({ onFilterChanged }) => {
   const submit = (values: FormType, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
     const filter = {
       term: values.term,
       friend: values.friend === "null" ? null : values.friend === "true",
     };
-    props.onFilterChanged(filter);
+    onFilterChanged(filter);
     setSubmitting(false);
   };
   return (
@@ -30,7 +29,7 @@ export const UsersSearchForm: React.FC<PropsType> = (props) => {
         {({ isSubmitting }) => (
           <Form>
             <Field type="text" name="term" />
-            <Field name="friends" as="select">
+            <Field name="friend" as="select">
               <option value="all">All</option>
               <option value="true">Only followed</option>
               <option value="false">Only unfollowed</option>
@@ -43,4 +42,4 @@ export const UsersSearchForm: React.FC<PropsType> = (props) => {
       </Formik>
     </div>
   );
-};
+});

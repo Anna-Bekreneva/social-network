@@ -5,25 +5,27 @@ type ProfileStatusPropsType = {
   updateStatus: (status: string) => void;
 };
 
-export const ProfileStatusWithHooks = (props: ProfileStatusPropsType) => {
+export const ProfileStatusWithHooks: React.FC<ProfileStatusPropsType> = ({ updateStatus, status }) => {
   const [editMode, setEditMode] = useState(false);
-  const [status, setStatus] = useState(props.status);
+  const [currentStatus, setCurrentStatusStatus] = useState(status);
 
   useEffect(() => {
-    setStatus(props.status);
-  }, [props.status]);
+    setCurrentStatusStatus(status);
+  }, [status]);
 
   const activeEditMode = () => setEditMode(true);
   const deactivateEditMode = () => {
     setEditMode(false);
-    props.updateStatus(status);
+    updateStatus(currentStatus);
   };
-  const onStatusChange = (event: ChangeEvent<HTMLInputElement>) => setStatus(event.currentTarget.value);
+  const onStatusChange = (event: ChangeEvent<HTMLInputElement>) => setCurrentStatusStatus(event.currentTarget.value);
 
   return (
     <div>
-      {!editMode && <span onDoubleClick={activeEditMode}>{props.status || "----"}</span>}
-      {editMode && <input type="text" value={status} onChange={onStatusChange} onBlur={deactivateEditMode} autoFocus />}
+      {!editMode && <span onDoubleClick={activeEditMode}>{status || "----"}</span>}
+      {editMode && (
+        <input type="text" value={currentStatus} onChange={onStatusChange} onBlur={deactivateEditMode} autoFocus />
+      )}
     </div>
   );
 };

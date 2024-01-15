@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 
 import cn from "classnames";
 
@@ -12,54 +12,49 @@ type PaginatorPropsType = {
   portionSize: number;
 };
 
-export const Paginator: React.FC<PaginatorPropsType> = (props) => {
-  const pagesCount = Math.ceil(props.totalItemsCount / props.pageSize);
-  const pages = [];
+export const Paginator: React.FC<PaginatorPropsType> = memo(
+  ({ onPageChanged, pageSize, currentPage, portionSize, totalItemsCount }) => {
+    const pagesCount = Math.ceil(totalItemsCount / pageSize);
+    const pages: number[] = [];
 
-  for (let i = 1; i < pagesCount; i++) {
-    pages.push(i);
-  }
+    for (let i = 1; i < pagesCount; i++) {
+      pages.push(i);
+    }
 
-  const portionCount = Math.ceil(pagesCount / props.portionSize);
-  const [portionNumber, setPortionNumber] = useState(1);
-  const leftPortionPageNumber = (portionNumber - 1) * props.portionSize + 1;
-  const rightPortionPageNumber = portionNumber * props.portionSize;
+    const portionCount = Math.ceil(pagesCount / portionSize);
+    const [portionNumber, setPortionNumber] = useState(1);
+    const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
+    const rightPortionPageNumber = portionNumber * portionSize;
 
-  return (
-    <div className={styles.paginator}>
-      {portionNumber > 1 && (
-        <button
-          onClick={() => {
-            setPortionNumber(portionNumber - 1);
-          }}>
-          PREV
-        </button>
-      )}
-      {pages
-        .filter((page) => page >= leftPortionPageNumber && page <= rightPortionPageNumber)
-        .map((page) => {
-          return (
-            <span
-              className={cn(
-                {
-                  [styles.selectedPage]: props.currentPage === page,
-                },
-                styles.pageNumber,
-              )}
-              key={page}
-              onClick={(e) => props.onPageChanged(page)}>
-              {page}
-            </span>
-          );
-        })}
-      {portionCount > portionNumber && (
-        <button
-          onClick={() => {
-            setPortionNumber(portionNumber + 1);
-          }}>
-          NEXT
-        </button>
-      )}
-    </div>
-  );
-};
+    return (
+      <div className={styles.paginator}>
+        {portionNumber > 1 && (
+          <button
+            onClick={() => {
+              setPortionNumber(portionNumber - 1);
+            }}>
+            PREV
+          </button>
+        )}
+        {pages
+          .filter((page) => page >= leftPortionPageNumber && page <= rightPortionPageNumber)
+          .map((page) => {
+            return (
+              <span
+                className={cn(
+                  {
+                    [styles.selectedPage]: currentPage === page,
+                  },
+                  styles.pageNumber,
+                )}
+                key={page}
+                onClick={(e) => onPageChanged(page)}>
+                {page}
+              </span>
+            );
+          })}
+        {portionCount > portionNumber && <button onClick={() => setPortionNumber(portionNumber + 1)}>NEXT</button>}
+      </div>
+    );
+  },
+);

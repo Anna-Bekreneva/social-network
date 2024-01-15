@@ -1,15 +1,16 @@
 import React from "react";
 
 import { connect } from "react-redux";
-import { compose, Dispatch } from "redux";
+import { compose } from "redux";
 
 import { Dialogs } from "./Dialogs";
 
 import { withAuthRedirect } from "hoc";
-import { AppStateType, dialogsActions, DialogsStateType } from "store";
+import { AppStateType } from "store";
+import { dialogsActions, DialogsStateType, selectDialogs } from "../../store";
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
-  dialogsPage: state.dialogs,
+  dialogsPage: selectDialogs(state),
 });
 
 type MapStatePropsType = {

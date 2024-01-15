@@ -94,7 +94,6 @@ export const savePhoto =
 export const saveProfile =
   (profile: ProfileType): BaseThunkType<ActionsTypeProfile | ReturnType<typeof stopSubmit>> =>
   async (dispatch, getState) => {
-    // todo: do i need to add await?
     const userId = getState().auth.userId;
     const response = await profileAPI.saveProfile(profile);
     if (response.resultCode === ResultCode.Success) {

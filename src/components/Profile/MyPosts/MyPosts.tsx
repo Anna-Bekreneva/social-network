@@ -4,8 +4,8 @@ import "./MyPosts.css";
 
 import { ProfilePropsType, Post } from "components";
 import { AddPostFormRedux, FormDataType } from "./AddPostForm";
-export const MyPosts = memo((props: ProfilePropsType) => {
-  const postsElements = props.posts.map((post) => {
+export const MyPosts = memo(({ posts, addPost }: ProfilePropsType) => {
+  const postsElements = posts.map((post) => {
     return (
       <li className="posts__item" key={post.id}>
         <Post message={post.message} likesCount={post.likesCount} />
@@ -13,9 +13,7 @@ export const MyPosts = memo((props: ProfilePropsType) => {
     );
   });
 
-  const onAddPost = (values: FormDataType) => {
-    props.addPost(values.newPostText);
-  };
+  const onAddPost = (values: FormDataType) => addPost(values.newPostText);
 
   return (
     <div className="posts-block">

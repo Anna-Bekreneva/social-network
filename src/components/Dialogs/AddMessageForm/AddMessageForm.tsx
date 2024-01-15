@@ -5,9 +5,9 @@ import { Button } from "antd";
 import { createField, Textarea } from "components";
 
 const maxLength100 = maxLengthCreator(100);
-export const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormDataType>> = (props) => {
+export const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormDataType>> = ({ handleSubmit }) => {
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       {createField<ValuesTypeKeys>("Enter your message", "newMessageBody", [required, maxLength100], Textarea, {
         type: "email",
         label: "Enter email",

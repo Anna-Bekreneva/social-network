@@ -1,9 +1,7 @@
-import React from "react";
-
+import React, { memo } from "react";
 import { Paginator, User } from "components";
 import { FilterType, UserType } from "store";
 import { UsersSearchForm } from "./UsersSearchForm";
-import { useHistory } from "react-router-dom";
 
 type UsersPropsType = {
   totalUsersCount: number;
@@ -17,25 +15,38 @@ type UsersPropsType = {
   followingInProgress: Array<number>;
 };
 
-export const Users: React.FC<UsersPropsType> = (props) => {
-  return (
-    <div>
-      <UsersSearchForm onFilterChanged={props.onFilterChanged} />
-      <Paginator
-        currentPage={props.currentPage}
-        onPageChanged={props.onPageChanged}
-        pageSize={props.pageSize}
-        totalItemsCount={props.totalUsersCount}
-        portionSize={10}></Paginator>
+export const Users: React.FC<UsersPropsType> = memo(
+  ({
+    users,
+    follow,
+    unfollow,
+    followingInProgress,
+    totalUsersCount,
+    onFilterChanged,
+    onPageChanged,
+    pageSize,
+    currentPage,
+  }) => {
+    return (
+      <div>
+        <UsersSearchForm onFilterChanged={onFilterChanged} />
+        <Paginator
+          currentPage={currentPage}
+          onPageChanged={onPageChanged}
+          pageSize={pageSize}
+          totalItemsCount={totalUsersCount}
+          portionSize={10}></Paginator>
 
-      {props.users.map((user) => (
-        <User
-          user={user}
-          follow={props.follow}
-          followingInProgress={props.followingInProgress}
-          unfollow={props.unfollow}
-          key={user.id}></User>
-      ))}
-    </div>
-  );
-};
+        {users.map((user) => (
+          <User
+            user={user}
+            follow={follow}
+            followingInProgress={followingInProgress}
+            unfollow={unfollow}
+            key={user.id}
+          />
+        ))}
+      </div>
+    );
+  },
+);

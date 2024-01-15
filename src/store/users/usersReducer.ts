@@ -31,7 +31,7 @@ export const users = (state = initialState, action: ActionsTypeUser): UsersIniti
         }),
       };
     case "users/SET-USERS":
-      return { ...state, users: [...action.users, ...state.users] };
+      return { ...state, users: [...action.users] };
     case "users/SET-CURRENT-PAGE":
       return { ...state, currentPage: action.currentPage };
     case "users/SET-TOTAL-USERS-COUNT":
@@ -77,14 +77,17 @@ export const usersActions = {
   }),
 };
 
-export const requestUsers = (page: number, pageSize: number, filter: FilterType): BaseThunkType<ActionsTypeUser> => {
+export const requestUsers = (
+  currentPage: number,
+  pageSize: number,
+  filter: FilterType,
+): BaseThunkType<ActionsTypeUser> => {
   return async (dispatch) => {
     dispatch(usersActions.toggleIsFetching(true));
-    dispatch(usersActions.setCurrentPage(page));
+    dispatch(usersActions.setCurrentPage(currentPage));
     dispatch(usersActions.setFilter(filter));
 
-    // todo: give all filter
-    const data = await usersAPI.getUsers(page, pageSize, filter.term, filter.friend);
+    const data = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend);
     dispatch(usersActions.toggleIsFetching(false));
     dispatch(usersActions.setUsers(data.items));
     dispatch(usersActions.setTotalUsersCount(data.totalCount));
@@ -131,6 +134,5 @@ export type PhotosType = {
   small: string | null;
 };
 
-// todo: create specially name for everything InitialStateType
 export type UsersInitialStateType = typeof initialState;
 export type FilterType = typeof initialState.filter;

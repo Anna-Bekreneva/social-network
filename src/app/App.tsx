@@ -6,7 +6,7 @@ import { compose } from "redux";
 
 import { Login, NavigationContainer, Preloader } from "components";
 import { WithSuspense } from "hoc";
-import { AppStateType, initializeApp } from "store";
+import { AppStateType, initializeApp, selectApp } from "store";
 import { Col, Row } from "antd";
 import s from "./App.module.scss";
 
@@ -14,7 +14,7 @@ const DialogsContainer = React.lazy(() => import("../components/Dialogs/DialogsC
 const ProfileContainer = React.lazy(() => import("../components/Profile/ProfileContainer"));
 const UsersContainer = React.lazy(() => import("../components/Users/UsersContainer"));
 
-// todo: Возможно сделать деструктуризацию пропсов, проверить тесты на редьюсеры и разобраться с тестами от Димыча
+// todo: тесты ui
 
 class App extends React.Component<AppProps> {
   catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
@@ -42,7 +42,6 @@ class App extends React.Component<AppProps> {
         <Col span={12}>
           <main>
             <Switch>
-              {/*Было бы круто с роутерами поработать */}
               <Route path="/" render={() => <Redirect to={"/profile"} />} exact />
               <Route path="/dialogs" render={WithSuspense(DialogsContainer)} />
               <Route path="/profile/:userId?" render={WithSuspense(ProfileContainer)} />
@@ -58,7 +57,7 @@ class App extends React.Component<AppProps> {
 }
 
 const mapStateToProps = (state: AppStateType) => ({
-  initialized: state.app.initialized,
+  initialized: selectApp(state),
 });
 
 type mapStateToPropsType = {

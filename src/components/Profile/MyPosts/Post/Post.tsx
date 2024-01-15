@@ -5,7 +5,7 @@ type PropsType = {
   message: string;
   likesCount: number;
 };
-export const Post: React.FC<PropsType> = (props) => {
+export const Post: React.FC<PropsType> = ({ message, likesCount }) => {
   return (
     <article className="post">
       <img
@@ -17,12 +17,12 @@ export const Post: React.FC<PropsType> = (props) => {
         loading="lazy"
       />
       <div className="post__text">
-        <p>{props.message}</p>
+        <p>{message}</p>
       </div>
       <button className="post__like" type="button">
         like
       </button>
-      <span>{props.likesCount}</span>
+      <span>{likesCount}</span>
     </article>
   );
 };

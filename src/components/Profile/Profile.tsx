@@ -12,16 +12,24 @@ type PropsType = {
   saveProfile: (profile: ProfileType) => Promise<unknown>;
 };
 
-export const Profile: React.FC<PropsType> = (props) => {
+export const Profile: React.FC<PropsType> = ({
+  saveProfile,
+  savePhoto,
+  profile,
+  updateStatus,
+  status,
+  isOwner,
+  children,
+}) => {
   return (
     <>
       <ProfileInfo
-        saveProfile={props.saveProfile}
-        savePhoto={props.savePhoto}
-        isOwner={props.isOwner}
-        profile={props.profile}
-        status={props.status}
-        updateStatus={props.updateStatus}
+        saveProfile={saveProfile}
+        savePhoto={savePhoto}
+        isOwner={isOwner}
+        profile={profile}
+        status={status}
+        updateStatus={updateStatus}
       />
       <MyPostsContainer />
     </>
