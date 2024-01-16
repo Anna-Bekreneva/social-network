@@ -32,6 +32,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, PropsType> & PropsType
       })}
       {createField<ValuesTypeKeys>(undefined, "rememberMe", [], Input, {
         type: "checkbox",
+        checkBoxLabel: "Remember me",
       })}
       {captchaUrl && <img src={captchaUrl} alt="captcha" />}
       {captchaUrl && createField<ValuesTypeKeys>("symbols from image", "captcha", [required], Input, { type: "text" })}

@@ -1,6 +1,5 @@
 import React from "react";
 
-import "./Profile.css";
 import { MyPostsContainer, ProfileInfo, ProfileType } from "components";
 
 type PropsType = {
@@ -12,15 +11,7 @@ type PropsType = {
   saveProfile: (profile: ProfileType) => Promise<unknown>;
 };
 
-export const Profile: React.FC<PropsType> = ({
-  saveProfile,
-  savePhoto,
-  profile,
-  updateStatus,
-  status,
-  isOwner,
-  children,
-}) => {
+export const Profile: React.FC<PropsType> = ({ saveProfile, savePhoto, profile, updateStatus, status, isOwner }) => {
   return (
     <>
       <ProfileInfo

@@ -1,2 +1,3 @@
 export * from "./validators";
-export * from "./object-helpers";
+export * from "./objectHelpers";
+export * from "./hasCorrectProperty";

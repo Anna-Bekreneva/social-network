@@ -4,10 +4,10 @@ import userPhoto from "../../../assets/img/user.png";
 
 import s from "./ProfileInfo.module.scss";
 
-import { Preloader, ProfileType, ProfileStatusWithHooks, ProfileDataFormReduxForm } from "components";
+import { Preloader, ProfileType, ProfileStatusWithHooks, ProfileDataFormReduxForm, Social } from "components";
 import { ContactsType, savePhoto } from "../../../store";
 import { Button, Dropdown, Flex, Image, MenuProps, Typography } from "antd";
-import { DeleteOutlined, EditOutlined, PictureOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, PictureOutlined, SearchOutlined } from "@ant-design/icons";
 import { ProfileData } from "./ProfileData";
 
 type PropsType = {
@@ -79,25 +79,25 @@ export const ProfileInfo: React.FC<PropsType> = ({
           </div>
         )}
         <Flex className={s.topContent} gap={20}>
-          <Image
-            className={s.ava}
-            src={profile.photos.small || userPhoto}
-            width={120}
-            height={120}
-            alt="avatar"
-            placeholder={false}
-            preview={false}
-          />
-          <div>
-            <Typography.Title className={s.title}> {profile.fullName} </Typography.Title>
-            <Typography.Paragraph> {profile.aboutMe} </Typography.Paragraph>
+          <div className={s.ava}>
+            <Image
+              src={profile.photos.small || userPhoto}
+              width={120}
+              height={120}
+              alt="avatar"
+              placeholder={false}
+              preview={false}
+            />
+          </div>
+          <div className={s.settings}>
+            {/* todo: create h2 */}
             {editMode ? (
               <ProfileDataFormReduxForm profile={profile} onSubmit={onSubmit} initialValues={profile} />
             ) : (
-              <ProfileData goToEditMode={() => setEditMode(true)} isOwner={isOwner} profile={profile} />
+              <ProfileData profile={profile} isOwner={true} />
             )}
           </div>
-          <Button className={s.buttonEdit} htmlType="button" onClick={() => setEditMode(true)}>
+          <Button className={s.buttonEdit} htmlType="button" onClick={() => setEditMode(!editMode)}>
             <EditOutlined className={s.iconEdit} rev={""} />
             <Typography.Text> Edit profile </Typography.Text>
           </Button>
@@ -109,16 +109,4 @@ export const ProfileInfo: React.FC<PropsType> = ({
       </div>
     );
   }
-};
-
-type ContactProps = {
-  contactTitle: string;
-  contactValue: string;
-};
-export const Contact: FC<ContactProps> = (props) => {
-  return (
-    <div>
-      {props.contactTitle}: {props.contactValue}
-    </div>
-  );
 };

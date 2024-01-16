@@ -44,14 +44,18 @@
 }
 
 .ava {
-  border-radius: 50%;
-  width: 120px;
+  flex-basis: 120px;
+  flex-shrink: 0;
   height: 120px;
-  object-fit: cover;
+
+  img {
+    object-fit: cover;
+    border-radius: 50%;
+  }
 }
 
-.title {
-  margin-bottom: 0.2em !important;
+.settings {
+  flex-grow: 1;
 }
 
 .buttonEdit {

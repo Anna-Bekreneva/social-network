@@ -1,9 +1,10 @@
 import React, { HTMLInputTypeAttribute } from "react";
 
 import { Field, WrappedFieldMetaProps, WrappedFieldProps } from "redux-form";
-import { Form, Input as InputAntd, Checkbox as CheckboxAntd, Typography } from "antd";
+import { Form, Input as InputAntd, Checkbox as CheckboxAntd, Typography, Input as InputForTextarea } from "antd";
 import s from "./FormControls.module.scss";
 import { FieldValidatorType } from "../../../utils";
+const { TextArea } = InputForTextarea;
 
 type FormControlPropsType = {
   meta: WrappedFieldMetaProps;
@@ -30,13 +31,14 @@ export const Textarea: React.FC<WrappedFieldProps> = (props) => {
 
   return (
     <FormControl {...props}>
-      <textarea {...input} {...restProps}></textarea>
+      <TextArea className={s.textarea} {...input} {...restProps} />
     </FormControl>
   );
 };
 
 type InputPropsType = WrappedFieldProps & {
   type?: HTMLInputTypeAttribute;
+  checkBoxLabel?: string;
 };
 
 export const Input: React.FC<InputPropsType> = (props) => {
@@ -44,12 +46,12 @@ export const Input: React.FC<InputPropsType> = (props) => {
     <FormControl {...props}>
       {props.type === "checkbox" ? (
         <CheckboxAntd {...props.input} {...props}>
-          Remember me
+          {props.checkBoxLabel}
         </CheckboxAntd>
       ) : props.type === "password" ? (
-        <InputAntd.Password {...props.input} {...props}></InputAntd.Password>
+        <InputAntd.Password {...props.input} {...props} />
       ) : (
-        <InputAntd {...props.input} {...props}></InputAntd>
+        <InputAntd {...props.input} {...props} />
       )}
     </FormControl>
   );
@@ -61,8 +63,9 @@ export function createField<FormKeysType extends string>(
   validators: Array<FieldValidatorType>,
   component: React.FC<WrappedFieldProps>,
   props: {
-    type: HTMLInputTypeAttribute;
+    type?: HTMLInputTypeAttribute;
     label?: string;
+    checkBoxLabel?: string;
     [key: string]: unknown;
   },
 ) {
