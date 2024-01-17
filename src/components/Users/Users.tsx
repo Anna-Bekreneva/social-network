@@ -1,7 +1,9 @@
 import React, { memo } from "react";
-import { Paginator, User } from "components";
+import { User } from "components";
 import { FilterType, UserType } from "store";
 import { UsersSearchForm } from "./UsersSearchForm";
+import s from "./Users.module.scss";
+import { Pagination } from "antd";
 
 type UsersPropsType = {
   totalUsersCount: number;
@@ -29,23 +31,27 @@ export const Users: React.FC<UsersPropsType> = memo(
   }) => {
     return (
       <div>
+        <h1 className={"sr-only"}>Users</h1>
         <UsersSearchForm onFilterChanged={onFilterChanged} />
-        <Paginator
-          currentPage={currentPage}
-          onPageChanged={onPageChanged}
-          pageSize={pageSize}
-          totalItemsCount={totalUsersCount}
-          portionSize={10}></Paginator>
 
-        {users.map((user) => (
-          <User
-            user={user}
-            follow={follow}
-            followingInProgress={followingInProgress}
-            unfollow={unfollow}
-            key={user.id}
-          />
-        ))}
+        {!!users.length && (
+          <ul className={s.users}>
+            {users.map((user) => (
+              <li className={s.user} key={user.id}>
+                <User user={user} follow={follow} followingInProgress={followingInProgress} unfollow={unfollow} />
+              </li>
+            ))}
+          </ul>
+        )}
+        <Pagination
+          className={s.pagination}
+          onChange={(page, pageSize) => onPageChanged(page)}
+          total={Math.ceil(totalUsersCount / pageSize)}
+          current={currentPage}
+          pageSize={pageSize}
+          hideOnSinglePage
+          showSizeChanger={false}
+        />
       </div>
     );
   },

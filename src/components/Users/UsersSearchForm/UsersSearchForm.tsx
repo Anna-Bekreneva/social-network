@@ -1,6 +1,6 @@
 import { Field, Form, Formik } from "formik";
 import React, { memo } from "react";
-import { FilterType } from "../../store";
+import { FilterType } from "../../../store";
 
 const usersSearchFormValidate = () => {
   const errors = {};
