@@ -1,0 +1,18 @@
+.users {
+  &:not(:last-child) {
+    margin-bottom: 50px;
+  }
+}
+
+.user {
+  &:not(:last-child) {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--color-gray-divider);
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}
