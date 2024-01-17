@@ -9,7 +9,7 @@ type ProfileStatusPropsType = {
 };
 
 export const ProfileStatus: React.FC<ProfileStatusPropsType> = ({ updateStatus, status }) => {
-  const [editMode, setEditMode] = useState(true);
+  const [editMode, setEditMode] = useState(false);
   const [currentStatus, setCurrentStatusStatus] = useState(status);
 
   useEffect(() => {

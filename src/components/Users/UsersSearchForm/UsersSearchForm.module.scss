@@ -1,0 +1,16 @@
+.form {
+  display: flex;
+  gap: 20px;
+
+  &:not(:last-child) {
+    margin-bottom: 32px;
+  }
+}
+
+.item {
+  margin-bottom: 0;
+}
+
+.search {
+  flex-grow: 1;
+}

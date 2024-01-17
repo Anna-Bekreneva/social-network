@@ -17,9 +17,7 @@ const UsersContainer = React.lazy(() => import("../components/Users/UsersContain
 // todo: тесты ui
 
 class App extends React.Component<AppProps> {
-  catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
-    alert("Some error occurred");
-  };
+  catchAllUnhandledErrors = (e: PromiseRejectionEvent) => alert("Some error occurred");
 
   componentDidMount() {
     this.props.initializeApp();
@@ -35,7 +33,7 @@ class App extends React.Component<AppProps> {
       return <Preloader />;
     }
     return (
-      <Row justify="center">
+      <Row className={s.container}>
         <Col span={4}>
           <NavigationContainer className={s.navigation} />
         </Col>

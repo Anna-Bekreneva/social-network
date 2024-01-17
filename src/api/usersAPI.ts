@@ -11,7 +11,7 @@ export const usersAPI = {
   getUsers: async (currentPage: number, pageSize: number, term = "", friend: null | boolean = null) => {
     return instance
       .get<GetUsersType>(
-        `users?page=${currentPage}&count=${pageSize}&term=${term}` + (friend === null ? "" : `friend=${friend}`),
+        `users?page=${currentPage}&count=${pageSize}&term=${term}` + (friend === null ? "" : `&friend=${friend}`),
       )
       .then((res) => res.data);
   },
