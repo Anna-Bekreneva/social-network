@@ -11,7 +11,7 @@ type FormControlPropsType = {
   label?: string;
 };
 
-const FormControl: React.FC<FormControlPropsType> = (props) => {
+export const FormControl: React.FC<FormControlPropsType> = (props) => {
   const { meta, children } = props;
   const hasError = meta.touched && meta.error;
   return (

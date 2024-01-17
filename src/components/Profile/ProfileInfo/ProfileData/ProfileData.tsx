@@ -6,17 +6,21 @@ import { SearchOutlined } from "@ant-design/icons";
 import s from "./ProfileData.module.scss";
 import { Social } from "../../../common";
 import { hasCorrectProperty } from "../../../../utils";
+import { ProfileStatus } from "../../ProfileStatus/ProfileStatus";
 
 type ProfileDataProps = {
   isOwner: boolean;
   profile: ProfileType;
+  status: string;
+  updateStatus: (status: string) => void;
 };
 
-export const ProfileData: FC<ProfileDataProps> = ({ profile, isOwner }) => {
+export const ProfileData: FC<ProfileDataProps> = ({ profile, updateStatus, status, isOwner }) => {
   return (
     <>
       <div className={s.item}>
         <Typography.Title level={3}>{profile.fullName} </Typography.Title>
+        <ProfileStatus status={status} updateStatus={updateStatus} />
         <Typography.Paragraph className={s.descr}> {profile.aboutMe} </Typography.Paragraph>
       </div>
       <div className={s.item}>

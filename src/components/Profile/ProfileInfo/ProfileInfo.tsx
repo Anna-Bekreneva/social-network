@@ -1,10 +1,10 @@
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { ChangeEvent, EventHandler, FC, FormEvent, MouseEventHandler, useRef, useState } from "react";
 
 import userPhoto from "../../../assets/img/user.png";
 
 import s from "./ProfileInfo.module.scss";
 
-import { Preloader, ProfileType, ProfileStatusWithHooks, ProfileDataFormReduxForm, Social } from "components";
+import { Preloader, ProfileType, ProfileStatus, ProfileDataFormReduxForm, Social } from "components";
 import { ContactsType, savePhoto } from "../../../store";
 import { Button, Dropdown, Flex, Image, MenuProps, Typography } from "antd";
 import { DeleteOutlined, EditOutlined, PictureOutlined, SearchOutlined } from "@ant-design/icons";
@@ -27,14 +27,14 @@ export const ProfileInfo: React.FC<PropsType> = ({
   status,
   isOwner,
 }) => {
-  const [editMode, setEditMode] = useState(false);
-  const [isOpenDropdown, setIsOpenDropdown] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const inputFileRef = useRef<HTMLInputElement | null>(null);
   if (!profile) {
     return <Preloader />;
   } else {
     const onSubmit = (formData: ProfileType) => {
       saveProfile(formData).then(() => {
-        setEditMode(false);
+        setIsEditMode(false);
       });
     };
 
@@ -44,28 +44,11 @@ export const ProfileInfo: React.FC<PropsType> = ({
       }
     };
 
-    const itemsDropdown: MenuProps["items"] = [
-      { key: "change", label: "Change cover", icon: <PictureOutlined className={s.dropdownIcon} rev={""} /> },
-      { key: "delete", label: "Delete cover", icon: <DeleteOutlined className={s.dropdownIcon} rev={""} /> },
-    ];
-
     return (
       <div>
+        <input ref={inputFileRef} style={{ display: "none" }} type="file" onChange={onMainPhotoSelected} />
         {profile.photos.large && (
           <div className={s.cover}>
-            <Dropdown
-              className={s.dropdown}
-              open={isOpenDropdown}
-              onOpenChange={() => setIsOpenDropdown(!isOpenDropdown)}
-              trigger={["click"]}
-              menu={{ items: itemsDropdown }}
-              placement={"bottomRight"}>
-              {/* todo: show button on hover */}
-              <button className={s.trigger}>
-                <EditOutlined className={s.dropdownIcon} rev={""} />
-                <Typography.Text> Edit cover </Typography.Text>
-              </button>
-            </Dropdown>
             <Image
               src={profile.photos.large}
               height={320}
@@ -91,21 +74,18 @@ export const ProfileInfo: React.FC<PropsType> = ({
           </div>
           <div className={s.settings}>
             {/* todo: create h2 */}
-            {editMode ? (
+            {isEditMode ? (
               <ProfileDataFormReduxForm profile={profile} onSubmit={onSubmit} initialValues={profile} />
             ) : (
-              <ProfileData profile={profile} isOwner={true} />
+              <ProfileData profile={profile} isOwner={true} status={status} updateStatus={updateStatus} />
             )}
           </div>
-          <Button className={s.buttonEdit} htmlType="button" onClick={() => setEditMode(!editMode)}>
+          <Button className={s.buttonEdit} htmlType="button" onClick={() => setIsEditMode(!isEditMode)}>
             <EditOutlined className={s.iconEdit} rev={""} />
             <Typography.Text> Edit profile </Typography.Text>
           </Button>
         </Flex>
-        <div className={s.description}>
-          {/*{isOwner && <input type="file" onChange={onMainPhotoSelected} />}*/}
-          <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
-        </div>
+        <div className={s.description}>{/*{isOwner && <input type="file" onChange={onMainPhotoSelected} />}*/}</div>
       </div>
     );
   }
