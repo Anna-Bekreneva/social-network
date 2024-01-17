@@ -14,6 +14,7 @@ type PropsType = {
 export const Profile: React.FC<PropsType> = ({ saveProfile, savePhoto, profile, updateStatus, status, isOwner }) => {
   return (
     <>
+      <h1 className={"sr-only"}> Profile of {profile?.fullName} </h1>
       <ProfileInfo
         saveProfile={saveProfile}
         savePhoto={savePhoto}
@@ -22,7 +23,7 @@ export const Profile: React.FC<PropsType> = ({ saveProfile, savePhoto, profile, 
         status={status}
         updateStatus={updateStatus}
       />
-      <MyPostsContainer />
+      {/*<MyPostsContainer />*/}
     </>
   );
 };

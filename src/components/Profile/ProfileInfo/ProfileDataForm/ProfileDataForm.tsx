@@ -1,7 +1,6 @@
 import React from "react";
 
 import { InjectedFormProps, reduxForm } from "redux-form";
-import s from "./ProfileDataForm.module.scss";
 import { createField, GetStringKeys, Input, ProfileType, Textarea } from "components/index";
 import { Button, Form, Typography } from "antd";
 
@@ -19,7 +18,7 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileType, PropsType> & Prop
   error,
 }) => {
   return (
-    <Form className={s.form} action={"#"} onFinish={handleSubmit(onSubmit)} layout={"vertical"}>
+    <Form action={"#"} onFinish={handleSubmit(onSubmit)} layout={"vertical"}>
       {error && <Typography.Text type={"danger"}>{error}</Typography.Text>}
       <div>
         {createField<ProfileTypeKeys>(undefined, "fullName", [], Input, { type: "text", label: "Full name:" })}

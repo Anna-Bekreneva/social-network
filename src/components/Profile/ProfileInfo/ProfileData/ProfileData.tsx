@@ -6,7 +6,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import s from "./ProfileData.module.scss";
 import { Social } from "../../../common";
 import { hasCorrectProperty } from "../../../../utils";
-import { ProfileStatus } from "../../ProfileStatus/ProfileStatus";
+import { ProfileStatus } from "../../ProfileStatus";
 
 type ProfileDataProps = {
   isOwner: boolean;

@@ -1,13 +1,12 @@
-import React, { ChangeEvent, EventHandler, FC, FormEvent, MouseEventHandler, useRef, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 
 import userPhoto from "../../../assets/img/user.png";
 
 import s from "./ProfileInfo.module.scss";
 
-import { Preloader, ProfileType, ProfileStatus, ProfileDataFormReduxForm, Social } from "components";
-import { ContactsType, savePhoto } from "../../../store";
-import { Button, Dropdown, Flex, Image, MenuProps, Typography } from "antd";
-import { DeleteOutlined, EditOutlined, PictureOutlined, SearchOutlined } from "@ant-design/icons";
+import { Preloader, ProfileDataFormReduxForm, ProfileType } from "components";
+import { Button, Flex, Image, Typography } from "antd";
+import { CloudUploadOutlined, EditOutlined } from "@ant-design/icons";
 import { ProfileData } from "./ProfileData";
 
 type PropsType = {
@@ -45,7 +44,8 @@ export const ProfileInfo: React.FC<PropsType> = ({
     };
 
     return (
-      <div>
+      <div className={s.profile}>
+        <h2 className={"sr-only"}>About profile</h2>
         <input ref={inputFileRef} style={{ display: "none" }} type="file" onChange={onMainPhotoSelected} />
         {profile.photos.large && (
           <div className={s.cover}>
@@ -62,7 +62,7 @@ export const ProfileInfo: React.FC<PropsType> = ({
           </div>
         )}
         <Flex className={s.topContent} gap={20}>
-          <div className={s.ava}>
+          <Flex className={s.ava} gap={12} vertical>
             <Image
               src={profile.photos.small || userPhoto}
               width={120}
@@ -71,9 +71,12 @@ export const ProfileInfo: React.FC<PropsType> = ({
               placeholder={false}
               preview={false}
             />
-          </div>
+            <Button type={"default"} onClick={() => inputFileRef.current?.click()}>
+              <CloudUploadOutlined className={s.icon} rev={""} />
+              Upload
+            </Button>
+          </Flex>
           <div className={s.settings}>
-            {/* todo: create h2 */}
             {isEditMode ? (
               <ProfileDataFormReduxForm profile={profile} onSubmit={onSubmit} initialValues={profile} />
             ) : (
@@ -81,11 +84,10 @@ export const ProfileInfo: React.FC<PropsType> = ({
             )}
           </div>
           <Button className={s.buttonEdit} htmlType="button" onClick={() => setIsEditMode(!isEditMode)}>
-            <EditOutlined className={s.iconEdit} rev={""} />
+            <EditOutlined className={s.icon} rev={""} />
             <Typography.Text> Edit profile </Typography.Text>
           </Button>
         </Flex>
-        <div className={s.description}>{/*{isOwner && <input type="file" onChange={onMainPhotoSelected} />}*/}</div>
       </div>
     );
   }

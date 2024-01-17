@@ -1,3 +1,7 @@
+.profile {
+  margin-bottom: 50px;
+}
+
 .cover {
   margin-bottom: 28px;
 
@@ -15,6 +19,7 @@
   flex-basis: 120px;
   flex-shrink: 0;
   height: 120px;
+  position: relative;
 
   img {
     object-fit: cover;
@@ -30,6 +35,6 @@
   margin-left: auto;
 }
 
-.iconEdit {
+.icon {
   color: var(--color-primary)
 }
