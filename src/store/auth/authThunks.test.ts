@@ -1,11 +1,23 @@
-import { APIResponseType, authAPI, MeType, ResultCode, ResultCodeWithCaptcha, securityAPI } from "../../api";
-import { authActions, getAuthUserData, getCaptchaUrl, login, logout } from "./authReducer";
+import {
+  APIResponseType,
+  authAPI,
+  MeType,
+  profileAPI,
+  ResultCode,
+  ResultCodeWithCaptcha,
+  securityAPI,
+} from "../../api";
+import { authActions, getAuthUserData, getAva, getCaptchaUrl, login, logout } from "./authReducer";
 import { stopSubmit } from "redux-form";
+import { ProfileType } from "../profile";
+import { CombinedState } from "redux";
+import { AppStateType } from "../store";
 
 jest.mock("../../api/");
 
 const authAPIMock = authAPI as jest.Mocked<typeof authAPI>;
 const securityAPIMock = securityAPI as jest.Mocked<typeof securityAPI>;
+const profileAPIMock = profileAPI as jest.Mocked<typeof profileAPI>;
 
 const dispatchMock = jest.fn();
 const getStateMock = jest.fn();
@@ -122,4 +134,23 @@ test("logout error", async () => {
 
   expect(dispatchMock).toBeCalledTimes(1);
   expect(dispatchMock).toHaveBeenNthCalledWith(1, authActions.setAuthUserData(null, null, null, false));
+});
+
+test("set ava", async () => {
+  const profile = {
+    photos: {
+      large: "large",
+      small: "small",
+    },
+  } as ProfileType;
+  profileAPIMock.getProfile.mockReturnValue(Promise.resolve(profile));
+
+  const getStateMock: () => CombinedState<AppStateType> = jest.fn(() => ({ auth: { userId: 123 } }) as AppStateType);
+
+  const thunk = getAva();
+  await thunk(dispatchMock, getStateMock, {});
+
+  expect(dispatchMock).toBeCalledTimes(1);
+  expect(dispatchMock).toHaveBeenNthCalledWith(1, authActions.setAva(profile.photos.small));
+  expect(getStateMock).toBeCalledTimes(1);
 });

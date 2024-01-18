@@ -9,7 +9,6 @@ beforeEach(() => {
     login: null,
     isAuth: false,
     captchaUrl: null,
-    // todo: write a test for ava
     ava: null,
   };
 });
@@ -35,4 +34,12 @@ test("get captcha url", () => {
   const newState = auth(state, authActions.getCaptchaUrlSuccess(captchaUrl));
 
   expect(newState.captchaUrl).toBe(captchaUrl);
+});
+
+test("set ava", () => {
+  const ava = "my-new-ava";
+  const newState = auth(state, authActions.setAva(ava));
+
+  expect(newState.ava).not.toBeNull();
+  expect(newState.ava).toBe(ava);
 });

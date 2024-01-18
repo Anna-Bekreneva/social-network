@@ -86,7 +86,6 @@ export const logout = (): BaseThunkType<ActionsAuth> => async (dispatch) => {
   }
 };
 
-// todo: create test for thunk
 export const getAva = (): BaseThunkType<ActionsAuth> => async (dispatch, getState) => {
   const myId = getState().auth.userId;
   if (myId) {
