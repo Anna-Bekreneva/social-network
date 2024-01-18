@@ -20,39 +20,6 @@ import {
   selectUserId,
 } from "store";
 
-type ProfilePropsType = MapStatePropsType & mapDispatchToPropsType;
-
-type PathParamsType = {
-  userId: string;
-};
-
-type PropsType = RouteComponentProps<PathParamsType> & ProfilePropsType;
-
-export type MapStatePropsType = {
-  authorizedUserId: number | null;
-  profile: ProfileType | null;
-  status: string;
-  isAuth: boolean;
-};
-
-export type ProfileType = {
-  userId: number;
-  lookingForAJob: boolean;
-  lookingForAJobDescription: string;
-  fullName: string;
-  contacts: ContactsType;
-  photos: PhotosType;
-  aboutMe: string;
-};
-
-type mapDispatchToPropsType = {
-  getUserProfile: (userId: number) => void;
-  getStatus: (userId: number) => void;
-  updateStatus: (status: string) => void;
-  savePhoto: (file: File) => void;
-  saveProfile: (profile: ProfileType) => Promise<unknown>;
-};
-
 class ProfileContainer extends React.Component<PropsType> {
   constructor(props: PropsType) {
     super(props);
@@ -94,6 +61,7 @@ class ProfileContainer extends React.Component<PropsType> {
         status={this.props.status}
         updateStatus={this.props.updateStatus}
         profile={this.props.profile}
+        isAuth={this.props.isAuth}
       />
     );
   }
@@ -118,3 +86,36 @@ export default compose<React.ComponentType>(
   }),
   withRouter,
 )(ProfileContainer);
+
+type ProfilePropsType = MapStatePropsType & mapDispatchToPropsType;
+
+type PathParamsType = {
+  userId: string;
+};
+
+type PropsType = RouteComponentProps<PathParamsType> & ProfilePropsType;
+
+export type MapStatePropsType = {
+  authorizedUserId: number | null;
+  profile: ProfileType | null;
+  status: string;
+  isAuth: boolean;
+};
+
+export type ProfileType = {
+  userId: number;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+  fullName: string;
+  contacts: ContactsType;
+  photos: PhotosType;
+  aboutMe: string;
+};
+
+type mapDispatchToPropsType = {
+  getUserProfile: (userId: number) => void;
+  getStatus: (userId: number) => void;
+  updateStatus: (status: string) => void;
+  savePhoto: (file: File) => void;
+  saveProfile: (profile: ProfileType) => Promise<unknown>;
+};

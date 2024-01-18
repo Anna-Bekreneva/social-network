@@ -71,22 +71,27 @@ export const ProfileInfo: React.FC<PropsType> = ({
               placeholder={false}
               preview={false}
             />
-            <Button type={"default"} onClick={() => inputFileRef.current?.click()}>
-              <CloudUploadOutlined className={s.icon} rev={""} />
-              Upload
-            </Button>
+            {isOwner && (
+              <Button type={"default"} onClick={() => inputFileRef.current?.click()}>
+                <CloudUploadOutlined className={s.icon} rev={""} />
+                Upload
+              </Button>
+            )}
           </Flex>
           <div className={s.settings}>
             {isEditMode ? (
               <ProfileDataFormReduxForm profile={profile} onSubmit={onSubmit} initialValues={profile} />
             ) : (
-              <ProfileData profile={profile} isOwner={true} status={status} updateStatus={updateStatus} />
+              <ProfileData profile={profile} isOwner={isOwner} status={status} updateStatus={updateStatus} />
             )}
           </div>
-          <Button className={s.buttonEdit} htmlType="button" onClick={() => setIsEditMode(!isEditMode)}>
-            <EditOutlined className={s.icon} rev={""} />
-            <Typography.Text> Edit profile </Typography.Text>
-          </Button>
+
+          {isOwner && (
+            <Button className={s.buttonEdit} htmlType="button" onClick={() => setIsEditMode(!isEditMode)}>
+              <EditOutlined className={s.icon} rev={""} />
+              <Typography.Text> Edit profile </Typography.Text>
+            </Button>
+          )}
         </Flex>
       </div>
     );

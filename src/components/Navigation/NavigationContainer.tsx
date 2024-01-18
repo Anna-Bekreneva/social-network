@@ -2,7 +2,7 @@ import React, { ComponentPropsWithoutRef } from "react";
 
 import { connect } from "react-redux";
 
-import { AppStateType, selectAva, logout, getAva } from "store";
+import { AppStateType, selectAva, logout, getAva, getAuthUserData, selectIsAuth, selectLogin } from "store";
 import { Navigation } from "./";
 
 type MapStatePropsType = {
@@ -11,7 +11,7 @@ type MapStatePropsType = {
 };
 
 type MapDispatchToPropsType = {
-  logout: () => void;
+  logout: () => Promise<unknown>;
   getAva: () => void;
 };
 
@@ -27,7 +27,7 @@ class NavigationInner extends React.Component<NavigationPropsType> {
 }
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
-  name: state.auth.login,
+  name: selectLogin(state),
   ava: selectAva(state),
 });
 

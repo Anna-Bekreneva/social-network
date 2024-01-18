@@ -6,7 +6,7 @@ import s from "./FormControls.module.scss";
 import { FieldValidatorType } from "../../../utils";
 const { TextArea } = InputForTextarea;
 
-type FormControlPropsType = {
+type FormControlPropsType = WrappedFieldProps & {
   meta: WrappedFieldMetaProps;
   label?: string;
 };
@@ -14,8 +14,11 @@ type FormControlPropsType = {
 export const FormControl: React.FC<FormControlPropsType> = (props) => {
   const { meta, children } = props;
   const hasError = meta.touched && meta.error;
+
+  console.log(meta);
+
   return (
-    <Form.Item className={s.formControl + " " + (hasError ? s.error : "")} label={props?.label}>
+    <Form.Item className={`${hasError ? s.errorField : ""}`} label={props.label} name={props.input.name}>
       {children}
       {hasError && (
         <Typography.Text className={s.error} type={"danger"}>
@@ -26,34 +29,38 @@ export const FormControl: React.FC<FormControlPropsType> = (props) => {
   );
 };
 
-export const Textarea: React.FC<WrappedFieldProps> = (props) => {
-  const { input, meta, ...restProps } = props;
-
+export const Textarea: React.FC<Omit<InputPropsType, "type">> = ({ label, input, meta, ...props }) => {
   return (
-    <FormControl {...props}>
-      <TextArea className={s.textarea} {...input} {...restProps} />
+    <FormControl label={label} input={input} meta={meta} {...props}>
+      <TextArea className={s.textarea} {...input} {...props} />
     </FormControl>
   );
 };
 
 type InputPropsType = WrappedFieldProps & {
   type?: HTMLInputTypeAttribute;
-  checkBoxLabel?: string;
+  label?: string;
 };
 
-export const Input: React.FC<InputPropsType> = (props) => {
+export const Input: React.FC<InputPropsType> = ({ label, input, meta, ...props }) => {
   return (
-    <FormControl {...props}>
+    <>
       {props.type === "checkbox" ? (
-        <CheckboxAntd {...props.input} {...props}>
-          {props.checkBoxLabel}
-        </CheckboxAntd>
-      ) : props.type === "password" ? (
-        <InputAntd.Password {...props.input} {...props} />
+        <div className={s.container}>
+          <FormControl label={label} input={input} meta={meta} {...props}>
+            <CheckboxAntd {...input} {...props} />
+          </FormControl>
+        </div>
       ) : (
-        <InputAntd {...props.input} {...props} />
+        <FormControl label={label} input={input} meta={meta} {...props}>
+          {props.type === "password" ? (
+            <InputAntd.Password {...input} {...props} />
+          ) : (
+            <InputAntd {...input} {...props} />
+          )}
+        </FormControl>
       )}
-    </FormControl>
+    </>
   );
 };
 
@@ -64,8 +71,6 @@ export function createField<FormKeysType extends string>(
   component: React.FC<WrappedFieldProps>,
   props: {
     type?: HTMLInputTypeAttribute;
-    label?: string;
-    checkBoxLabel?: string;
     [key: string]: unknown;
   },
 ) {

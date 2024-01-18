@@ -34,7 +34,7 @@ export const UsersSearchForm: React.FC<PropsType> = memo(({ onFilterChanged }) =
   return (
     <Formik initialValues={{ term: "", friend: "null" }} validate={usersSearchFormValidate} onSubmit={submit}>
       {({ isSubmitting }) => (
-        <Form className={s.form} onFinish={formik.handleSubmit}>
+        <Form className={s.form} onFinish={formik.handleSubmit} initialValues={{ term: "", friend: "All" }}>
           <Form.Item<FormType> className={`${s.search} ${s.item}`} label="Search by name" name="term">
             <Input
               placeholder={"Anna"}
@@ -44,7 +44,6 @@ export const UsersSearchForm: React.FC<PropsType> = memo(({ onFilterChanged }) =
           </Form.Item>
           <Form.Item<FormType> className={s.item} name="friend">
             <Select
-              defaultValue="all"
               style={{ width: 120 }}
               onChange={(value) => formik.setFieldValue("friend", value)}
               options={[

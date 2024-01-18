@@ -20,7 +20,7 @@ export const ProfileData: FC<ProfileDataProps> = ({ profile, updateStatus, statu
     <>
       <div className={s.item}>
         <Typography.Title level={3}>{profile.fullName} </Typography.Title>
-        <ProfileStatus status={status} updateStatus={updateStatus} />
+        <ProfileStatus isOwner={isOwner} status={status} updateStatus={updateStatus} />
         <Typography.Paragraph className={s.descr}> {profile.aboutMe} </Typography.Paragraph>
       </div>
       <div className={s.item}>

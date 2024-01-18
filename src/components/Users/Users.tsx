@@ -4,6 +4,7 @@ import { FilterType, UserType } from "store";
 import { UsersSearchForm } from "./UsersSearchForm";
 import s from "./Users.module.scss";
 import { Pagination } from "antd";
+import { Redirect } from "react-router-dom";
 
 type UsersPropsType = {
   totalUsersCount: number;
@@ -15,6 +16,7 @@ type UsersPropsType = {
   unfollow: (id: number) => void;
   follow: (id: number) => void;
   followingInProgress: Array<number>;
+  isAuth: boolean;
 };
 
 export const Users: React.FC<UsersPropsType> = memo(
@@ -28,7 +30,12 @@ export const Users: React.FC<UsersPropsType> = memo(
     onPageChanged,
     pageSize,
     currentPage,
+    isAuth,
   }) => {
+    if (!isAuth) {
+      return <Redirect to={"/login"} />;
+    }
+
     return (
       <div>
         <h1 className={"sr-only"}>Users</h1>

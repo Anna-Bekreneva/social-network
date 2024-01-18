@@ -20,6 +20,7 @@ import {
   selectUsersFilter,
   follow,
   unfollow,
+  selectIsAuth,
 } from "store";
 
 class UsersContainer extends React.Component<UsersPropsType> {
@@ -53,6 +54,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
           follow={this.props.follow}
           unfollow={this.props.unfollow}
           followingInProgress={this.props.followingInProgress}
+          isAuth={this.props.isAuth}
         />
       </>
     );
@@ -68,6 +70,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     isFetching: selectIsFetching(state),
     followingInProgress: selectFollowingInProgress(state),
     filter: selectUsersFilter(state),
+    isAuth: selectIsAuth(state),
   };
 };
 
@@ -79,6 +82,7 @@ type MapStatePropsType = {
   isFetching: boolean;
   followingInProgress: Array<number>;
   filter: FilterType;
+  isAuth: boolean;
 };
 
 type mapDispatchToPropsType = {

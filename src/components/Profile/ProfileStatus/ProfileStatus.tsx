@@ -5,10 +5,11 @@ import { Input as InputAntd } from "antd";
 
 type ProfileStatusPropsType = {
   status: string;
+  isOwner: boolean;
   updateStatus: (status: string) => void;
 };
 
-export const ProfileStatus: React.FC<ProfileStatusPropsType> = ({ updateStatus, status }) => {
+export const ProfileStatus: React.FC<ProfileStatusPropsType> = ({ updateStatus, status, isOwner }) => {
   const [editMode, setEditMode] = useState(false);
   const [currentStatus, setCurrentStatusStatus] = useState(status);
 
@@ -16,9 +17,9 @@ export const ProfileStatus: React.FC<ProfileStatusPropsType> = ({ updateStatus, 
     setCurrentStatusStatus(status);
   }, [status]);
 
-  const activeEditMode = () => setEditMode(true);
+  const activeEditMode = () => isOwner && setEditMode(true);
   const deactivateEditMode = () => {
-    setEditMode(false);
+    isOwner && setEditMode(false);
     updateStatus(currentStatus);
   };
   const onStatusChange = (event: ChangeEvent<HTMLInputElement>) => setCurrentStatusStatus(event.currentTarget.value);

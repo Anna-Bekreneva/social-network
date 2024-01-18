@@ -24,15 +24,18 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, PropsType> & PropsType
     login(formData.email, formData.password, formData.rememberMe, formData.captcha);
   };
   return (
-    <Form action="#" onFinish={handleSubmit(onSubmit)} layout={"vertical"}>
-      {createField<ValuesTypeKeys>("email", "email", [required], Input, { type: "email", label: "Enter email" })}
+    <Form className={"login-form"} action="#" onFinish={handleSubmit(onSubmit)} layout={"vertical"}>
+      {createField<ValuesTypeKeys>("email", "email", [required], Input, {
+        type: "email",
+        label: "Enter email",
+      })}
       {createField<ValuesTypeKeys>("password", "password", [required], Input, {
         type: "password",
         label: "Enter password",
       })}
       {createField<ValuesTypeKeys>(undefined, "rememberMe", [], Input, {
         type: "checkbox",
-        checkBoxLabel: "Remember me",
+        label: "Remember me",
       })}
       {captchaUrl && <img src={captchaUrl} alt="captcha" />}
       {captchaUrl && createField<ValuesTypeKeys>("symbols from image", "captcha", [required], Input, { type: "text" })}
@@ -56,8 +59,10 @@ const LoginInner: React.FC<LoginPropsType> = ({ login, isAuth, captchaUrl }) => 
 
   return (
     <Card className={s.card}>
-      <Typography.Title>Login</Typography.Title>
-      <LoginReduxForm login={login} captchaUrl={captchaUrl} />
+      <div className={s.test}>
+        <Typography.Title>Login</Typography.Title>
+        <LoginReduxForm login={login} captchaUrl={captchaUrl} />
+      </div>
     </Card>
   );
 };

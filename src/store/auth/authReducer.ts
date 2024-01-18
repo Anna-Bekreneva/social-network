@@ -81,11 +81,12 @@ export const getCaptchaUrl = (): BaseThunkType<ActionsAuth> => async (dispatch) 
 export const logout = (): BaseThunkType<ActionsAuth> => async (dispatch) => {
   const response = await authAPI.logout();
 
-  if (response.resultCode === ResultCode.Error) {
+  if (response.resultCode === ResultCode.Success) {
     dispatch(authActions.setAuthUserData(null, null, null, false));
   }
 };
 
+// todo: create test for thunk
 export const getAva = (): BaseThunkType<ActionsAuth> => async (dispatch, getState) => {
   const myId = getState().auth.userId;
   if (myId) {

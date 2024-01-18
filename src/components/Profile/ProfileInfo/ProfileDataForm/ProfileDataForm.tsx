@@ -20,13 +20,16 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileType, PropsType> & Prop
   return (
     <Form action={"#"} onFinish={handleSubmit(onSubmit)} layout={"vertical"}>
       {error && <Typography.Text type={"danger"}>{error}</Typography.Text>}
-      {createField<ProfileTypeKeys>(undefined, "fullName", [], Input, { type: "text", label: "Full name:" })}
+      {createField<ProfileTypeKeys>(undefined, "fullName", [], Input, {
+        type: "text",
+        label: "Full name:",
+      })}
 
       {createField<ProfileTypeKeys>(undefined, "aboutMe", [], Textarea, { label: "About me:" })}
 
       {createField<ProfileTypeKeys>(undefined, "lookingForAJob", [], Input, {
         type: "checkbox",
-        checkBoxLabel: "Looking for a job",
+        label: "Looking for a job",
       })}
 
       {createField<ProfileTypeKeys>(undefined, "lookingForAJobDescription", [], Textarea, {

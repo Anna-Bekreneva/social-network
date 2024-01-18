@@ -6,15 +6,13 @@ import { compose } from "redux";
 
 import { Login, NavigationContainer, Preloader } from "components";
 import { WithSuspense } from "hoc";
-import { AppStateType, initializeApp, selectApp } from "store";
+import { AppStateType, initializeApp, selectApp, selectIsAuth } from "store";
 import { Col, Row } from "antd";
 import s from "./App.module.scss";
 
 const DialogsContainer = React.lazy(() => import("../components/Dialogs/DialogsContainer"));
 const ProfileContainer = React.lazy(() => import("../components/Profile/ProfileContainer"));
 const UsersContainer = React.lazy(() => import("../components/Users/UsersContainer"));
-
-// todo: тесты ui
 
 class App extends React.Component<AppProps> {
   catchAllUnhandledErrors = (e: PromiseRejectionEvent) => alert("Some error occurred");
@@ -34,9 +32,11 @@ class App extends React.Component<AppProps> {
     }
     return (
       <Row className={s.container}>
-        <Col span={4}>
-          <NavigationContainer className={s.navigation} />
-        </Col>
+        {this.props.isAuth && (
+          <Col span={4}>
+            <NavigationContainer className={s.navigation} />
+          </Col>
+        )}
         <Col span={12}>
           <main>
             <Switch>
@@ -56,10 +56,12 @@ class App extends React.Component<AppProps> {
 
 const mapStateToProps = (state: AppStateType) => ({
   initialized: selectApp(state),
+  isAuth: selectIsAuth(state),
 });
 
 type mapStateToPropsType = {
   initialized: boolean;
+  isAuth: boolean;
 };
 
 type mapDispatchToPropsType = {
