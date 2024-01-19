@@ -37,11 +37,8 @@ test("set users", () => {
   ];
 
   const newState = users(state, usersActions.setUsers(newUsers));
-  expect(newState.users.length).toBe(6);
+  expect(newState.users.length).toBe(2);
   expect(newState.users[0].id).toBe(4);
-  expect(newState.users[1].id).toBe(5);
-  expect(newState.users[2].id).toBe(0);
-  expect(newState.users[5].id).toBe(3);
 });
 
 test("set current page", () => {

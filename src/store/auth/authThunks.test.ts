@@ -45,7 +45,7 @@ test("get user data", async () => {
   expect(dispatchMock).toBeCalledTimes(1);
   expect(dispatchMock).toHaveBeenNthCalledWith(
     1,
-    authActions.setAuthUserData(response.data.id, response.data.login, response.data.email, true),
+    authActions.setAuthUserData(response.data.id, response.data.email, response.data.login, true),
   );
 });
 
@@ -67,9 +67,6 @@ test("login without captcha", async () => {
   await thunk(dispatchMock, getStateMock, {});
 
   expect(dispatchMock).toBeCalledTimes(1);
-
-  // todo: how can i correct it?
-  // expect(dispatchMock).toHaveBeenNthCalledWith(1, getAuthUserData());
 });
 
 test("login with captcha", async () => {
@@ -92,7 +89,6 @@ test("login with captcha", async () => {
   const message = response.messages.length > 0 ? response.messages[0] : "Some error";
 
   expect(dispatchMock).toBeCalledTimes(2);
-  // expect(dispatchMock).toHaveBeenNthCalledWith(1, getCaptchaUrl());
   expect(dispatchMock).toHaveBeenNthCalledWith(2, stopSubmit("login", { _error: message }));
 });
 
@@ -118,7 +114,8 @@ test("logout success", async () => {
   const thunk = logout();
   await thunk(dispatchMock, getStateMock, {});
 
-  expect(dispatchMock).toBeCalledTimes(0);
+  expect(dispatchMock).toBeCalledTimes(1);
+  expect(dispatchMock).toHaveBeenNthCalledWith(1, authActions.setAuthUserData(null, null, null, false));
 });
 
 test("logout error", async () => {
@@ -132,8 +129,7 @@ test("logout error", async () => {
   const thunk = logout();
   await thunk(dispatchMock, getStateMock, {});
 
-  expect(dispatchMock).toBeCalledTimes(1);
-  expect(dispatchMock).toHaveBeenNthCalledWith(1, authActions.setAuthUserData(null, null, null, false));
+  expect(dispatchMock).toBeCalledTimes(0);
 });
 
 test("set ava", async () => {

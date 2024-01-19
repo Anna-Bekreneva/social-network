@@ -11,14 +11,11 @@ type FormControlPropsType = WrappedFieldProps & {
   label?: string;
 };
 
-export const FormControl: React.FC<FormControlPropsType> = (props) => {
-  const { meta, children } = props;
+export const FormControl: React.FC<FormControlPropsType> = ({ label, input, meta, children }) => {
   const hasError = meta.touched && meta.error;
 
-  console.log(meta);
-
   return (
-    <Form.Item className={`${hasError ? s.errorField : ""}`} label={props.label} name={props.input.name}>
+    <Form.Item className={`${hasError ? s.errorField : ""}`} label={label} name={input.name} initialValue={input.value}>
       {children}
       {hasError && (
         <Typography.Text className={s.error} type={"danger"}>
@@ -31,7 +28,7 @@ export const FormControl: React.FC<FormControlPropsType> = (props) => {
 
 export const Textarea: React.FC<Omit<InputPropsType, "type">> = ({ label, input, meta, ...props }) => {
   return (
-    <FormControl label={label} input={input} meta={meta} {...props}>
+    <FormControl label={label} input={input} meta={meta}>
       <TextArea className={s.textarea} {...input} {...props} />
     </FormControl>
   );
@@ -52,7 +49,7 @@ export const Input: React.FC<InputPropsType> = ({ label, input, meta, ...props }
           </FormControl>
         </div>
       ) : (
-        <FormControl label={label} input={input} meta={meta} {...props}>
+        <FormControl label={label} input={input} meta={meta}>
           {props.type === "password" ? (
             <InputAntd.Password {...input} {...props} />
           ) : (

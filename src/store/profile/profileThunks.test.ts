@@ -72,7 +72,7 @@ test("save photos", async () => {
   const thunk = savePhoto({} as File);
   await thunk(dispatchMock, getStateMock, {});
 
-  expect(dispatchMock).toBeCalledTimes(1);
+  expect(dispatchMock).toBeCalledTimes(2);
   expect(dispatchMock).toHaveBeenNthCalledWith(1, profileActions.savePhotoSuccess(response.data.photos));
 });
 
@@ -100,9 +100,6 @@ test("save profile", async () => {
   await thunkGetUserProfile(dispatchMock2, getStateMock2, {});
 
   expect(dispatchMock).toBeCalledTimes(1);
-
-  // todo: how can i check that this thunk dispatch other thunkCreator?
-  // expect(dispatchMock).toHaveBeenNthCalledWith(1, getUserProfile(123));
 
   expect(dispatchMock2).toBeCalledTimes(1);
   expect(dispatchMock2).toHaveBeenNthCalledWith(1, profileActions.setUserProfile(profile));

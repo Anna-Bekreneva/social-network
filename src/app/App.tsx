@@ -6,7 +6,7 @@ import { compose } from "redux";
 
 import { Login, NavigationContainer, Preloader } from "components";
 import { WithSuspense } from "hoc";
-import { AppStateType, initializeApp, selectApp, selectIsAuth } from "store";
+import { AppStateType, appReducer, selectApp, selectIsAuth } from "store";
 import { Col, Row } from "antd";
 import s from "./App.module.scss";
 
@@ -70,4 +70,4 @@ type mapDispatchToPropsType = {
 
 type AppProps = mapStateToPropsType & mapDispatchToPropsType;
 
-export default compose<React.ComponentType>(withRouter, connect(mapStateToProps, { initializeApp }))(App);
+export default compose<React.ComponentType>(withRouter, connect(mapStateToProps, { initializeApp: appReducer }))(App);

@@ -4,6 +4,7 @@ import { BaseThunkType, InferActionsTypes } from "../store";
 
 import { profileAPI, ResultCode } from "api";
 import { PhotosType } from "../users";
+import { getAva } from "../auth";
 
 const initialState = {
   posts: [
@@ -21,7 +22,6 @@ export const profile = (state = initialState, action: ActionsTypeProfile): Profi
     case "profile/ADD-POST":
       return {
         ...state,
-        // todo: change id, remove hardcode
         posts: [...state.posts, { id: 5, message: action.newPostText, likesCount: 0 }],
       };
     case "profile/SET-USER-PROFILE":
@@ -88,6 +88,7 @@ export const savePhoto =
 
     if (response.resultCode === ResultCode.Success) {
       dispatch(profileActions.savePhotoSuccess(response.data.photos));
+      dispatch(getAva())
     }
   };
 
