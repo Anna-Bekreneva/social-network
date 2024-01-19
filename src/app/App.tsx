@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Redirect, Route, Switch, withRouter } from "react-router-dom";
 import { compose } from "redux";
 
-import { Login, NavigationContainer, Preloader } from "components";
+import { Login, NavigationContainer, Preloader, ErrorPage } from "components";
 import { WithSuspense } from "hoc";
 import { AppStateType, appReducer, selectApp, selectIsAuth } from "store";
 import { Col, Row } from "antd";
@@ -40,12 +40,12 @@ class App extends React.Component<AppProps> {
         <Col span={12}>
           <main>
             <Switch>
-              <Route path="/" render={() => <Redirect to={"/profile"} />} exact />
+              <Route path="/social-network" render={() => <Redirect to={"/profile"} />} exact />
               <Route path="/dialogs" render={WithSuspense(DialogsContainer)} />
               <Route path="/profile/:userId?" render={WithSuspense(ProfileContainer)} />
               <Route path="/users" render={WithSuspense(UsersContainer)} />
               <Route path="/login" render={() => <Login />} />
-              <Route path="*" render={() => <div> 404 NOT FOUND </div>} />
+              <Route path="*" render={() => <ErrorPage/>} />
             </Switch>
           </main>
         </Col>
