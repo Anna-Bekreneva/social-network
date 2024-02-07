@@ -3,7 +3,7 @@ import React from "react";
 import "./styles/index.scss";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 import "@ant-design/cssinjs";
 
 import { App } from "app";
@@ -11,7 +11,7 @@ import { store } from "store";
 import { ConfigProvider } from "antd";
 
 ReactDOM.render(
-  <BrowserRouter>
+  <HashRouter>
     <Provider store={store}>
       <ConfigProvider
         theme={{
@@ -24,6 +24,6 @@ ReactDOM.render(
         <App />
       </ConfigProvider>
     </Provider>
-  </BrowserRouter>,
+  </HashRouter>,
   document.getElementById("root"),
 );
