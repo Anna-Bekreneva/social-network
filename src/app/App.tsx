@@ -40,7 +40,7 @@ class App extends React.Component<AppProps> {
         <Col span={12}>
           <main>
             <Switch>
-              <Route path="/social-network" render={() => <Redirect to={"/profile"} />} exact />
+              <Route path="/" render={() => <Redirect to={"/profile"} />} exact />
               <Route path="/dialogs" render={WithSuspense(DialogsContainer)} />
               <Route path="/profile/:userId?" render={WithSuspense(ProfileContainer)} />
               <Route path="/users" render={WithSuspense(UsersContainer)} />
